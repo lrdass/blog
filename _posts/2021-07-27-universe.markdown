@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "world simulator"
+date:   2021-07-27 19:51:05 -0300
+categories: jekyll update
+---
+
+here is why I am going to build the world simulator
