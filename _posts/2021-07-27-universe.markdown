@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "I don't know who is gonna read this"
+date:   2021-07-27 19:51:05 -0300
+categories: inspiration game-development
+---
+
+Hey you. This is my first post.
+I hope you stay a long this journey.
+What am I looking for the next years? What am I looking to build with this?
+Well... I hope to archieve everything and nothing at the same time.
+Everything that I care the most and discover that probably that everything ment nothing. Too existential? Yea.
+
+So my plan is that this place is going to become filed with game development stuff. And I was looking around for some cool content and game to build and never actually enjoyed any
+of the ideas I could come up with until I finnaly understanded that "why I'm not building a game that I always enjoyed" and that would be an RPG.
+
+I decided that the best choice for starting up would be an Isometric RPG and using Unity engine. Unity because is the best way I can reuse this knoledge everywhere and actually develop some
+"experience" with some of the most commonly used engines out there. 
+
+No idea how this RPG is going to come out but the main purpouse is to develop the most common systems related to game development, specially interfaces, simple AI's, spell mechanics and 
+gameplay mechanics. Learn my way around Unity framework and getting the hang of it.
+
+So you probably can expect a lot of surprises. Some LISP text can come out of the blue. Some weird argument about some weird decision made on a weird part of the game can be expected.
+
+Hope you have fun as much as I will. 
