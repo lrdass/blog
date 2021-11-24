@@ -18,4 +18,15 @@ what light does, but, in reverse.
 It may sound weird at first, but trust me: it is pretty simple.
 So buckle up, and lets get started!
 
+## Where we are going to draw
+So lets call the place where we draw colors "canvas". The computer screen is just an matrix of pixels, which are, in the standard RGB model, sum of the three component colors: Red, Green and Blue.
+You could visualize the screen as :
+![Screen](./images/put_pixel.png)
+
+So we are going to start by using an method `canvas.putPixel(positionX, positionY, color)` which is going to put a pixel at an specified position with a particular color.
+
+But we must understand that, because the canvas works as an matrix, the way we access it is not like an cartesian map. `(0,0)` it's not the center of the screen, but the top left corner of the canvas.
+
+
+
 
