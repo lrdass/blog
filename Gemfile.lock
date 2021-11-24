@@ -277,7 +277,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
-  github-pages (~> 219)
+  github-pages
   jekyll (~> 3.9.0)
   jekyll-paginate
   jekyll-tagging
