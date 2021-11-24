@@ -5,8 +5,6 @@ date:   2021-07-27 19:51:05 -0300
 categories: inspiration game-development
 ---
 
-$$F = ma$$ 
-
 Hey you. This is my first post.
 I hope you stay a long this journey.
 What am I looking for the next years? What am I looking to build with this?
