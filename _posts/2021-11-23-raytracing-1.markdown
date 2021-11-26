@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "What is raytracing all about?"
+title:  "Raytracing from scratch!"
 date:   2021-11-23 22:14:05 -0300
 categories: raytracing
 ---
@@ -72,14 +72,54 @@ A plane at one unit distant from our eyes, means that we have aproximatly $$57$$
 
 ![World to canvas translation](/images/canvas_plane_vector.png)
 
-Now to get a vector from our origin to a specified position at $$P$$, imagine lets assume we have an way to map a position from our screen to a point $$p = (x, y, z)$$ at $$P$$.
+Now to get a vector from our origin to a specified position at $$P$$, lets assume we have an way to map a position from our screen to a point $$p = (x, y, z)$$ at $$P$$.
 With that point we can calulate an vector from our origin $$O$$ to that point $$p$$ with $$ \vec{v} = p - O = (x, y, z) - (0, 0, 0) = (x, y, z) $$.
-Now we now a vector that goes from the origin through the plane $$P$$. This vector is our "foton".
-We can think of an scalar $$\lambda$$ which $$\lambda \times \vec{v}$$ would describe our foton streching across our world.
+Now we have a vector that goes from the origin through the plane $$P$$. This vector is our "foton".
+We can think of an scalar $$\lambda$$ which $$\lambda \vec{v}$$ would describe our foton streching across our world.
 
 But how can we know if this foton has colided with something?
 
+![Raytracing algorithm](/images/algorithm_raytracing.png)
+
+
 ## Calculate hit!
+
+Currently most of tridimensional objects are meshes of triangles. 
+![Triangle mesh](/images/tridimensional_mesh.png)
+
+So in order to render this tridimensional bunny, we would have to calculate if our ray $$\lambda \vec{v}$$ hited one of the surfaces of a triangle.
+This would mean a solution of an equation of "line to surface".
+
+To ilustrate that, we going to start by showing an simpler example by collinding with an sphere. An sphere is easier to define than a mesh of triangles, at least for now. To define it, we need one simple equation to define a sphere.
+
+Then, to check if a collision of our foton with our sphere happened, we just have to find our scalar $$ \lambda$$ that make the position of our $$\vec{v}$$ equals to a point of our sphere. In other words: we want a solution to find a root that gives us a point in the sphere.
+
+### Let's be a bit mathy
+
+We define a sphere as an structure where all points have the same distance from the center. This distance we call it radius.
+$$distance(all points, center) = radius$$ 
+
+![Lenght of a vector](/images/length_vector.png)
+
+As you can see, we can describe the lenght of a vector $$\vec{u} = (x, y, z)$$ as $$|\vec{u}| = \sqrt{x^2 + y^2 + z^2} = \sqrt{<\vec{u} , \vec{u}>} $$.
+Given that definition, we can define an sphere such as given a center $$C$$ a sphere is a set of points $$P$$ which are in a distance of a radius $$r$$.
+
+![Definition of a sphere](/images/sphere_equation.png)
+
+So that being said, we now have an equation which tell us our "ray" cast from our origin from a pixel in a screen. Then, we now have an equation to a sphere in our world. Every information is given, so we just need to compute what value to $$\lambda$$ such as our ray $$\lambda \vec{v}$$ is equal to a point in our sphere.
+
+Then we want to find a point where it is both in line and in the circunference. So we substitue $$P$$ in our sphere equation with our ray equation. 
+
+![How to compute an ray-sphere intersection](/images/equation_line_intersect.png)
+
+That geometricly makes sense! Because we can have a tangent line, a ray that crosses the sphere and therefore would cross two points, and we could have none intersection.
+
+![System solve](/images/solutions_ray_sphere.png)
+
+### Let's code this !
+
+I'm going to implement this raytracing algorithm in javascript. But you could follow it up in any particular language.
+So you notice that the only thing we going to draw for now it's just the circunference of the sphere. Without proper lighting and ilumintation.
 
 ```
 for each pixel at the screen:
@@ -90,8 +130,4 @@ for each pixel at the screen:
 		pixel color <= hit_object.color
 	
 ```
-![Raytracing algorithm](/images/algorithm_raytracing.png)
-
-
-
 
