@@ -63,16 +63,32 @@ We want to create a tridimensional space and then translate it to our bidimensio
 Let's imagine our cartesian coordinate system with three axis: $$(x, y, z)$$ we are all familiar from school. Imagine your eye is at the origin $$O(0,0,0)$$.
 In order to replicate the painter's canvas, we want a plane $$P$$ to know "where" we are looking at the color.
 So imagine that this plane is at one unit distant from our eyes.
+
+![Field of view calculation](/images/field_of_view.png)
+
 What then we want to archieve is: we want somehow to cast a line from the origin to specific points of our plane $$P$$ and see where it lands. If it lands at anything we, for now, want to know its color. 
 
+A plane at one unit distant from our eyes, means that we have aproximatly $$57$$ degrees of field of view.
+
 ![World to canvas translation](/images/canvas_plane_vector.png)
+
+Now to get a vector from our origin to a specified position at $$P$$, imagine lets assume we have an way to map a position from our screen to a point $$p = (x, y, z)$$ at $$P$$.
+With that point we can calulate an vector from our origin $$O$$ to that point $$p$$ with $$ \vec{v} = p - O = (x, y, z) - (0, 0, 0) = (x, y, z) $$.
+Now we now a vector that goes from the origin through the plane $$P$$. This vector is our "foton".
+We can think of an scalar $$\lambda$$ which $$\lambda \times \vec{v}$$ would describe our foton streching across our world.
+
+But how can we know if this foton has colided with something?
+
+## Calculate hit!
+
 ```
-foreach (line, rowIndex) in canvas:
-	foreach (pixel, columnIndex) in line:
-		planeX, planeY = mapFromCanvasToWorld(rowIndex, columnIndex)	
-		hit = rayTrace(planeX, planeY, world)	
-		if (hit is not null) :
-			canvas.putPixel(rowIndex, columnIndex, hit.color)
+for each pixel at the screen:
+	pixel_at_world_coordinate = map pixel position to projection plane position
+	hit_object <= cast_ray at pixel_at_world_coordinate
+
+	if hit_object is not null:
+		pixel color <= hit_object.color
+	
 ```
 ![Raytracing algorithm](/images/algorithm_raytracing.png)
 
