@@ -343,4 +343,17 @@ You should render this:
 
 ![What you should expect!](/images/demo.png)
 
+If you add another sphere, you should expect to render in front of eachother properly:
+```javascript
+    {
+      center: new Vector3f(1, -1, 7),
+      radius: 1,
+      color: { r: 0, g: 255, b: 0, a: 255 },
+    },
+```
 
+![Another sphere](/images/demo2.png)
+
+## What is next
+Next we are going to render lighting effects. And after that we are ready to render triangles and display some tridimensional meshes like with custom shapes!
+See you next time!
