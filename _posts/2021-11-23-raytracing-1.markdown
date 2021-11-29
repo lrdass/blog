@@ -337,7 +337,10 @@ blit();
 
 ```
 
+
 You should render this:
+
+
 ![What you should expect!](/images/demo.png)
 
 
