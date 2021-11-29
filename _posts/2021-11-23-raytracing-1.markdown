@@ -82,6 +82,7 @@ But how can we know if this foton has colided with something?
 ![Raytracing algorithm](/images/algorithm_raytracing.png)
 
 
+
 ## Calculate hit!
 
 Currently most of tridimensional objects are meshes of triangles. 
@@ -93,6 +94,7 @@ This would mean a solution of an equation of "line to surface".
 To ilustrate that, we going to start by showing an simpler example by collinding with an sphere. An sphere is easier to define than a mesh of triangles, at least for now. To define it, we need one simple equation to define a sphere.
 
 Then, to check if a collision of our foton with our sphere happened, we just have to find our scalar $$ \lambda$$ that make the position of our $$\vec{v}$$ equals to a point of our sphere. In other words: we want a solution to find a root that gives us a point in the sphere.
+
 
 ### Let's be a bit mathy
 
@@ -116,10 +118,15 @@ That geometricly makes sense! Because we can have a tangent line, a ray that cro
 
 ![System solve](/images/solutions_ray_sphere.png)
 
+Let's calculate if our equations make sense!
+![Raytracing calculating ](/images/calculate_equations.png)
+
 ### Let's code this !
 
 I'm going to implement this raytracing algorithm in javascript. But you could follow it up in any particular language.
 So you notice that the only thing we going to draw for now it's just the circunference of the sphere. Without proper lighting and ilumintation.
+
+So let's see our pseudo-code top-down. Lets start from the global method to compute each pixel and specializing the functions until we reach our `ray-sphere` computation.
 
 ```
 for each pixel at the screen:
@@ -128,6 +135,209 @@ for each pixel at the screen:
 
 	if hit_object is not null:
 		pixel color <= hit_object.color
-	
+	else:
+		pixel color <= background.color
 ```
+
+This procedure we going to for each pixel, map the screen position to our "plane" position. Then we cast a ray from origin through our plane position.
+If we intersect anything, we want to color the particular pixel with that color else we going to paint with background color.
+
+
+Our procedure that control our `cast_ray()` is going to call the intersection with spheres, planes, triangles. But for now we only have spheres.
+So our procedure for `ray_casting()` will be something like this:
+Because our program still a simple one, our camera doesnt move. Therefore we going to set a global variable `PLANE_DISTANCE <= 1` so we know that the solution is in front of our projection plane.
+
+```
+cast_ray (direction, world) :
+	let closest_sphere <= <sphere: null, distance: infinity> 
+
+	for each sphere in world:
+		let [solution1, solution2] <= intersect_sphere(direction, sphere)
+
+		if solution1 < closest_sphere.distance and solution1 > PLANE_DISTANCE:
+			closest_sphere <= < sphere, distance: solution1 >
+		else if solution2 < closest_sphere.distance and solution2 > PLANE_DISTANCE:
+			closest_sphere <= < sphere, distance: solution2 >
+
+	if closest_sphere.sphere is null:
+		return null
+
+	return closest_sphere.sphere
+```
+
+Our raycasting method only cast rays to spheres for now. And just checks for the closest solution if any. 
+
+Finally, let's compute if there is any solution:
+Which is just implement bhaskara equation and returning the solutions based on the vectors computations.
+
+```
+interset_sphere(direction, sphere):
+	let center_to_origin <= origin - sphere.center
+
+	let a <= direction.dot(direction)
+	let b <= 2 * center_to_origin.dot(direction)
+	let c <= center_to_origin.dot(center_to_origin) - sphere.radius * sphere.radius
+
+	let delta = b * b - 4 * a * c;
+	
+	if delta < 0:
+		return [infinity, infinity]
+	else:
+		let solution1 <= (-b + sqrt(delta) ) 2* a
+		let solution2 <= (-b - sqrt(delta) ) 2* a
+		return [solution1, solution2]
+```
+
+And that my friends, should do the trick to render a circle in your screen:
+
+```javascript
+// a basic Vector class
+export class Vector3f {
+  constructor(x, y, z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+
+  dot(vector) {
+    return this.x * vector.x + this.y * vector.y + this.z * vector.z;
+  }
+
+  add(vector) {
+    return new Vector3f(
+      this.x + vector.x,
+      this.y + vector.y,
+      this.z + vector.z
+    );
+  }
+  sub(vector) {
+    return new Vector3f(
+      this.x - vector.x,
+      this.y - vector.y,
+      this.z - vector.z
+    );
+  }
+}
+
+
+// the code !
+
+import { Vector3f } from "./vector.js";
+
+// simple html canvas.
+// reference to canvas: https://developer.mozilla.org/pt-BR/docs/Web/API/Canvas_API/Tutorial
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+
+const width = canvas.width;
+const height = canvas.height;
+
+const canvasBuffer = context.getImageData(0, 0, width, height);
+
+// this is our "world"
+const world = {
+  spheres: [
+    {
+      center: new Vector3f(0, 0, 7),
+      radius: 1,
+      color: { r: 255, g: 0, b: 0, a: 255 },
+    },
+  ],
+};
+
+
+/*
+The blit function is a commom function to graphics libs.
+It usually just takes a pixel buffer, and put on the screen. And that's
+exactly what this blit function does
+*/
+const blit = () => {
+  context.putImageData(canvasBuffer, 0, 0);
+};
+
+
+const canvasPixel = (x, y, r, g, b, a) => {
+  const index = (x + y * width) * 4;
+  canvasBuffer.data[index + 0] = r;
+  canvasBuffer.data[index + 1] = g;
+  canvasBuffer.data[index + 2] = b;
+  canvasBuffer.data[index + 3] = a;
+};
+
+/*
+Our putPixel accepts cartesian coordinates and translate's it to our screen coordinates.
+Just like in the begining of the text!
+*/
+const putPixel = (x, y, color) => {
+  let canvasX = width / 2 + x;
+  let canvasY = height / 2 - y;
+
+  canvasPixel(canvasX, canvasY, color.r, color.g, color.b, color.a);
+};
+
+/*
+This is our function to map our cartesian coordinate to our projection plane position
+*/
+const mapScreenToWorldPlane = (x, y) => {
+  let updateX = x / width;
+  let updateY = y / height;
+  return [updateX, updateY];
+};
+
+const intersectSphere = (direction, sphere) => {
+  let centerToOrigin = new Vector3f(0, 0, 0).sub(sphere.center);
+
+  let a = direction.dot(direction);
+  let b = 2 * centerToOrigin.dot(direction);
+  let c = centerToOrigin.dot(centerToOrigin) - sphere.radius ** 2;
+
+  let delta = b ** 2 - 4 * a * c;
+
+  if (delta < 0) {
+    return [Infinity, Infinity];
+  }
+
+  let sol1 = (-b + Math.sqrt(delta)) / (2 * a);
+  let sol2 = (-b - Math.sqrt(delta)) / (2 * a);
+  return [sol1, sol2];
+};
+
+const traceRay = (direction, world) => {
+  let closestSphere = { sphere: null, distance: Infinity };
+
+  world.spheres.forEach((sphere) => {
+    let [sol1, sol2] = intersectSphere(direction, sphere);
+
+    if (sol1 < closestSphere.distance && sol1 > 1) {
+      closestSphere = { sphere: sphere, distance: sol1 };
+    } else if (sol2 < closestSphere.distance && sol2 > 1) {
+      closestSphere = { sphere: sphere, distance: sol2 };
+    }
+  });
+
+  if (closestSphere.sphere === null) return false;
+  return closestSphere.sphere;
+};
+
+for (let x = -width / 2; x < width / 2; x++) {
+  for (let y = -height / 2; y < height / 2; y++) {
+    let [xWorld, yWorld] = mapScreenToWorldPlane(x, y);
+    const direction = new Vector3f(xWorld, yWorld, 1);
+
+    const hit = traceRay(direction, world);
+    if (hit) {
+      putPixel(x, y, hit.color);
+    } else {
+      putPixel(x, y, { r: 255, g: 255, b: 255, a: 255 });
+    }
+  }
+}
+
+blit();
+
+```
+
+You should render this:
+![What you should expect!](/images/demo.png)
+
 
