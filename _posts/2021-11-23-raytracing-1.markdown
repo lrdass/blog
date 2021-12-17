@@ -28,7 +28,7 @@ So we are going to start by using an method `canvas.putPixel(positionX, position
 But we must understand that, because the canvas works as an matrix, the way we access it is not like an cartesian map. `(0,0)` it's not the center of the screen, but the top left corner of the canvas.
 
 Usually graphic developers want to work with a cartesian representation of the screen because its easier to wrap his mind around it. We can think about this translation as an map, which we want our `putPixel()` procedure to do for us.
-![Screen mapping](/images/raytracing-scrach/put_pixel.png)
+![Screen mapping](/images/raytracing-scratch/put_pixel.png)
 Which if you think about is pretty simple: we want that when we call `putPixel(x,y, color)` with `(x: 0, y:0)` to write a pixel in the center of the screen instead of its top-left corner.
 As in the image above, you can notice that we have to change the diretion on the $$y$$ axis and divided it by half. And in $$x$$ axis, just dividing by half is enough to get it right.
 
@@ -56,7 +56,7 @@ We need then to think about how we are going to cast those rays in tridimensiona
 Imagine that we are painters: We have a canvas in front of us. And imagine that this canvas is "discrete". By discrete I mean: this canvas is a grid, where in each position you can put just one color.
 To draw onto this canvas the image behind it you would then look at each grid cell and see what color correspond to it, and then put the color onto the canvas. And after repeating that for every cell you would have a "discrete" picture of what you decided to paint. We want to replicate this tecnique here.
 
-![Tridimensional plane](/images/raytracing-scrach/canvas_plane.png)
+![Tridimensional plane](/images/raytracing-scratch/canvas_plane.png)
 
 We want to create a tridimensional space and then translate it to our bidimensional discrete screen.
 
@@ -64,13 +64,13 @@ Let's imagine our cartesian coordinate system with three axis: $$(x, y, z)$$ we 
 In order to replicate the painter's canvas, we want a plane $$P$$ to know "where" we are looking at the color.
 So imagine that this plane is at one unit distant from our eyes.
 
-![Field of view calculation](/images/raytracing-scrach/field_of_view.png)
+![Field of view calculation](/images/raytracing-scratch/field_of_view.png)
 
 What then we want to archieve is: we want somehow to cast a line from the origin to specific points of our plane $$P$$ and see where it lands. If it lands at anything we, for now, want to know its color. 
 
 A plane at one unit distant from our eyes, means that we have aproximatly $$57$$ degrees of field of view.
 
-![World to canvas translation](/images/raytracing-scrach/canvas_plane_vector.png)
+![World to canvas translation](/images/raytracing-scratch/canvas_plane_vector.png)
 
 Now to get a vector from our origin to a specified position at $$P$$, lets assume we have an way to map a position from our screen to a point $$p = (x, y, z)$$ at $$P$$.
 With that point we can calulate an vector from our origin $$O$$ to that point $$p$$ with $$ \vec{v} = p - O = (x, y, z) - (0, 0, 0) = (x, y, z) $$.
@@ -79,14 +79,14 @@ We can think of an scalar $$\lambda$$ which $$\lambda \vec{v}$$ would describe o
 
 But how can we know if this foton has colided with something?
 
-![Raytracing algorithm](/images/raytracing-scrach/algorithm_raytracing.png)
+![Raytracing algorithm](/images/raytracing-scratch/algorithm_raytracing.png)
 
 
 
 ## Calculate hit!
 
 Currently most of tridimensional objects are meshes of triangles. 
-![Triangle mesh](/images/raytracing-scrach/tridimensional_mesh.png)
+![Triangle mesh](/images/raytracing-scratch/tridimensional_mesh.png)
 
 So in order to render this tridimensional bunny, we would have to calculate if our ray $$\lambda \vec{v}$$ hited one of the surfaces of a triangle.
 This would mean a solution of an equation of "line to surface".
@@ -101,12 +101,12 @@ Then, to check if a collision of our foton with our sphere happened, we just hav
 We define a sphere as an structure where all points have the same distance from the center. This distance we call it radius.
 $$distance(all points, center) = radius$$ 
 
-![Lenght of a vector](/images/raytracing-scrach/length_vector.png)
+![Lenght of a vector](/images/raytracing-scratch/length_vector.png)
 
 As you can see, we can describe the lenght of a vector $$\vec{u} = (x, y, z)$$ as $$|\vec{u}| = \sqrt{x^2 + y^2 + z^2} = \sqrt{<\vec{u} , \vec{u}>} $$.
 Given that definition, we can define an sphere such as given a center $$C$$ a sphere is a set of points $$P$$ which are in a distance of a radius $$r$$.
 
-![Definition of a sphere](/images/raytracing-scrach/sphere_equation.png)
+![Definition of a sphere](/images/raytracing-scratch/sphere_equation.png)
 
 So that being said, we now have an equation which tell us our "ray" cast from our origin from a pixel in a screen. Then, we now have an equation to a sphere in our world. Every information is given, so we just need to compute what value to $$\lambda$$ such as our ray $$\lambda \vec{v}$$ is equal to a point in our sphere.
 
@@ -116,10 +116,10 @@ Then we want to find a point where it is both in line and in the circunference. 
 
 That geometricly makes sense! Because we can have a tangent line, a ray that crosses the sphere and therefore would cross two points, and we could have none intersection.
 
-![System solve](/images/raytracing-scrach/solutions_ray_sphere.png)
+![System solve](/images/raytracing-scratch/solutions_ray_sphere.png)
 
 Let's calculate if our equations make sense!
-![Raytracing calculating ](/images/raytracing-scrach/calculate_equations.png)
+![Raytracing calculating ](/images/raytracing-scratch/calculate_equations.png)
 
 ### Let's code this !
 
@@ -341,7 +341,7 @@ blit();
 You should render this:
 
 
-![What you should expect!](/images/raytracing-scrach/demo.png)
+![What you should expect!](/images/raytracing-scratch/demo.png)
 
 If you add another sphere, you should expect to render in front of eachother properly:
 ```javascript
@@ -352,7 +352,7 @@ If you add another sphere, you should expect to render in front of eachother pro
     },
 ```
 
-![Another sphere](/images/raytracing-scrach/demo2.png)
+![Another sphere](/images/raytracing-scratch/demo2.png)
 
 ## What is next
 Next we are going to render lighting effects. And after that we are ready to render triangles and display some tridimensional meshes like with custom shapes!
