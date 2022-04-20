@@ -27,9 +27,9 @@ Yea, my previous text were in english, and I plan to translate this one to engli
 
 
 ![Screen representation](/images/rasterizer/reta-no-plano-1.jpg)
+![Screen representation](/images/rasterizer/angulo-mensura-1.jpg)
 ![Screen representation](/images/rasterizer/sistema-equacoes-1.jpg)
 ![Screen representation](/images/rasterizer/valor_do_y-1.jpg)
 ![Screen representation](/images/rasterizer/encontrando-constante-1.jpg)
-![Screen representation](/images/rasterizer/angulo-mensura-1.jpg)
 ![Screen representation](/images/rasterizer/final-equacao-reta-1.jpg)
 
