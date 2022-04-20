@@ -26,3 +26,4 @@ Yea, my previous text were in english, and I plan to translate this one to engli
 ## Let's get... ops.. Vamos começar!!
 
 
+![Screen representation](/images/rasterizer/sistema-equacoes.pdf)
