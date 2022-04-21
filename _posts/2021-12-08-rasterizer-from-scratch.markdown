@@ -23,7 +23,11 @@ Gostaria que ninguem precisasse saber nada. Não precisa perfeitamente confortav
 Yea, my previous text were in english, and I plan to translate this one to english too, so wait for it, or ... google translate this one. But .. there is already plenty material, which will be quoted at the end of this text so you can have some sources of your own.
 
 
-## Let's get... ops.. Vamos começar!!
+## Começando do começo: como desenhar uma linha ?
+"Dê-me uma alavanca e um ponto de apoio e eu moverei o mundo" essa frase de Arquimedes poderia ser facilmente aplicada para a computação grafica: "Dê-me uma função de desenhar retas e eu irei desenhar qualquer forma". A ideia por tras disso é que se pudermos desenhar livremente linhas com o controle fino que quisermos, podemos decompor qualquer figura em desenho de linhas.
+Então espero ter justificado o porque dos proximos paragrafos e com esse argumento espero que acompanhe sem muita reclamação e tédio os proximos paragrafos que estão vindo.
+
+#### um pouquinho de matematica
 
 
 ![Screen representation](/images/rasterizer/reta-no-plano-1.jpg)
