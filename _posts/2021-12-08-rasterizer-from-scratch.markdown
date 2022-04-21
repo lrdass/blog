@@ -29,8 +29,15 @@ Então espero ter justificado o porque dos proximos paragrafos e com esse argume
 
 #### um pouquinho de matematica
 
+Vamos imaginar que queremos desenhar uma reta no plano entre dois pontos. 
+![Representacao da tela](/images/raytracing-scratch/screen_representation.png)
+A tela de um computador (como vista no texto de raytracing) é representada como a imagem acima: (ei$x$ cresce para direita, e o eixo $y$ cresce para baixo.
 
+Então vamos imaginar como vamos desenhar um ponto na tela usando este tipo de coordenada
 ![Screen representation](/images/rasterizer/reta-no-plano-1.jpg)
+
+
+
 ![Screen representation](/images/rasterizer/sistema-equacoes-1.jpg)
 ![Screen representation](/images/rasterizer/angulo-mensura-1.jpg)
 ![Screen representation](/images/rasterizer/valor_do_y-1.jpg)
