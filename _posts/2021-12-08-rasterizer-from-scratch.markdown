@@ -37,6 +37,10 @@ Então vamos imaginar como vamos desenhar um ponto na tela usando este tipo de c
 ![Screen representation](/images/rasterizer/reta-no-plano-1.jpg)
 
 Então como na imagem acima temos $$P_0$$ e queremos desenhar uma linha até $$P_1$$. Podemos pensar que podemos pegar qual a direção para o $$P_1$$ à partir de $$P_0$$ e pintar cada pixel naquela direção e entao, fazemos isso até chegar em $$P_1$$.
+Representando esta ideia matematicamente queremos dizer que um ponto $$P$$ na reta entre $$P_0$$ e $$P_1$$ vai ser igual à $$ P = P_0 + \vec{v} * t$$ onde $$t$$ vai ser um numero qualquer. Ou seja, se $$t = 0$$, $$P$$ vai ser igual a $$P_0$$. Se $$t=1$$, então $$P$$ vai ser igual $$P_1$$. Então modelamos uma equação que modela essa reta entre os dois pontos porem $$t$$ tem que estar entre $$ 0 e 1$$.
+![Screen representation](/images/rasterizer/exemplo1-cropped-1.jpg)
+
+
 ![Screen representation](/images/rasterizer/sistema-equacoes-1.jpg)
 
 
@@ -45,5 +49,4 @@ Então como na imagem acima temos $$P_0$$ e queremos desenhar uma linha até $$P
 ![Screen representation](/images/rasterizer/valor_do_y-1.jpg)
 ![Screen representation](/images/rasterizer/encontrando-constante-1.jpg)
 ![Screen representation](/images/rasterizer/final-equacao-reta-1.jpg)
-![Screen representation](/images/rasterizer/exemplo1-cropped-1.jpg)
 
