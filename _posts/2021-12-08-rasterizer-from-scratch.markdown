@@ -54,10 +54,70 @@ Decompomos então a nossa equação em $$(x,y) = (x_0, y_0) + t * ( x_1 - x_0 , 
 
 E então, com a nossa equação decomposta em $$(x,y)$$, vamos separar por variavel e separaramos em um sistema de equações. $$ x = x_0 + t (x_1 - x_0)$$ e similar para $$y$$.
 Vamos isolar então a unica variavel em comum às duas equações $$t$$. E então vamos substituir o que encontrar-mos como valor de $$t$$ na segunda equação. Assim vamos chegar em apenas uma equação com as duas variaveis. Lembrando que o nosso objetivo é chegar em uma equação que nos dê o valor de $$y$$ para cada $$x$$.
+
 ![Screen representation](/images/rasterizer/angulo-mensura-1.jpg)
 Isolando o $$t$$ encontramos que $$t = \dfrac{x - x_0}{x_1 - x_0}$$
-![Screen representation](/images/rasterizer/valor_do_y-1.jpg)
-Fazendo a substituição do nosso valor de $$t$$ na equação de $$y$$ encontramos que $$ y = y_0 + \dfrac{x-x_0}{x_1 - x_0} * (y_1 - y_0)$$
-![Screen representation](/images/rasterizer/encontrando-constante-1.jpg)
-![Screen representation](/images/rasterizer/final-equacao-reta-1.jpg)
 
+![Screen representation](/images/rasterizer/valor_do_y-1.jpg)
+Fazendo a substituição do nosso valor de $$t$$ na equação de $$y$$ encontramos que $$ y = y_0 + \dfrac{x-x_0}{x_1 - x_0} * (y_1 - y_0)$$.
+
+Mas como sabemos que iniciamos em $$P_0$$ e vamos para $$P_1$$, então significa que temos os valores de ambos os pontos. 	Então vamos chamar $$\dfrac{y_1 - y_0}{x_1 - x_0}$$ de $$a$$ porque sabemos que o valor desta divisão é constante. Ou seja, assim que definimos os dois pontos, sabemos qual o valor de $$a$$. No nosso exemplo la de cima, em que $$P_0 = (3,5)$$ e $$P_1 = (8,6)$$, teriamos que $$a = \dfrac{6-5} {8-3} = \dfrac{1}{5}$$.
+
+![Screen representation](/images/rasterizer/encontrando-constante-1.jpg)
+Percebemos tambem que se fizermos a multiplicação de $$a$$ por $$(x-x_0)$$ restante, encontramos outras constantes: $$ y_0$$ e $$-a * x_0$$. Que vamos chamar de $$b$$.
+
+![Screen representation](/images/rasterizer/final-equacao-reta-1.jpg)
+Resultando na equação de reta. Nesta equação conseguimos obter um valor de $$y$$ para cada valor de $$x$$ entrado.
+Vamos para um exemplo
+![Exemplo 1](/images/rasterizer/exemplo_desenhando_linha-1.jpg)
+Para $$x = 1$$ constatamos que o $$y = 3$$, ou seja, confirmamos a posição de $$P_0$$.
+![Exemplo 1](/images/rasterizer/exemplo_desenhando_linha-1-1.jpg)
+
+Então vamos escrever nosso pseudo código pra escrever linhas, lembrando que temos apenas uma função disponível da tela que é `putPixel(x, y, color)` como visto no post anterior. 
+
+```
+function drawLine(p0, p1, color):
+	a = p1.y - p0.y / p1.x - p0.x
+	b = p0.y - a * p0.x
+	for x = p0.x ; x <= p1.x; x++:
+		y = a*x + b
+		putPixel(x, y, color)
+```
+
+No qual nossa função apenas recria o comportamento da função que encontramos e faz um laço entre $$x$$ de $$P_0$$ e $$x$$ de $$P_1$$.
+Porem, ao implementarmos o codigo acima nos deparamos com os seguinte bug:
+![Exemplo de problema](/images/rasterizer/exemplo_problema-1.jpg)
+Quanto mais inclinada é a reta, teremos, como no exemplo acima, apenas um valor de $$x$$ para varios pixels no eixo $$y$$. Se a reta for completamente vertical, ou seja, o valor da coordenada $$x$$ do ponto inicial e final é o mesmo, simplesmente não há iteração e logo não há nenhum pixel para ser colorido.
+
+Apesar de haver apenas um valor de $$x$$ para calcular algum pixel entre os dois pontos, há uma distancia de $$y$$ dos dois pontos.Sendo os pontos $$P_0 = (5,1)$$ e $$P_1 = (7,10)$$, haveriam 9 valores em $$y$$ para encontrarmos valores de $$x$$.  Poderiamos então procurar valores de $$x$$ para cada valor de $$y$$. Seria o inverso da função ! 
+
+Vamos ver como fariamos isso!
+![Exemplo de solucao](/images/rasterizer/virando_a_equacao-1.jpg)
+
+Então imagine que "rotacionamos" a tela, e considere que trocamos os eixos $$x$$ e $$y$$. Poderiamos calcular qual valor de $$y$$ para uma coordenada do pixel $$x$$ dos pontos "invertidos", sendo $$P_0 = (1, 5)$$ e $$P_1 = (10,7)$$. E usariamos a mesma equação.
+![Exemplo de solucao](/images/rasterizer/virando_a_equacao-1-1.jpg)
+
+Ou podemos tambem, achar o "inverso" da nossa equação: ou seja, encontrar um valor para uma coordenada $$x$$ dada um ponto $$y$$. E para isso, como na imagem acima, basta "isolar" o valor de $$x$$ e deixa-lo em função de $$y$$.
+![Exemplo de solucao](/images/rasterizer/virando_a_equacao-2-1.jpg)
+
+Agora que conseguimos encontrar uma equação independente da inclinação da reta, precisamos de um critério de quando vamos usar uma ou outra. 
+
+Podemos fazer um exercício mental: Imaginemos o angulo da reta (formador pelos pontos $$P_0$$ e $$P_1$$) e o eixo $$x$$. Quando este angulo é $$0 ° $$, há o maximo de pixels na horizontal. E quando este angulo é $$90 ° $$ o numero pixels é nulo. Mas em $$90 ° $$ o numero de pixels em $$y$$ é o máximo. 
+Então podemos dividir pela metade, e de $$0 °$$ até $$45 °$$ usamos $$x$$ e de $$45 °$$ até $$90 ° $$ usamos $$y$$. 
+
+Vamos testar nossa hipotese e implementar nosso pseudocodigo desenvolvido até agora!
+
+```
+function drawLine(p0, p1, color):
+	a = p1.y - p0.y / p1.x - p0.x
+	b = p0.y - a* p0.x
+	if a < PI/4:
+		for x=p0.x; x<=p1.x; x++:
+			y = a*x + b
+			putPixel(x, y, color)
+	else:
+		for y=p0.y; y<=p1.y; y++:
+			x = (y-b)/a
+			putPixel(x, y, color)
+```
+Apenas relembrando que $$2\pi$$ representa 360°, e portanto, $$\frac{\pi}{4} = 45 ° $$ .
