@@ -31,14 +31,16 @@ Então espero ter justificado o porque dos proximos paragrafos e com esse argume
 
 Vamos imaginar que queremos desenhar uma reta no plano entre dois pontos. 
 ![Representacao da tela](/images/raytracing-scratch/screen_representation.png)
-A tela de um computador (como vista no texto de raytracing) é representada como a imagem acima: (ei$x$ cresce para direita, e o eixo $y$ cresce para baixo.
+A tela de um computador (como vista no texto de raytracing) é representada como a imagem acima: (eixo $$x$$ cresce para direita, e o eixo $$y$$ cresce para baixo.
 
 Então vamos imaginar como vamos desenhar um ponto na tela usando este tipo de coordenada
 ![Screen representation](/images/rasterizer/reta-no-plano-1.jpg)
 
-
-
+Então como na imagem acima temos $$P_0$$ e queremos desenhar uma linha até $$P_1$$. Podemos pensar que podemos pegar qual a direção para o $$P_1$$ à partir de $$P_0$$ e pintar cada pixel naquela direção e entao, fazemos isso até chegar em $$P_1$$.
 ![Screen representation](/images/rasterizer/sistema-equacoes-1.jpg)
+
+
+
 ![Screen representation](/images/rasterizer/angulo-mensura-1.jpg)
 ![Screen representation](/images/rasterizer/valor_do_y-1.jpg)
 ![Screen representation](/images/rasterizer/encontrando-constante-1.jpg)
