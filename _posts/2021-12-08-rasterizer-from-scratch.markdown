@@ -92,13 +92,8 @@ Quanto mais inclinada é a reta, teremos, como no exemplo acima, apenas um valor
 Apesar de haver apenas um valor de $$x$$ para calcular algum pixel entre os dois pontos, há uma distancia de $$y$$ dos dois pontos.Sendo os pontos $$P_0 = (5,1)$$ e $$P_1 = (7,10)$$, haveriam 9 valores em $$y$$ para encontrarmos valores de $$x$$.  Poderiamos então procurar valores de $$x$$ para cada valor de $$y$$. Seria o inverso da função ! 
 
 Vamos ver como fariamos isso!
-![Exemplo de solucao](/images/rasterizer/virando_a_equacao-1.jpg)
-
 Então imagine que "rotacionamos" a tela, e considere que trocamos os eixos $$x$$ e $$y$$. Poderiamos calcular qual valor de $$y$$ para uma coordenada do pixel $$x$$ dos pontos "invertidos", sendo $$P_0 = (1, 5)$$ e $$P_1 = (10,7)$$. E usariamos a mesma equação.
-![Exemplo de solucao](/images/rasterizer/virando_a_equacao-1-1.jpg)
-
-Ou podemos tambem, achar o "inverso" da nossa equação: ou seja, encontrar um valor para uma coordenada $$x$$ dada um ponto $$y$$. E para isso, como na imagem acima, basta "isolar" o valor de $$x$$ e deixa-lo em função de $$y$$.
-![Exemplo de solucao](/images/rasterizer/virando_a_equacao-2-1.jpg)
+![Exemplo de solucao](/images/rasterizer/virando_a_equacao-1.jpg)
 
 Agora que conseguimos encontrar uma equação independente da inclinação da reta, precisamos de um critério de quando vamos usar uma ou outra. 
 
@@ -108,13 +103,16 @@ Então podemos dividir pela metade, e de $$0 °$$ até $$45 °$$ usamos $$x$$ e 
 Vamos testar nossa hipotese e implementar nosso pseudocodigo desenvolvido até agora!
 
 Como vimos, precisamos saber apenas se há mais pixels para iterar ou pelo eixo $$y$$ ou pelo eixo $$x$$. Então ao inves de consultamos por angulos, podemos consultar pela "diferença" de pixels. O eixo que possuir mais pixels para iterar-mos será o eixo escolhido. 
+Podemos pensar que nosso angulo é a "razão" do quanto um eixo aumenta em relação ao outro. Quanto maior o angulo, mais rapido $$y$$ aumenta quando $$x$$ aumenta.
 
 ```
 function drawLine(p0, p1, color):
-	a = p1.y - p0.y / p1.x - p0.x
-	b = p0.y - a* p0.x
 	dx = abs(p1.x - p0.x)
 	dy = abs(p1.y - p0.y)
+
+	a =  dy/dx
+	b = p0.y - a* p0.x
+
 	if dx > dy:
 		for x=p0.x; x<=p1.x; x++:
 			y = a*x + b
@@ -124,29 +122,33 @@ function drawLine(p0, p1, color):
 			x = (y-b)/a
 			putPixel(x, y, color)
 ```
+O problema de usar $$\frac{y-b}{a}$$ é que $$a$$ vai ser uma divisão por zero quando a reta estiver "vertical". Para isso vamos "inverter" a nossa equação em função de $$y$$.
 
-Estamos quase lá! Nosso algoritmo de linhas ainda tem um bug! Caso alguma coordenada de `p0` seja menor que a coordenada de `p1`, não vamos conseguir iterar de um ponto ao outro. Então precisamos checar se isso é verdade, e caso seja, precisamos fazer um [https://en.wikipedia.org/wiki/Swap_(computer_programming)](swap)! 
+Estamos quase lá! Nosso algoritmo de linhas ainda tem um bug! Caso alguma coordenada de `p0` seja menor que a coordenada de `p1`, não vamos conseguir iterar de um ponto ao outro. Então precisamos checar se isso é verdade, e caso seja, precisamos fazer um [swap](https://en.wikipedia.org/wiki/Swap_(computer_programming))! 
 _OBS_: swap é um termo usado para trocarmos o valor de duas variaveis entre sí.
 Caso `p0 > p1` `p0 = p1 e p1 = p0` e não vamos precisar alterar a lógica do nosso código. Vamos conseguir continuar usando os mesmos laços sem ter que fazer alguma iteração no sentido contrario.
 
 ```
 function drawLine(p0, p1, color):
-	a = p1.y - p0.y / p1.x - p0.x
-	b = p0.y - a* p0.x
 	dx = abs(p1.x - p0.x)
 	dy = abs(p1.y - p0.y)
 	if dx > dy:
 		if p0.x > p1.x:
 			swap(p0, p1)
 
+		a = dy/dx
+		b = p0.y - a* p0.x
 		for x=p0.x; x<=p1.x; x++:
 			y = a*x + b
 			putPixel(x, y, color)
 	else:
 		if p0.y > p1.y:
 			swap(p0, p1)
+		// função linear "inversa"
+		a = dx/dy
+		b = p0.x - a* p0.y
 		for y=p0.y; y<=p1.y; y++:
-			x = (y-b)/a
+			x = a * y + b
 			putPixel(x, y, color)
 ```
 
@@ -227,9 +229,11 @@ let redColor = { r: 255, g: 0, b: 0, a: 255 };
 drawLine(initialPoint, finalPoint, redColor);
 
 blit();
-
 ```
 
 ![Linha desenhada pelo algoritmo](/images/rasterizer/lines-draw.png)
+
+
+[Veja o codigo funcionando em tempo real neste link](https://jsfiddle.net/tomatofractal/t0kbe5q7/3/)
 
 Até o proximo post!
