@@ -107,11 +107,15 @@ Então podemos dividir pela metade, e de $$0 °$$ até $$45 °$$ usamos $$x$$ e 
 
 Vamos testar nossa hipotese e implementar nosso pseudocodigo desenvolvido até agora!
 
+Como vimos, precisamos saber apenas se há mais pixels para iterar ou pelo eixo $$y$$ ou pelo eixo $$x$$. Então ao inves de consultamos por angulos, podemos consultar pela "diferença" de pixels. O eixo que possuir mais pixels para iterar-mos será o eixo escolhido. 
+
 ```
 function drawLine(p0, p1, color):
 	a = p1.y - p0.y / p1.x - p0.x
 	b = p0.y - a* p0.x
-	if a < PI/4:
+	dx = abs(p1.x - p0.x)
+	dy = abs(p1.y - p0.y)
+	if dx > dy:
 		for x=p0.x; x<=p1.x; x++:
 			y = a*x + b
 			putPixel(x, y, color)
@@ -120,4 +124,111 @@ function drawLine(p0, p1, color):
 			x = (y-b)/a
 			putPixel(x, y, color)
 ```
-Apenas relembrando que $$2\pi$$ representa 360°, e portanto, $$\frac{\pi}{4} = 45 ° $$ .
+
+Estamos quase lá! Nosso algoritmo de linhas ainda tem um bug! Caso alguma coordenada de `p0` seja menor que a coordenada de `p1`, não vamos conseguir iterar de um ponto ao outro. Então precisamos checar se isso é verdade, e caso seja, precisamos fazer um [https://en.wikipedia.org/wiki/Swap_(computer_programming)](swap)! 
+_OBS_: swap é um termo usado para trocarmos o valor de duas variaveis entre sí.
+Caso `p0 > p1` `p0 = p1 e p1 = p0` e não vamos precisar alterar a lógica do nosso código. Vamos conseguir continuar usando os mesmos laços sem ter que fazer alguma iteração no sentido contrario.
+
+```
+function drawLine(p0, p1, color):
+	a = p1.y - p0.y / p1.x - p0.x
+	b = p0.y - a* p0.x
+	dx = abs(p1.x - p0.x)
+	dy = abs(p1.y - p0.y)
+	if dx > dy:
+		if p0.x > p1.x:
+			swap(p0, p1)
+
+		for x=p0.x; x<=p1.x; x++:
+			y = a*x + b
+			putPixel(x, y, color)
+	else:
+		if p0.y > p1.y:
+			swap(p0, p1)
+		for y=p0.y; y<=p1.y; y++:
+			x = (y-b)/a
+			putPixel(x, y, color)
+```
+
+## Implementando o codigo!
+
+Por fim temos nossa implementacão do nosso algoritmo para desenhar linhas! Ainda podemos melhorar muito nosso algoritmo de linhas, existindo algoritmos mais poderosos para tal função como o [https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm](algoritmo de Bresenham).
+Mas para o nosso fim, este algoritmo é bom o suficiente. Caso deseja, pode implementar o algoritmo de Bresenham que não mudará em nada o progresso daqui em diante.
+
+```javascript
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+
+const width = canvas.width;
+const height = canvas.height;
+
+const canvasBuffer = context.getImageData(0, 0, width, height);
+
+const blit = () => {
+  context.putImageData(canvasBuffer, 0, 0);
+};
+
+const canvasPixel = (x, y, r, g, b, a) => {
+  x = Math.floor(x);
+  y = Math.floor(y);
+  const index = (x + y * width) * 4;
+  canvasBuffer.data[index + 0] = r;
+  canvasBuffer.data[index + 1] = g;
+  canvasBuffer.data[index + 2] = b;
+  canvasBuffer.data[index + 3] = a;
+};
+
+const putPixel = (x, y, color) => {
+  let canvasX = width / 2 + x;
+  let canvasY = height / 2 - y;
+
+  canvasPixel(canvasX, canvasY, color.r, color.g, color.b, color.a);
+};
+
+const drawLine = (p0, p1, color) => {
+  let dx = p1.x - p0.x;
+  let dy = p1.y - p0.y;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (p0.x > p1.x) {
+      let copy = p1;
+      p1 = p0;
+      p0 = copy;
+    }
+    const a = dy / dx;
+    let y = p0.y;
+
+    for (let x = p0.x; x < p1.x; x++) {
+      putPixel(x, y, color);
+      console.log("x", x);
+      console.log("y", y);
+      y = y + a;
+    }
+  } else {
+    if (p0.y > p1.y) {
+      let copy = p1;
+      p1 = p0;
+      p0 = copy;
+    }
+    const a = dx / dy;
+    let x = p0.x;
+
+    for (let y = p0.y; y < p1.y; y++) {
+      putPixel(x, y, color);
+      x = x + a;
+    }
+  }
+};
+
+let initialPoint = { x: 10, y: -80 };
+let finalPoint = { x: -110, y: 130 };
+let redColor = { r: 255, g: 0, b: 0, a: 255 };
+
+drawLine(initialPoint, finalPoint, redColor);
+
+blit();
+
+```
+
+
+
