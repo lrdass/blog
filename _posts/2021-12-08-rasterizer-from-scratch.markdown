@@ -152,7 +152,7 @@ function drawLine(p0, p1, color):
 
 ## Implementando o codigo!
 
-Por fim temos nossa implementacão do nosso algoritmo para desenhar linhas! Ainda podemos melhorar muito nosso algoritmo de linhas, existindo algoritmos mais poderosos para tal função como o [https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm](algoritmo de Bresenham).
+Por fim temos nossa implementacão do nosso algoritmo para desenhar linhas! Ainda podemos melhorar muito nosso algoritmo de linhas, existindo algoritmos mais poderosos para tal função como o [algoritmo de Bresenham](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm).
 Mas para o nosso fim, este algoritmo é bom o suficiente. Caso deseja, pode implementar o algoritmo de Bresenham que não mudará em nada o progresso daqui em diante.
 
 ```javascript
@@ -230,5 +230,6 @@ blit();
 
 ```
 
+![Linha desenhada pelo algoritmo](/images/rasterizer/lines-draw.png)
 
-
+Até o proximo post!
