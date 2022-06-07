@@ -1,9 +1,9 @@
 
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2021-07-27 19:51:05 -0300
-categories: jekyll update
+title:  "Me de um esquadro e um compasso e eu desenho o mundo, Urizen e como desenhar perspectiva tridimensional"
+date:   2022-06-07 15:35:05 -0300
+categories: rasterizer william-blake
 ---
 {% highlight javascript %}
 let a = () => {}
