@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "E com cinco ou seis retas é fácil fazer um castelo"
+title:  "E com cinco ou seis retas é fácil fazer um castelo - desenhar linhas é o que você precisa pra desenhar qualquer coisa!"
 date:   2021-12-15 10:10:05 -0300
 categories: rasterizer
 ---
