@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Do pixel para um rasterizador"
+title:  "E com cinco ou seis retas é fácil fazer um castelo"
 date:   2021-12-15 10:10:05 -0300
 categories: rasterizer
 ---
