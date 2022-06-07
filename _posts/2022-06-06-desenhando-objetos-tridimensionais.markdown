@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  " 'Me de um esquadro e um compasso e eu desenho o mundo' - Urizen, e como projetar os objetos da terceira dimensão"
+title:  " 'Times on times he divided and measur'd' - William Blake, e como projetar os objetos da terceira dimensão"
 date:   2022-06-07 15:35:05 -0300
 categories: rasterizer william-blake
 ---
