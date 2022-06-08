@@ -15,7 +15,7 @@ categories: rasterizer william-blake
 > tradução livre do primeiro capitulo do livro de Urizen de William Blake
 
 Em algum momento imaginei que eventualmente citaria William Blake. E em particular um de seus personagens de sua cosmogonia pessoal: Urizen. 
-William Blake foi, se me permitem resumir seus feitos, um pintor e poeta ingles que viveu uma época de "instabilidade" religiosa na Inglaterra. Como os ingleses não seguiam os preceitos catolicos vindos do Vaticano desde a "rebelião" de Henrique VIII o povo ingles tinham varios grupos cristão e cada grupo com a sua visão do que era "cristão". 
+William Blake foi, se me permitem resumir seus feitos, um pintor e poeta ingles que viveu uma época de "instabilidade" religiosa na Inglaterra. Como os ingleses não seguiam os preceitos catolicos vindos do Vaticano desde a "rebelião" de Henrique VIII o povo ingles era uma amalgama de varios grupos cristão e cada grupo com a sua própria visão e valores do que era ser "cristão". 
 
 Blake não era diferente dos demais ingleses. Tido por muitos como "pecúliar" (talvez um eufemismo para o que alguns chamariam de loucura) ele afirmava que tinha visões e vislumbres de realidades mais sensíveis do que nós, individuos com menor capacidade "visual/espiritual", apenas podemos conjecturar. Para nossa sorte Blake pintou e escreveu todas suas ideias e visões. E nesse processo criou sua propria cosmogonia e seu proprio panteão de personagens que "prototipavam" o inconsciente e o consciente do ser humano, e por extensao, da realidade em sí. 
 
