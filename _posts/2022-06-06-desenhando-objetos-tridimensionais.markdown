@@ -8,27 +8,24 @@ categories: rasterizer william-blake
 
 ![Urizen realizando com seu compasso a primeira mensura do mundo manifesto](/images/rasterizer/perspectiva/urizen.jpg)
 >"Por vezes e vezes ele dividiu, e mediu<br>
-> espaço por espaço em sua nove vezes escuridao,<br>
+> espaço por espaço em sua nove vezes escuridão,<br>
 > o não visto, o não conhecido, as mudanças apareceram<br>
 > como montanhas desoladas, racharam furiosas<br>
 > pelos ventos escuros da pertubação"<br>
 > tradução livre do primeiro capitulo do livro de Urizen de William Blake
 
-Em algum momento imaginei que eventualmente citaria William Blake. E em particular um de seus personagens de sua cosmogonia pessoal: Urizen. 
-William Blake foi, se me permitem resumir seus feitos, um pintor e poeta ingles que viveu uma época de "instabilidade" religiosa na Inglaterra. Como os ingleses não seguiam os preceitos catolicos vindos do Vaticano desde a "rebelião" de Henrique VIII o povo ingles era uma amalgama de varios grupos cristão e cada grupo com a sua própria visão e valores do que era ser "cristão". 
+Em algum momento imaginei que eventualmente citaria William Blake. E em particular um de seus personagens de sua cosmogonia pessoal: Urizen.
+William Blake foi, se me permitem resumir seus feitos, um pintor e poeta ingles que viveu uma época de "instabilidade" religiosa na Inglaterra. Como os ingleses não seguiam os preceitos católicos vindos do Vaticano desde a "rebelião" de Henrique VIII o povo ingles era uma amalgama de vários grupos cristão e cada grupo com a sua própria visão e valores do que era ser "cristão".
 
-Blake não era diferente dos demais ingleses. Tido por muitos como "pecúliar" (talvez um eufemismo para o que alguns chamariam de loucura) ele afirmava que tinha visões e vislumbres de realidades mais sensíveis do que nós, individuos com menor capacidade "visual/espiritual", apenas podemos conjecturar. Para nossa sorte Blake pintou e escreveu todas suas ideias e visões. E nesse processo criou sua propria cosmogonia e seu proprio panteão de personagens que "prototipavam" os "arquétipos" do ser humano, e por extensao, da realidade em sí. 
+Blake não era diferente dos demais ingleses. Tido por muitos como "peculiar" (talvez um eufemismo para o que alguns chamariam de loucura) ele afirmava que tinha visões e vislumbres de realidades mais sensíveis do que nós, indivíduos com menor capacidade "visual/espiritual", apenas podemos conjecturar. Para nossa sorte Blake pintou e escreveu todas suas ideias e visões. E nesse processo criou sua própria cosmogonia e seu próprio panteão de personagens que "prototipavam" os "arquétipos" do ser humano, e por extensão, da realidade em sí.
 
-Então voltamos ao homem da pintura acima. Ele é Urizen. Na cosmogonia de Blake é o lado racional do homem. Urizen, ou a razão, quando nasce e ve a sí própria, acredita que ela foi o motivo em sí mesma, e logo, não existe nada alem dela. Então Urizen conclui que tudo ao seu redor deve nascer de sí. 
+Então voltamos ao homem da pintura acima. Ele é Urizen. Na cosmogonia de Blake é o lado racional do homem. Urizen, ou a razão, quando nasce e ve a sí própria, acredita que ela foi o motivo em sí mesma, e logo, não existe nada além dela. Então Urizen conclui que tudo ao seu redor deve nascer de sí.
 
-Então caros amigos, criarmos um mundo "tridimensional" em um equipamento que usa apenas a lógica é onde exercemos a maior óde a Urizen possivel. Aqui é onde estamos começando uma aventura em ideias de como simular a fisica de nosso mundo e até de compreender como a logica do próprio universo funciona para capturar essas ideias e representar em uma linguagem lógica que nossas maquians de turing consigam resolver e acender as cores certas na tela. 
+Então caros amigos, criarmos um mundo "tridimensional" em um equipamento que usa apenas a lógica é onde exercemos a maior óde a Urizen possível. Aqui é onde estamos começando uma aventura em ideias de como simular a física de nosso mundo e até de compreender como a logica do próprio universo funciona para capturar essas ideias e representar em uma linguagem lógica que nossas maquinas de Turing consigam resolver e acender as cores certas na tela.
 
 ## Do que você está falando ?
 Neste texto nós vamos começar a representar figuras tridimensionais. Para isso vamos ter uma interpretação do "espaço" do "mundo simulado" e do "espaço" bidimensional da tela. E encontrar uma forma de identificar o que está na tela da camera e, por fim, projetar o mundo tridimensional na tela.
-Estas ideias são a base da computação gráfica. E os algoritmos podem suscitar ideias sobre a simulação da realidade, o quão longe podemos ir e quais as restrições. Então vamos colorir nossas ideias e saber o que em nós esta assumindo o controle quando estamos no papel de "criar" um universo em nossas proprias mãos. Um spoiler: na cosmogonia de Blake, Urizen não necessariamente é o "bomzinho" da história.
-
-
-
+Estas ideias são a base da computação gráfica. E os algoritmos podem suscitar ideias sobre a simulação da realidade, o quão longe podemos ir e quais as restrições. Então vamos colorir nossas ideias e saber o que em nós esta assumindo o controle quando estamos no papel de "criar" um universo em nossas próprias mãos. Um spoiler: na cosmogonia de Blake, Urizen não necessariamente é o "bonzinho" da história.
 ![Image](/images/rasterizer/perspectiva/perspectiva-1-1.jpg)
 ![Image](/images/rasterizer/perspectiva/perspectiva-2-1.jpg)
 ![Image](/images/rasterizer/perspectiva/perspectiva-3-1.jpg)
