@@ -49,5 +49,5 @@ Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em
 
 
 #Referencias
-* [1] : https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
+* [1]:https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
 
