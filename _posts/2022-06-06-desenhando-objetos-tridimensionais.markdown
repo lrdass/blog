@@ -63,6 +63,11 @@ Vamos supor que nosso plano de projeção esteja a uma distancia de $$d = 1$$  d
 
 ![Image](/images/rasterizer/perspectiva/perspectiva-7-1.jpg)
 
+Se acompanhar as contas acima e desenhar os pontos que encontramos, os pontos que estiverem dentro do intervalo de nosso plano de projeção $$[-0.5, 0.5]$$ vão ser desenhados. E podemos conferir, como desenhamos à esquerda, que nosso algoritmo funciona! Podemos conferir que $$P_1(-1, 1, 3) => (-0.3, 0.3, 1)$$.
+Uma percepção da nossa visão é que realmente quanto mais longe as coisas estão de nós, "menor" elas parecem ficar. Então faz sentido os nossos cálculos dividir por $$z$$ ou seja ... quanto mais longe "menor fica" 😅.
+
+## hora de implementar !
+
 
 # Referencias
 
