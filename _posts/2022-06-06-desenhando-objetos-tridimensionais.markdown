@@ -52,11 +52,15 @@ Para o eixo $$x$$ vamos ter a reciproca! Só que dessa vez vamos olhar como se o
 
 ![Image](/images/rasterizer/perspectiva/perspectiva-4-1.jpg)
 
+
 Chegamos em uma equação bem similar, porem considerando a $$x$$ coordenada. Agora sabemos encontrar a posição de um ponto qualquer no mundo "projetado" no nosso plano de projeção. Vamos testar para ver se acontece como planejado!
-Vamos supor que nosso plano de projeção esteja a uma distancia de $$d = 1$$  do eixo $$z$$. Isto é, imagine que o centro do plano esteja em $$proj = (0,0,1)$$. E imagine que temos um cubo que tenha os oito pontos à duas unidades na frente do nosso plano e tenha alguns dos pontos: $$P_1(-1, 1, 3), P_2(-1, 1, 4), P_3(-1, -1, 3), P_4(-1, -1, 4), ...$$.
 
 ![Image](/images/rasterizer/perspectiva/perspectiva-5-1.jpg)
+
 ![Image](/images/rasterizer/perspectiva/perspectiva-6-1.jpg)
+
+Vamos supor que nosso plano de projeção esteja a uma distancia de $$d = 1$$  do eixo $$z$$. Isto é, imagine que o centro do plano esteja em $$proj = (0,0,1)$$. E imagine que temos um cubo que tenha os oito pontos à duas unidades na frente do nosso plano e tenha alguns dos pontos: $$P_1(-1, 1, 3), P_2(-1, 1, 4), P_3(-1, -1, 3), P_4(-1, -1, 4), ...$$.
+
 ![Image](/images/rasterizer/perspectiva/perspectiva-7-1.jpg)
 
 
