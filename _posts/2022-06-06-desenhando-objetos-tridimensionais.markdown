@@ -37,7 +37,7 @@ Podemos reproduzir o experimento da câmera escura "simplificado", onde o "plano
 
 A ideia para descobrir isso vai ser com um pouquinho de geometria. Mas o que queremos procurar é qual o ponto $$P'$$ no plano de projeção para um ponto $$P$$ no mundo. E vamos fazer essa pergunta para todos os pontos do mundo. Os pontos que estiverem dentro do intervalo da nossa tela $$[-0.5, 0.5]$$ em $$x$$ e $$[-0.5, 0.5]$$ em $$y$$. Dai com a nossa tela com vários pontos dos nossos polígonos tridimensionais, vai bastar fazer um mapeamento dos pontos `tela->monitor` que funcionaria como mapear $$[-0.5, 0.5]=> [0, 1980] pixels$$ para a largura e o mesmo para a altura. E com isso teremos o suficiente para projetar pontos tridimensionais para a nossa tela.
 ![Image](/images/rasterizer/perspectiva/perspectiva-1-1.jpg)
-Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em $$z_+$$, e a uma distancia $d = 1$$.
+Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em $$z_+$$, e a uma distancia $$d = 1$$.
 
 
 ![Image](/images/rasterizer/perspectiva/perspectiva-2-1.jpg)
@@ -49,5 +49,5 @@ Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em
 
 
 #Referencias
-* [1]: https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
+* [1] : https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
 
