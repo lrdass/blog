@@ -39,10 +39,21 @@ A ideia para descobrir isso vai ser com um pouquinho de geometria. Mas o que que
 ![Image](/images/rasterizer/perspectiva/perspectiva-1-1.jpg)
 Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em $$z_+$$, e a uma distancia $$d = 1$$.
 
-
+Então vamos pensar como podemos obter $$P'$$. Se olhar-mos a nossa cena de forma que o eixo $$y$$ fique pra cima e o eixo $$z$$ para a direita e o $$x$$ na nossa direção, vemos que  foma um triangulo com a reta que liga a origem $$O(0,0,0)$$ cruzando o nosso plano de projeção $$proj$$.
 ![Image](/images/rasterizer/perspectiva/perspectiva-2-1.jpg)
+
+🤔 se queremos calcular o ponto $$P'$$, podemos ver que o valor da sua coordenada $$y$$ é o segment $$\overline{AP'}$$.Sabemos tambem que o valor da sua $$z$$coordenada é a mesma do plano $$proj$$.
+Se usarmos a proporção do triangulo de que $$\frac{\overline{AP'}}{\overline{OA}} = \frac{\overline{BP}}{\overline{OB}}$$ então podemos chegar que $$\overline{AP'} = \frac{\overline{OA} * \overline{BP}}{OB}$$.
+E sabemos também quais sao os outros valores! $$\overline{PB} =$$ a $$y$$ coordenada do ponto $$P$$ que sabemos que será um dos pontos do cubo que queremos projetar. $$\overline{OA} = d$$ sendo $$d$$ a distancia do nosso plano de projeção da origem. E por fim $$\overline{OB}$$ é a distancia de $$P$$ da origem no eixo $$z$$, portanto é a sua $$z$$ coordenada!
+
 ![Image](/images/rasterizer/perspectiva/perspectiva-3-1.jpg)
+
+Para o eixo $$x$$ vamos ter a reciproca! Só que dessa vez vamos olhar como se olhássemos a nossa cena "de cima". Com o eixo $$z$$ para cima, o eixo $$x$$ para os lados e o eixo $$y$$ como se tivesse apontado para nós.
+
 ![Image](/images/rasterizer/perspectiva/perspectiva-4-1.jpg)
+
+Chegamos em uma equação bem similar, porem considerando a $$x$$ coordenada.
+
 ![Image](/images/rasterizer/perspectiva/perspectiva-5-1.jpg)
 ![Image](/images/rasterizer/perspectiva/perspectiva-6-1.jpg)
 ![Image](/images/rasterizer/perspectiva/perspectiva-7-1.jpg)
@@ -50,5 +61,5 @@ Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em
 
 # Referencias
 
-* [1]:https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
+[1]:https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
 
