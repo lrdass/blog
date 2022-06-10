@@ -1,9 +1,35 @@
 {
-  "cSpell.language": "en,pt,pt-BR",
+  "cSpell.language": "pt",
   "cSpell.words": [
+    "Blake",
     "Bresenham",
+    "pixels",
     "prototipavam",
     "raytracing",
+    "spoiler",
+    "Turing",
     "Urizen"
+  ],
+  "grammarly.selectors": [
+    {
+      "language": "markdown",
+      "scheme": "file"
+    }
+  ],
+  "cSpell.enableFiletypes": [
+    "!asciidoc",
+    "!c",
+    "!cpp",
+    "!csharp",
+    "!css",
+    "!elixir",
+    "!handlebars",
+    "!html",
+    "!jade",
+    "!java",
+    "!json",
+    "!jsonc",
+    "!jupyter",
+    "!less"
   ]
 }
