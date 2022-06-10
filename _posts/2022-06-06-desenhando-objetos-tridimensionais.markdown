@@ -36,6 +36,16 @@ Uma camera funciona como o [experimento da câmara escura][1]. Em que a "fotogra
 Podemos reproduzir o experimento da câmera escura "simplificado", onde o "plano" onde a luz vai ser projetada vai ser um plano conhecido, e esse plano vai ser a nossa tela.
 
 A ideia para descobrir isso vai ser com um pouquinho de geometria. Mas o que queremos procurar é qual o ponto $$P'$$ no plano de projeção para um ponto $$P$$ no mundo. E vamos fazer essa pergunta para todos os pontos do mundo. Os pontos que estiverem dentro do intervalo da nossa tela $$[-0.5, 0.5]$$ em $$x$$ e $$[-0.5, 0.5]$$ em $$y$$. Dai com a nossa tela com vários pontos dos nossos polígonos tridimensionais, vai bastar fazer um mapeamento dos pontos `tela->monitor` que funcionaria como mapear $$[-0.5, 0.5]=> [0, 1980] pixels$$ para a largura e o mesmo para a altura. E com isso teremos o suficiente para projetar pontos tridimensionais para a nossa tela.
+
+```
+projetaObjetoTridimensional(objeto):
+  para cada objeto no mundo:
+    para cada ponto do objeto
+      projete o ponto no plano
+
+    desenhe linhas entre os pontos projetados
+```
+
 ![Image](/images/rasterizer/perspectiva/perspectiva-1-1.jpg)
 Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em $$z_+$$, e a uma distancia $$d = 1$$.
 
