@@ -70,7 +70,7 @@ Chegamos em uma equação bem similar, porem considerando a $$x$$ coordenada. Ag
 
 ![Image](/images/rasterizer/perspectiva/perspectiva-6-1.jpg)
 
-Vamos supor que nosso plano de projeção esteja a uma distancia de $$d = 1$$  do eixo $$z$$. Isto é, imagine que o centro do plano esteja em $$proj = (0,0,1)$$. E imagine que temos um cubo que tenha os oito pontos à duas unidades na frente do nosso plano e tenha alguns dos pontos: $$P_1(-1, 1, 3), P_2(-1, 1, 4), P_3(-1, -1, 3), P_4(-1, -1, 4), ...$$.
+Vamos supor que nosso plano de projeção esteja a uma distancia de $$d = 1$$  do eixo $$z$$. Isto é, imagine que o centro do plano esteja em $$proj = (0,0,1)$$. E imagine que temos um cubo que tenha os oito pontos à duas unidades na frente do nosso plano e tenha alguns dos pontos: $$P_1(-1, 1, 3)$$,$$ P_2(-1, 1, 4)$$, $$ P_3(-1, -1, 3)$$, $$P_4(-1, -1, 4)$$, $$...$$.
 
 ![Image](/images/rasterizer/perspectiva/perspectiva-7-1.jpg)
 
