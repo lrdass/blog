@@ -52,11 +52,10 @@ Vamos usar a cena acima: temos um cubo na cena, e temos um plano centralizado em
 Então vamos pensar como podemos obter $$P'$$. Se olhar-mos a nossa cena de forma que o eixo $$y$$ fique pra cima e o eixo $$z$$ para a direita e o $$x$$ na nossa direção, vemos que  foma um triangulo com a reta que liga a origem $$O(0,0,0)$$ cruzando o nosso plano de projeção $$proj$$.
 ![Image](/images/rasterizer/perspectiva/perspectiva-2-1.jpg)
 
-🤔 se queremos calcular o ponto $$P'$$, podemos ver que o valor da sua $$y$$-coordenada  é o segmento $$\overline{AP'}$$(podemos usar o valor de sua projeção no eixo $$y$$).Sabemos também que o valor da sua $$z$$-coordenada é a mesma da distancia plano $$proj$$ da origem.
-Se usarmos a proporção do triangulo de que $$\frac{\overline{AP'}}{\overline{OA}} = \frac{\overline{BP}}{\overline{OB}}$$ então podemos chegar que $$\overline{AP'} = \frac{\overline{OA} * \overline{BP}}{OP}$$.
+🤔 se queremos calcular o ponto $$P'$$, podemos ver que o valor da sua $$y$$-coordenada  é o segmento $$\overline{P'A}$$(para ser mais correto: é o valor do segmento $$\overline{P'A}$$ projetado no eixo $$y$$).Sabemos também que o valor da sua $$z$$-coordenada é a mesma da distancia plano $$proj$$ da origem.
+Se usarmos a proporção do triangulo de que $$\frac{\overline{P'A}}{\overline{OA}} = \frac{\overline{PB}}{\overline{OB}}$$ então podemos chegar que $$\overline{P'A} = \frac{\overline{OA} * \overline{PB}}{OP}$$.
 
-E sabemos todos os valores que vamos precisar nessa equação: $$\overline{BP}$$  é o valor da $$y$$-coordenada do ponto $$P$$. O valor $$\overline{OA}$$ é a distancia do plano de projeção da nossa origem no eixo $$z$$, portanto, $$d$$.
-Logo temos:
+E sabemos todos os valores que vamos precisar nessa equação: $$\overline{PB}$$  é o valor da $$y$$-coordenada do ponto $$P$$. O valor $$\overline{OA}$$ é a distancia do plano de projeção da nossa origem no eixo $$z$$, portanto, $$d$$. E por fim o valor de $$\overline{OB}$$ é a $$z$$-coordenada do ponto $$P$$. Então temos:
 
 ![Image](/images/rasterizer/perspectiva/perspectiva-3-1.jpg)
 
