@@ -30,6 +30,8 @@ Estas ideias são a base da computação gráfica. E os algoritmos podem suscita
 Então como vai funcionar ? Bom nós queremos ter objetos com três dimensões em um espaço tridimensional e queremos ter alguma forma de filma-los, ou seja, alguma forma de saber quais objetos e/ou quais partes desses objetos estão na nossa tela.
 Então... vamos pensar em uma câmera. Imagine que teremos uma câmera onde o que ela captura na verdade vai ser nossa tela.
 
+No [post anterior](https://tomatofractal.io/rasterizer/2021/12/15/rasterizer-from-scratch.html) nós chegamos na caneta de Urizen. Neste post vamos elaborar o esquadro e a régua.
+
 ![Experimento da câmera escura](/images/rasterizer/perspectiva/pinhole.jpg)
 
 Uma câmera funciona como o [experimento da câmara escura][1]. Em que a fotografia ou o video é capturado dentro da câmera.
@@ -274,8 +276,11 @@ blit();
 
 Acabamos não falando de angulo de visão ou porque desenhamos as linhas em alguma ordem específica. O tamanho e a posição do plano vai dizer qual angulo de visão a câmera terá.Até agora apenas esbarramos na superfície da computação gráfica, mas já temos uma boa ideia de como a matemática da projeção funciona. E isso vai nos dar alguma liberdade para nos próximos textos pensarmos apenas como podemos estender este exemplo para gráficos mais abrangentes. Vamos falar de como podemos criar objetos tridimensionais quaisquer e movimenta-los pelo mundo tridimensional.
 
+Agora que temos ambos esquadro e caneta, Urizen vai poder criar seu mundo de razão. Nos poemas de Blake, Urizen, ou a razão humana, vagueia por ai dando nomes e dividindo as coisas para entende-las. E esse é apenas o nosso começo do poema. Em um ponto do poema, Urizen se encontra acorrentado pelas correntes de Los, o principio criativo da mente humana. Somente então Los cria uma imagem humana de Urizen, e a união perfeita do homem com a sua Razão (Urizen) e sua Imaginação (Los) cria o homem perfeito Albion. Até chegar-mos ao fim de um rasterizador completo e finalmente Urizen ver a si isolado no seu próprio mundo vazio e acorrentado pela própria criação é que daremos espaço para Los nascer e conseguiremos deixar com que a nossa criatividade embelezar nosso mundo tridimensional de árvores, arte e musica. Mas não se deixem enganar: ainda é um mundo artificial de Urizen!
+
+![Livro de Urizen](/images//rasterizer/perspectiva/book_urizen.jpg)
 
 # Referencias
 
-[1]:https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
+[1]: https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
 
