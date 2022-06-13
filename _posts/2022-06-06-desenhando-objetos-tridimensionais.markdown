@@ -252,14 +252,14 @@ const viewPortToCanvas = ({ x, y, z }) => {
 }
 
 drawLine(viewPortToCanvas(projectVertex(vP1)), viewPortToCanvas(projectVertex(vP2)), RED)
-drawLine(viewPortToCanvas(projectVertex(vP1)), viewPortToCanvas(projectVertex(vP3)), RED)
+drawLine(viewPortToCanvas(projectVertex(vP2)), viewPortToCanvas(projectVertex(vP3)), RED)
 drawLine(viewPortToCanvas(projectVertex(vP3)), viewPortToCanvas(projectVertex(vP4)), RED)
-drawLine(viewPortToCanvas(projectVertex(vP2)), viewPortToCanvas(projectVertex(vP4)), RED)
+drawLine(viewPortToCanvas(projectVertex(vP4)), viewPortToCanvas(projectVertex(vP1)), RED)
 
 drawLine(viewPortToCanvas(projectVertex(vP5)), viewPortToCanvas(projectVertex(vP6)), GREEN)
-drawLine(viewPortToCanvas(projectVertex(vP5)), viewPortToCanvas(projectVertex(vP7)), GREEN)
+drawLine(viewPortToCanvas(projectVertex(vP6)), viewPortToCanvas(projectVertex(vP7)), GREEN)
 drawLine(viewPortToCanvas(projectVertex(vP7)), viewPortToCanvas(projectVertex(vP8)), GREEN)
-drawLine(viewPortToCanvas(projectVertex(vP6)), viewPortToCanvas(projectVertex(vP8)), GREEN)
+drawLine(viewPortToCanvas(projectVertex(vP8)), viewPortToCanvas(projectVertex(vP4)), GREEN)
 
 drawLine(viewPortToCanvas(projectVertex(vP1)), viewPortToCanvas(projectVertex(vP5)), BLUE)
 drawLine(viewPortToCanvas(projectVertex(vP2)), viewPortToCanvas(projectVertex(vP6)), BLUE)
