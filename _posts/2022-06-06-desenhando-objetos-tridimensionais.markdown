@@ -116,7 +116,8 @@ Então vamos ligar cada aresta manualmente:
 
 ```
 // p1 -> p2
-desenhe_linha( map_projeção->tela(
+desenhe_linha(
+  map_projeção->tela(
     projetar_ponto(vértice1)
   ),
   map_projeção->tela(
@@ -124,7 +125,8 @@ desenhe_linha( map_projeção->tela(
   )
 )
 // p2->p3
-desenhe_linha( map_projeção->tela(
+desenhe_linha(
+  map_projeção->tela(
     projetar_ponto(vértice2)
   ),
   map_projeção->tela(
@@ -132,7 +134,8 @@ desenhe_linha( map_projeção->tela(
   )
 )
 // p3->p4
-desenhe_linha( map_projeção->tela(
+desenhe_linha(
+  map_projeção->tela(
     projetar_ponto(vértice3)
   ),
   map_projeção->tela(
@@ -140,13 +143,16 @@ desenhe_linha( map_projeção->tela(
   )
 )
 // p4->p1
-desenhe_linha( map_projeção->tela(
+desenhe_linha(
+  map_projeção->tela(
     projetar_ponto(vértice4)
   ),
   map_projeção->tela(
     projetar_ponto(vértice1)
   )
 )
+...
+// desenhe linhas entre as arestas do cubo
 ```
 E assim faremos para todas as arestas.
 
