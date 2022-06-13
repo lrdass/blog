@@ -79,7 +79,194 @@ Uma percepção da nossa visão é que realmente quanto mais longe as coisas est
 
 # hora de implementar !
 
+Então agora que temos as equações nas mãos e vemos que funciona, é hora de transformar em código. Então o que queremos fazer é descrever a nossa cena, colocando onde está nosso plano de projeção, e o nosso cubo. Vamos então mapear os pontos da nossa cena, para as coordenadas do plano. Com essas coordenadas no nosso plano, vamos mapear elas para os pixels da tela e por fim, desenhar as linhas entre cada ponto.
+Devemos perceber então que as linhas são desenhadas na tela, e não no "plano de projeção".
 
+```
+plano_projeção:
+  | distancia => d
+  | largura, altura => plano_largura, plano_altura
+
+cubo:
+  | vértice1 = (x:-1, y:1, z:3)
+  | vértice2 = (x:1, y:1, z:3)
+  | vértice3 = (x:-1, y:-1, z:3)
+  | vértice4 = (x:1, y:-1, z:3)
+
+  | vértice5 = (x:-1, y:1, z:4)
+  | vértice6 = (x:1, y:1, z:4)
+  | vértice7 = (x:-1, y:-1, z:4)
+  | vértice8 = (x:1, y:-1, z:4)
+
+função map_projeção->tela (x, y, z):
+  retorne {
+    x : x * (largura_da_tela / plano_largura),
+    y: y * (altura_da_tela / plano_altura)
+  }
+
+função projetar_ponto(x, y, z):
+  return {
+    x: (x * d) / z,
+    y: (y * d) / z,
+  }
+
+```
+Com essas funções e os vértices do cubo, agora basta que liguemos cada cubo, desenhando as arestas dos cubos chamando a função de `desenhar_linha` que vimos no post anterior.
+Então vamos ligar cada aresta manualmente:
+
+```
+// p1 -> p2
+desenhe_linha( map_projeção->tela(
+    projetar_ponto(vértice1)
+  ),
+  map_projeção->tela(
+    projetar_ponto(vértice2)
+  )
+)
+// p2->p3
+desenhe_linha( map_projeção->tela(
+    projetar_ponto(vértice2)
+  ),
+  map_projeção->tela(
+    projetar_ponto(vértice3)
+  )
+)
+// p3->p4
+desenhe_linha( map_projeção->tela(
+    projetar_ponto(vértice3)
+  ),
+  map_projeção->tela(
+    projetar_ponto(vértice4)
+  )
+)
+// p4->p1
+desenhe_linha( map_projeção->tela(
+    projetar_ponto(vértice4)
+  ),
+  map_projeção->tela(
+    projetar_ponto(vértice1)
+  )
+)
+```
+E assim faremos para todas as arestas.
+
+Por fim temos a seguinte imagem:
+![Experimento Rasterizador](/images/rasterizer/perspectiva/rasterizer-experiment.png)
+
+## segue a nossa implementação
+``` javascript
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+
+const width = canvas.width;
+const height = canvas.height;
+
+const canvasBuffer = context.getImageData(0, 0, width, height);
+
+const blit = () => {
+  context.putImageData(canvasBuffer, 0, 0);
+};
+
+const canvasPixel = (x, y, r, g, b, a) => {
+  x = Math.floor(x);
+  y = Math.floor(y);
+  const index = (x + y * width) * 4;
+  canvasBuffer.data[index + 0] = r;
+  canvasBuffer.data[index + 1] = g;
+  canvasBuffer.data[index + 2] = b;
+  canvasBuffer.data[index + 3] = a;
+};
+
+const putPixel = (x, y, color) => {
+  let canvasX = width / 2 + x;
+  let canvasY = height / 2 - y;
+
+  canvasPixel(canvasX, canvasY, color.r, color.g, color.b, color.a);
+};
+
+const drawLine = (p0, p1, color) => {
+  let dx = p1.x - p0.x;
+  let dy = p1.y - p0.y;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (p0.x > p1.x) {
+      let copy = p1;
+      p1 = p0;
+      p0 = copy;
+    }
+    const a = dy / dx;
+    let b = p0.y - a * p0.x;
+
+    for (let x = p0.x; x < p1.x; x++) {
+      let y = a * x + b;
+      putPixel(x, y, color);
+    }
+  } else {
+    if (p0.y > p1.y) {
+      let copy = p1;
+      p1 = p0;
+      p0 = copy;
+    }
+
+    const a = dx / dy;
+    const b = p0.x - a * p0.y;
+
+    for (let y = p0.y; y < p1.y; y++) {
+      let x = a * y + b;
+      putPixel(x, y, color);
+      // x = x + a;
+    }
+  }
+};
+
+const RED = { r: 255, g: 0, b: 0, a: 255 };
+const BLUE = { r: 0, g: 0, b: 255, a: 255 };
+const GREEN = { r: 0, g: 255, b: 0, a: 255 };
+
+let vP1 = { x: -1, y: 1, z: 3 }
+let vP2 = { x: 1, y: 1, z: 3 }
+let vP3 = { x: -1, y: -1, z: 3 }
+let vP4 = { x: 1, y: -1, z: 3 }
+
+let vP5 = { x: -1, y: 1, z: 4 }
+let vP6 = { x: 1, y: 1, z: 4 }
+let vP7 = { x: -1, y: -1, z: 4 }
+let vP8 = { x: 1, y: -1, z: 4 }
+
+
+const PLANE_DISTANCE = 1;
+let projectVertex = (vertex) => {
+  return { x: (vertex.x * PLANE_DISTANCE) / vertex.z, y: (vertex.y * PLANE_DISTANCE) / vertex.z, z: vertex.z }
+}
+
+const PLANE_WIDTH = 1;
+const PLANE_HEIGHT = 1;
+const viewPortToCanvas = ({ x, y, z }) => {
+  return { x: x * (width / PLANE_WIDTH), y: y * (height / PLANE_HEIGHT) }
+}
+
+drawLine(viewPortToCanvas(projectVertex(vP1)), viewPortToCanvas(projectVertex(vP2)), RED)
+drawLine(viewPortToCanvas(projectVertex(vP1)), viewPortToCanvas(projectVertex(vP3)), RED)
+drawLine(viewPortToCanvas(projectVertex(vP3)), viewPortToCanvas(projectVertex(vP4)), RED)
+drawLine(viewPortToCanvas(projectVertex(vP2)), viewPortToCanvas(projectVertex(vP4)), RED)
+
+drawLine(viewPortToCanvas(projectVertex(vP5)), viewPortToCanvas(projectVertex(vP6)), GREEN)
+drawLine(viewPortToCanvas(projectVertex(vP5)), viewPortToCanvas(projectVertex(vP7)), GREEN)
+drawLine(viewPortToCanvas(projectVertex(vP7)), viewPortToCanvas(projectVertex(vP8)), GREEN)
+drawLine(viewPortToCanvas(projectVertex(vP6)), viewPortToCanvas(projectVertex(vP8)), GREEN)
+
+drawLine(viewPortToCanvas(projectVertex(vP1)), viewPortToCanvas(projectVertex(vP5)), BLUE)
+drawLine(viewPortToCanvas(projectVertex(vP2)), viewPortToCanvas(projectVertex(vP6)), BLUE)
+drawLine(viewPortToCanvas(projectVertex(vP3)), viewPortToCanvas(projectVertex(vP7)), BLUE)
+drawLine(viewPortToCanvas(projectVertex(vP4)), viewPortToCanvas(projectVertex(vP8)), BLUE)
+
+blit();
+
+```
+
+###  o que escondemos ?
+
+Acabamos não falando de angulo de visão ou porque desenhamos as linhas em alguma ordem específica. O tamanho e a posição do plano vai dizer qual angulo de visão a câmera terá.Até agora apenas esbarramos na superfície da computação gráfica, mas já temos uma boa ideia de como a matemática da projeção funciona. E isso vai nos dar alguma liberdade para nos próximos textos pensarmos apenas como podemos estender este exemplo para gráficos mais abrangentes. Vamos falar de como podemos criar objetos tridimensionais quaisquer e movimenta-los pelo mundo tridimensional.
 
 
 # Referencias
