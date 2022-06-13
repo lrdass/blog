@@ -274,13 +274,11 @@ blit();
 
 ###  o que escondemos ?
 
+![Livro de Urizen](/images//rasterizer/perspectiva/book_urizen.jpg)
+
 Acabamos não falando de angulo de visão ou porque desenhamos as linhas em alguma ordem específica. O tamanho e a posição do plano vai dizer qual angulo de visão a câmera terá.Até agora apenas esbarramos na superfície da computação gráfica, mas já temos uma boa ideia de como a matemática da projeção funciona. E isso vai nos dar alguma liberdade para nos próximos textos pensarmos apenas como podemos estender este exemplo para gráficos mais abrangentes. Vamos falar de como podemos criar objetos tridimensionais quaisquer e movimenta-los pelo mundo tridimensional.
 
 Agora que temos ambos esquadro e caneta, Urizen vai poder criar seu mundo de razão. Nos poemas de Blake, Urizen, ou a razão humana, vagueia por ai dando nomes e dividindo as coisas para entende-las. E esse é apenas o nosso começo do poema. Em um ponto do poema, Urizen se encontra acorrentado pelas correntes de Los, o principio criativo da mente humana. Somente então Los cria uma imagem humana de Urizen, e a união perfeita do homem com a sua Razão (Urizen) e sua Imaginação (Los) cria o homem perfeito Albion. Até chegar-mos ao fim de um rasterizador completo e finalmente Urizen ver a si isolado no seu próprio mundo vazio e acorrentado pela própria criação é que daremos espaço para Los nascer e conseguiremos deixar com que a nossa criatividade embelezar nosso mundo tridimensional de árvores, arte e musica. Mas não se deixem enganar: ainda é um mundo artificial de Urizen!
-
-![Livro de Urizen](/images//rasterizer/perspectiva/book_urizen.jpg)
-
-# Referencias
 
 [1]: https://pt.wikipedia.org/wiki/C%C3%A2mera_escura
 
