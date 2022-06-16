@@ -12,3 +12,4 @@ categories: rasterizer
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-06.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-07.jpg)
+![Cena](/images/rasterizer/descricao-cena/d-cena-08.jpg)
