@@ -1,9 +1,8 @@
-
 ---
 layout: post
 title:  "Descrevendo uma cena tridimensional"
 date:   2022-06-16 12:28:05 -0300
-categories: jekyll update
+categories: rasterizer
 ---
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-01.jpg)
