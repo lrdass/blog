@@ -19,13 +19,13 @@
 # in the templates via {{ site.myvariable }}.
 
 title: tomato fractal
-email: americo at tomatofractal.io
+email: americo@tomatofractal.io
 description: >- # this means to ignore newlines until "baseurl:"
   Adventures of an polygon move enthusiast following his passion for game development and 
   aiming to someday re-create the whole universe in an old notebook with 2gb of ram.
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://tomatofractal.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: "46986414_"
+twitter_username: "tomatofractal"
 github_username: lrdass 
 
 # Build settings
