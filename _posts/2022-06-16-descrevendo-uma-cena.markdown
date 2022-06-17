@@ -40,7 +40,7 @@ instancia:
   | posicao_cena: (x, y, z)
 ```
 
-$$
+<!-- $$
 
 \begin{equation*}
 A_{m,n} =
@@ -52,18 +52,8 @@ a_{m,1} & a_{m,2} & \cdots & a_{m,n}
 \end{pmatrix}
 \end{equation*}
 
-$$
+$$ -->
 
-$$
-
-\[
-  A_{2\times2} =
-  \left[ {\begin{array}{cc}
-    a_{11} & a_{12} \\
-    a_{21} & a_{22} \\
-  \end{array} } \right]
-\]
-$$
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-03.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04.jpg)
