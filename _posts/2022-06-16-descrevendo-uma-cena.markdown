@@ -22,7 +22,7 @@ Vamos começar em: como podemos desenhar qualquer figura tridimensional usando a
 No exemplo anterior para desenhar um cubo nós desenhamos aresta por aresta. Isso é um pouco limitante porque teríamos que saber como reduzir todas as figuras em retas.
 Para contornar isso, e automatizar nosso algoritmo para desenharmos qualquer coisa com a mesma equação de projeção que chegamos anteriormente, podemos pensar em reduzir todas as formas em figuras mais simples!
 
-![Golfinho mesh](/images/rasterizer/descricao-cena/rabbit_mesh.png)
+![malha de um coelho](/images/rasterizer/descricao-cena/rabbit_mesh.png)
 
 Então e se reduzirmos tudo à triângulos? Triângulos são simples de representar e desenhar. São os polígonos mais simples e todos os pontos estão sempre no mesmo plano! [Aqui tem um ótima descrição](https://www.youtube.com/watch?v=KdyvizaygyY) do porque triângulos são excelentes polígonos para reduzir qualquer figura tridimensional. Infelizmente o video é em inglês.
 
