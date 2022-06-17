@@ -14,8 +14,32 @@ No post anterior vimos como desenhar um objeto tridimensional com perspectiva, d
 
 Então pensando nestes problemas vamos criar uma forma melhor de descrever os objetos tridimensionais e como podemos criar abstrações para desenha-los na tela.
 
+# Descrevendo a cena tridimensional
+
+Ok, vamos bolar algum jeito de resolver os problemas citados. Vamos começar com um cubo:
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-01.jpg)
+
+O cubo foi definido seus vértices em relação a origem. Vamos chamar esse eixo $$x y z$$ de o espaço do cubo. Nesse espaço tem apenas todos os vértices do cubo.
+Agora imagine que temos o eixo $$x y z $$ da nossa cena. E nela imagine que temos um cubo a uma distancia de $$4$$ unidades da nossa câmera, no eixo $$z$$.
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-02.jpg)
+
+Dizemos que este espaço é o espaço da cena. Mas como vamos levar as coordenadas do nosso cubo para as coordenadas do mundo? 🤔
+Se a nossa câmera está na origem $$(0,0,0)$$, o nosso cubo está em $$(0,0,4)$$. Então no nosso espaço da cena só precisamos levar os vértices do nosso cubo para essa posição. Se nós somar-mos todas as coordenadas do nosso cubo $$(-1, 1, -1) + (0, 0, 4) = (-1, 1, 3) ...$ teremos todos os nossos vértices do cubo movidos para a coordenada do espaço da cena.
+
+Vamos usar essa ideia para iniciar nossa modelagem! Queremos então separar um modelo de objeto de sua instancia. Vamos chamar de instancia o que estiver na nossa cena. E modelo o objeto com seus pontos em seu espaço de objeto. Podemos chegar na seguinte ideia:
+
+```
+modelo:
+  | vertices: lista( tupla(x, y, z) )
+  | faces: lista ( tupla(A,B,C) )
+
+instancia:
+  | modelo: modelo
+  | posicao_cena: (x, y, z)
+```
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-03.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
