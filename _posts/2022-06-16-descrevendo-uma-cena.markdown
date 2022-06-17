@@ -22,9 +22,11 @@ Vamos começar em: como podemos desenhar qualquer figura tridimensional usando a
 No exemplo anterior para desenhar um cubo nós desenhamos aresta por aresta. Isso é um pouco limitante porque teríamos que saber como reduzir todas as figuras em retas.
 Para contornar isso, e automatizar nosso algoritmo para desenharmos qualquer coisa com a mesma equação de projeção que chegamos anteriormente, podemos pensar em reduzir todas as formas em figuras mais simples!
 
-![Golfinho mesh](/images/rasterizer/descricao-cena/dolphin_triangle_mesh.png)
+![Golfinho mesh](/images/rasterizer/descricao-cena/rabbit_mesh.png)
 
-Então e se reduzirmos tudo à triângulos? Triângulos são simples de representar e desenhar. São os polígonos mais simples e todos os pontos estão sempre no mesmo plano! (Aqui tem um ótima descrição)[https://www.youtube.com/watch?v=KdyvizaygyY] do porque triângulos são excelentes polígonos para reduzir qualquer figura tridimensional. Infelizmente o video é em inglês.
+Então e se reduzirmos tudo à triângulos? Triângulos são simples de representar e desenhar. São os polígonos mais simples e todos os pontos estão sempre no mesmo plano! [Aqui tem um ótima descrição](https://www.youtube.com/watch?v=KdyvizaygyY) do porque triângulos são excelentes polígonos para reduzir qualquer figura tridimensional. Infelizmente o video é em inglês.
+
+![Cena](/images/rasterizer/descricao-cena/d-cena-01.jpg)
 
 Se decompormos nossas figuras em triângulos precisamos apenas saber quais sao os pontos e como ligar os pontos. No nosso cubo teríamos na face $$ABCD$$ os triângulos: $$ABD$$ e $$BCD$$. Podemos então fazer a seguinte ideia:
 
@@ -77,7 +79,6 @@ função desenha_triangulo(triangulo):
   )
 ```
 
-![Cena](/images/rasterizer/descricao-cena/d-cena-01.jpg)
 
 O cubo foi definido seus vértices em relação a origem. Vamos chamar esse eixo $$x y z$$ de o espaço do cubo. Nesse espaço tem apenas todos os vértices do cubo.
 Agora imagine que temos o eixo $$x y z $$ da nossa cena. E nela imagine que temos um cubo a uma distancia de $$4$$ unidades da nossa câmera, no eixo $$z$$.
