@@ -144,7 +144,7 @@ Pra entender a imagem acima pensem que os eixos também são vetores:
 E então os eixos são múltiplos de ambos os vetores $$i$$ e $$j$$.
 
 Agora vem a magia das matrizes: As transformações nos vetores multiplicados pela matriz vão ser "como $$i$$ e $$j$$ se transformam".
-No exemplo anterior, chegamos em que a matriz para escalar um vetor é $$ \begin{bmatrix} x & 0 & \\ 0 & x\end{bmatrix}$$. Em outras palavras é a matriz em que pegamos $$ i = (1, 0) * x$$ e $$j = (0, 1) * x$$ e $$x$$ é o nosso valor de escala! Quando multiplicamos o nosso vetor por essa matriz, nosso vetor escala igualmente os vetores $$i$$ e $$j$$! 😮‍💨
+No exemplo anterior, chegamos em que a matriz para escalar um vetor é $$ \begin{bmatrix} x & 0 \\ 0 & x\end{bmatrix}$$. Em outras palavras é a matriz em que pegamos $$ i = (1, 0) * x$$ e $$j = (0, 1) * x$$ e $$x$$ é o nosso valor de escala! Quando multiplicamos o nosso vetor por essa matriz, nosso vetor escala igualmente os vetores $$i$$ e $$j$$! 😮‍💨
 
 Com tudo isso dito vamos ver como podemos rotacionar um vetor.
 
@@ -157,7 +157,7 @@ Se quisermos rotacionar $$i$$ uma quantia $$\theta$$, podemos usar trigonometria
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04-03.jpg)
 
-
+Então o nosso vetor $$i$$ dada uma rotação $$\theta$$, irá terminar em $$(\cos \theta, \sen \theta)$$. Ou em notação de matriz: $$\begin{bmatrix} \cos \theta  \\ \sen \theta \end{bmatrix}$$.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
 
