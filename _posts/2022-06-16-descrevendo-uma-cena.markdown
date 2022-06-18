@@ -135,10 +135,21 @@ Então vamos ver como podemos chegar em uma matriz de "escala":
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-03.jpg)
 
-Na imagem acima colocamos nossos
+Na imagem acima colocamos nosso vetor $$ \begin{bmatrix} 2 \\ 2 \end{bmatrix}  \times \begin{bmatrix} i & j \end{bmatrix}$$ , o que isso significa 🤔?
+
+Pra entender a imagem acima pensem que os eixos também são vetores:
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04.jpg)
+E então os eixos são múltiplos de ambos os vetores $$i$$ e $$j$$.
+
+Agora vem a magia das matrizes: As transformações nos vetores multiplicados pela matriz vão ser "como $$i$$ e $$j$$ se transformam".
+No exemplo anterior, chegamos em que a matriz para escalar um vetor é $$ \begin{bmatrix} x & 0 & 0 & x\end{bmatrix}$$. Em outras palavras é a matriz em que pegamos $$ i = (1, 0) * x$$ e $$j = (0, 1) * x$$ e $$x$$ é o nosso valor de escala! Quando multiplicamos o nosso vetor por essa matriz, nosso vetor escala igualmente os vetores $$i$$ e $$j$$! 😮‍💨
+
+Com tudo isso dito vamos ver como podemos rotacionar um vetor.
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
+
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-1.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-2.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-3.jpg)
