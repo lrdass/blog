@@ -129,13 +129,13 @@ E se pudéssemos fazer algo como: se temos um vértice $$V$$ $$V' = T_{ranslacao
 Então finalmente chegamos na citação do Morpheus no filme matria. Felizmente, existem essas ferramentas na matemática : matrizes.
 OBS: [Aqui temos um link](https://matematicabasica.net/matrizes/) para caso você não seja familiar com o básico das operações em matrizes ou precise revisar!
 
-Podemos representar um vetor bidimensional como uma matriz $$2 \times 1$$, ou seja, nosso vetor $$\vec{v} = \begin{bmatrix} 2 2 \end{bmatrix}$$. E então se multiplicarmos uma matriz pelo nosso vetor, vamos transformar nosso vetor! Mas lembrando de algumas propriedades básicas de matrizes: se quisermos obter um vetor de volta, ou seja, uma matriz de forma $$2 \times 1$$, teremos que multiplicar por uma matriz $$ 2 \times 2$$.
+Podemos representar um vetor bidimensional como uma matriz $$2 \times 1$$, ou seja, nosso vetor $$\vec{v} = \begin{bmatrix} 2 \\ 2 \end{bmatrix}$$. E então se multiplicarmos uma matriz pelo nosso vetor, vamos transformar nosso vetor! Mas lembrando de algumas propriedades básicas de matrizes: se quisermos obter um vetor de volta, ou seja, uma matriz de forma $$2 \times 1$$, teremos que multiplicar por uma matriz $$ 2 \times 2$$.
 
 Então vamos ver como podemos chegar em uma matriz de "escala":
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-03.jpg)
 
-
+Na imagem acima colocamos nossos
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
