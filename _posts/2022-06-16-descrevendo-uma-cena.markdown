@@ -149,8 +149,12 @@ Com tudo isso dito vamos ver como podemos rotacionar um vetor.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
 
+Para rotacionar um vetor $$\vec{v}$$, queremos então rotacionar os vetores $$i$$ e $$j$$. Como eles são os nossos eixos queremos manter que eles continuem perpendiculares entre si. Então queremos rotacionar os dois a mesma quantia.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-1.jpg)
+
+
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-2.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-3.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-06.jpg)
