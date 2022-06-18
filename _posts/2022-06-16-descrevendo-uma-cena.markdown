@@ -141,23 +141,23 @@ Pra entender a imagem acima pensem que os eixos também são vetores:
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04-01.jpg)
 
-E então os eixos são múltiplos de ambos os vetores $$i$$ e $$j$$.
+E então os eixos são múltiplos de ambos os vetores $$\vec{i}$$ e $$\vec{j}$$.
 
-Agora vem a magia das matrizes: As transformações nos vetores multiplicados pela matriz vão ser "como $$i$$ e $$j$$ se transformam".
-No exemplo anterior, chegamos em que a matriz para escalar um vetor é $$ \begin{bmatrix} x & 0 \\ 0 & x\end{bmatrix}$$. Em outras palavras é a matriz em que pegamos $$ i = (1, 0) * x$$ e $$j = (0, 1) * x$$ e $$x$$ é o nosso valor de escala! Quando multiplicamos o nosso vetor por essa matriz, nosso vetor escala igualmente os vetores $$i$$ e $$j$$! 😮‍💨
+Agora vem a magia das matrizes: As transformações nos vetores multiplicados pela matriz vão ser "como $$\vec{i}$$ e $$\vec{j}$$ se transformam".
+No exemplo anterior, chegamos em que a matriz para escalar um vetor é $$ \begin{bmatrix} x & 0 \\ 0 & x\end{bmatrix}$$. Em outras palavras é a matriz em que pegamos $$ i = (1, 0) * x$$ e $$j = (0, 1) * x$$ e $$x$$ é o nosso valor de escala! Quando multiplicamos o nosso vetor por essa matriz, nosso vetor escala igualmente os vetores $$\vec{i}$$ e $$\vec{j}$$! 😮‍💨
 
 Com tudo isso dito vamos ver como podemos rotacionar um vetor.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04-02.jpg)
 
-Para rotacionar um vetor $$\vec{v}$$, queremos então rotacionar os vetores $$i$$ e $$j$$. Como eles são os nossos eixos queremos manter que eles continuem perpendiculares entre si. Então queremos rotacionar os dois a mesma quantia.
+Para rotacionar um vetor $$\vec{v}$$, queremos então rotacionar os vetores $$\vec{i}$$ e $$\vec{j}$$. Como eles são os nossos eixos queremos manter que eles continuem perpendiculares entre si. Então queremos rotacionar os dois a mesma quantia.
 
-Vamos começar pensando como rotacionar o vetor $$i$$. E então rotacionaremos o vetor $$j$$.
-Se quisermos rotacionar $$i$$ uma quantia $$\theta$$, podemos usar trigonometria para saber a sua posição. Sabemos que o seu comprimento não muda. E pelas propriedades de trigonometria sua posição em $$y$$ vai ser o $$\sin \theta$$, pois a hipotenusa é o comprimento do nosso vetor (que não mudou de valor $$= 1$$). E o valor em $$x$$ será o $$\cos \theta$$ pela mesma razão.
+Vamos começar pensando como rotacionar o vetor $$\vec{i}$$. E então rotacionaremos o vetor $$\vec{j}$$.
+Se quisermos rotacionar $$\vec{i}$$ uma quantia $$\theta$$, podemos usar trigonometria para saber a sua posição. Sabemos que o seu comprimento não muda. E pelas propriedades de trigonometria sua posição em $$y$$ vai ser o $$\sin \theta$$, pois a hipotenusa é o comprimento do nosso vetor (que não mudou de valor $$= 1$$). E o valor em $$x$$ será o $$\cos \theta$$ pela mesma razão.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-04-03.jpg)
 
-Então o nosso vetor $$i$$ dada uma rotação $$\theta$$, irá terminar em $$(\cos \theta, \sen \theta)$$. Ou em notação de matriz: $$\begin{bmatrix} \cos \theta  \\ \sen \theta \end{bmatrix}$$.
+Então o nosso vetor $$\vec{i}$$ dada uma rotação $$\theta$$, irá terminar em $$(\cos \theta, \sin \theta)$$. Ou em notação de matriz: $$\begin{bmatrix} \cos \theta  \\ \sin \theta \end{bmatrix}$$.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
 
