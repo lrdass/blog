@@ -172,9 +172,29 @@ Vamos ver se conseguimos rotacionar um vetor $$(3,1)$$ $$30º$$ em relação ao 
 
 Por fim vamos ver como podemos chegar em uma matriz para mover um vetor. É só pensar que queremos uma matriz $$\begin{bmatrix}A & B \\ C & D \end{bmatrix}$$ que quando multiplicamos por um vetor $$\vec{v}$$, essa matriz some em $$\vec{v}$$ alguma quantia em $$vec{v} = (x+T_x, y+T_y)$$. Então se fizermos esse produto, vamos chegar em um sistema de equações. Vamos ver como uma dessas equações do sistema vai ficar: $$Ax + By = T_x + x$$. Como precisamos de $$x$$, logo $$A$$ pode ser $$1$$, portanto $$By = T_x$$.
 
-![Cena](/images/rasterizer/descricao-cena/d-cena-05-2.jpg)
+![Cena](/images/rasterizer/descricao-cena/d-cena-05-2-01.jpg)
+
+Então disso temos que o valor $$B = \frac{T_x}{y}$$. E similarmente, temos que $$C = \frac{T_y}{x}$$. Então nossa matriz de translado é $$ = \begin{bmatrix} 1 & \frac{T_x}{y} \\ \frac{T_y}{x} & 1 \end{bmatrix}$$.
+
+![Cena](/images/rasterizer/descricao-cena/d-cena-05-2-02.jpg)
+
+Então finalmente temos que as nossas matrizes de transformação para vetores bidimensionais são as seguintes:
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-3.jpg)
+
+😮‍💨 Depois de tanta coisa temos que pensar "sera que a ordem dessas transformações importa"? E a resposta é: sim!
+Veja, se rotacionamos um quadrado na origem, e depois o movemos é diferente de movermos um quadrado e depois rotacionamos:
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-06.jpg)
+
+Então pensando que vamos girar algo sempre em relação à origem, é melhor começarmos rotacionando. Depois podemos então escalar e por fim, mover. Se sempre usar-mos essa ordem, sempre as transformações serão como a gente espera : `rotacao -> escalar -> mover`.
+
+Com tudo isso dito esta na hora de voltarmos para as três dimensões!
+
+## Estendendo para três dimensões
+
+Então temos o nosso cubo no espaço do objeto. Temos a sua instancia que agora possui uma propriedade que nos diz sua `rotação`, `escala` e `posição` na `instancia` desse cubo no espaço de cena.
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-07.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-08.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-09.jpg)
