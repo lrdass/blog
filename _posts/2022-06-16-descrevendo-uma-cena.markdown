@@ -164,7 +164,7 @@ Para rotacionar o vetor $$j$$ temos que usar um pouquinho mais de geometria. Poi
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05.jpg)
 
-Com isso temos finalmente a matriz de rotação bidimensional : $$\begin{bmatrix} \cos \theta & \sin \theta \\ -\sin \theta & \cos \theta \end{bmatrix}$$.
+Com isso temos finalmente a matriz de rotação bidimensional : $$\begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix}$$.
 
 Vamos ver se conseguimos rotacionar um vetor $$(3,1)$$ $$30º$$ em relação ao eixo horizontal.
 
