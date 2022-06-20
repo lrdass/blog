@@ -170,7 +170,7 @@ Vamos ver se conseguimos rotacionar um vetor $$(3,1)$$ $$30º$$ em relação ao 
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-1.jpg)
 
-Por fim vamos ver como podemos chegar em uma matriz para mover um vetor. É só pensar que queremos uma matriz $$\begin{bmatrix}A & B \\ C & D \end{bmatrix}$$ que quando multiplicamos por um vetor $$\vec{v}$$, essa matriz some em $$\vec{v}$$ alguma quantia em $$vec{v} = (x+T_x, y+T_y)$$.
+Por fim vamos ver como podemos chegar em uma matriz para mover um vetor. É só pensar que queremos uma matriz $$\begin{bmatrix}A & B \\ C & D \end{bmatrix}$$ que quando multiplicamos por um vetor $$\vec{v}$$, essa matriz some em $$\vec{v}$$ alguma quantia em $$vec{v} = (x+T_x, y+T_y)$$. Então se fizermos esse produto, vamos chegar em um sistema de equações. Vamos ver como uma dessas equações do sistema vai ficar: $$Ax + By = T_x + x$$. Como precisamos de $$x$$, logo $$A$$ pode ser $$1$$, portanto $$By = T_x$$.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-2.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-05-3.jpg)
