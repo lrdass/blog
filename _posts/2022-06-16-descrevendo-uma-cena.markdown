@@ -202,7 +202,7 @@ Então temos o nosso cubo no espaço do objeto. Temos a sua instancia que agora 
 O problema é que se tentar-mos usar a matriz de translação como fizemos vai acontecer um erro!
 Vejamos:
 
-Vamos testar nossas matrizes multiplicando juntas. Vamos testar rotacionar um vetor e transladar ele. Temos o vetor $$(2,2)$$ e queremos rotacionar por $$\frac{\pi}{4} = 45º$$ e depois move-lo para a posição $$(1, 3)$$. Ele deveria então ir para a posição $$(1, 5,82)$$. Mas usando nossas matrizes ele não vai pro lugar certo! 😫
+Vamos testar nossas matrizes multiplicando juntas. Vamos testar rotacionar um vetor e transladar ele. Temos o vetor $$(2,2)$$ e queremos rotacionar por $$\frac{\pi}{4} = 45º$$ e depois move-lo para a posição $$(1, 3)$$. Ele deveria então ir para a posição $$(1, 5.82)$$. Mas usando nossas matrizes ele não vai pro lugar certo! 😫
 
 ![Porque não funcionou?](/images/rasterizer/descricao-cena/d-cena-07-01.jpg)
 
@@ -215,11 +215,21 @@ Um pequeno truque vai permitir que nós possamos fazer a nossa matriz de transla
 ![coordenada homogenea](/images/rasterizer/descricao-cena/d-cena-07-02.jpg)
 
 Dessa forma, se estendermos todas as transformações, poderemos multiplicar as transformações como pensamos!
-Agora finalmente podemos estender nosso exemplo bidimensional para a terceira dimensão!
-
+Agora finalmente podemos estender nosso exemplo bidimensional para a terceira dimensão! E da mesma forma vamos usar coordenadas homogêneas nas transformações tridimensionais. Então um vetor tridimensional $$(x,y,z)$$ vamos usar $$(x,y,z,1)$$ !
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-08.jpg)
-![Cena](/images/rasterizer/descricao-cena/d-cena-09.jpg)
+
+Então temos a nossa matriz de escala para três dimensões! A única coisa que precisamos fazer foi escalar também o eixo $$z$$. Porém esta é a forma da nossa matriz em coordenadas cartesianas. A nossa matriz de escala para coordenadas homogêneas será:
+
+$$
+\begin{bmatrix}
+S_x & 0 & 0 & 0 \\
+0 & S_y & 0 & 0 \\
+0 & 0 & S_z & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-10.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-11.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-12.jpg)
