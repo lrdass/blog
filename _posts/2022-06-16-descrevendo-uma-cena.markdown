@@ -196,6 +196,18 @@ Com tudo isso dito esta na hora de voltarmos para as três dimensões!
 Então temos o nosso cubo no espaço do objeto. Temos a sua instancia que agora possui uma propriedade que nos diz sua `rotação`, `escala` e `posição` na `instancia` desse cubo no espaço de cena. Então relembrando o que queremos fazer é: pegar os vértices do nosso cubo, leva-los para o espaço de cena, projetar os vértices em cena no plano da câmera e por fim com os pontos da câmera, conectar os pontos como triângulos e desenha-los na tela. E agora temos matrizes para representar todas essas transformações da seguinte forma: para um vértice $$V$$ do cubo, o ponto $$P'$$ projetado vai ser: $$P'= P_{rojeção} \cdot T_{ransladar} \cdot R_{otacionar} \cdot E_{scalar} \cdot V $$. Sendo que a matriz de $$P_{rojeção}$$ a matriz que leva o ponto da cena para o espaço de projeção! E obter a nossa matriz de projeção é bem fácil depois de entendermos como funciona para projetar um ponto como vimos no post anterior.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-07.jpg)
+
+## um problema emerge 😨
+
+O problema é que se tentar-mos usar a matriz de translação como fizemos vai acontecer um erro!
+Vejamos:
+
+Vamos testar nossas matrizes multiplicando juntas. Vamos testar rotacionar um vetor e transladar ele. Temos o vetor $$(2,2)$$ e queremos rotacionar por $$\frac{\pi}{4} = 45º$$ e depois move-lo para a posição $$(1, 3)$$. Ele deveria então ir para a posição $$(1, 5,82)$$. Mas usando nossas matrizes ele não vai pro lugar certo! 😫
+
+![Porque não funcionou?](/images/rasterizer/descricao-cena/d-cena-07-01.jpg)
+
+E ele não funcionou porque a matriz de translação que chegamos, só consegue transladar o vetor em que ela foi construída. No caso, a matriz $$\begin{bmatrix} 1 & \frac{1}{2} \\ \frac{3}{2} & 1 \end{bmatrix}$$ só consegue transladar corretamente o vetor $$(2, 2)$$. Mas se multiplicarmos essa matriz por qualquer outro vetor, ela não mais vai fazer o que nós esperávamos.
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-08.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-09.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-10.jpg)
