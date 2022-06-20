@@ -206,7 +206,17 @@ Vamos testar nossas matrizes multiplicando juntas. Vamos testar rotacionar um ve
 
 ![Porque não funcionou?](/images/rasterizer/descricao-cena/d-cena-07-01.jpg)
 
-E ele não funcionou porque a matriz de translação que chegamos, só consegue transladar o vetor em que ela foi construída. No caso, a matriz $$\begin{bmatrix} 1 & \frac{1}{2} \\ \frac{3}{2} & 1 \end{bmatrix}$$ só consegue transladar corretamente o vetor $$(2, 2)$$. Mas se multiplicarmos essa matriz por qualquer outro vetor, ela não mais vai fazer o que nós esperávamos.
+E ele não funcionou porque a matriz de translação que chegamos, só consegue transladar o vetor em que ela foi construída. No caso, a matriz $$\begin{bmatrix} 1 & \frac{1}{2} \\ \frac{3}{2} & 1 \end{bmatrix}$$ só consegue transladar corretamente o vetor $$(2, 2)$$. Mas se multiplicarmos essa matriz por qualquer outro vetor, ela não mais vai fazer o que nós esperávamos. Então não vamos conseguir usar essa matriz de translado multiplicando as transformações. 🤔 E agora?
+
+## coordenadas homogêneas !
+
+Um pequeno truque vai permitir que nós possamos fazer a nossa matriz de translado conseguir multiplicar o translado a todas as outras transformações: e esse truque chama coordenadas homogêneas. A ideia é colocar mais uma coluna em todas as transformações e usar o nosso vetor de duas dimensões com $$(z = 1)$$, ou seja, $$(2, 2, 1)$$.
+
+![coordenada homogenea](/images/rasterizer/descricao-cena/d-cena-07-02.jpg)
+
+Dessa forma, se estendermos todas as transformações, poderemos multiplicar as transformações como pensamos!
+Agora finalmente podemos estender nosso exemplo bidimensional para a terceira dimensão!
+
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-08.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-09.jpg)
