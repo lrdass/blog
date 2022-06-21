@@ -275,6 +275,8 @@ E por fim a rotação ao redor do eixo $$y$$.
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-12.jpg)
 
+E por fim estendendo nossa matriz para as coordenadas homogêneas temos:
+
 $$
 R_{otação}^{y} = \begin{bmatrix}
 \cos \theta & 0 & \sin \theta  & 0 \\
@@ -283,7 +285,11 @@ R_{otação}^{y} = \begin{bmatrix}
 0           & 0 & 0 & 1
 \end{bmatrix}
 $$
+# matrizes de projeção e câmera!
 
+Estamos quase la! Na verdade, se a câmera não se mover, ja conseguimos mover o ponto e os vértices livremente pela cena usando nossas matrizes. Mas agora que ja fomos tão longe queremos chegar na nossa matriz de $$P_{rojeção}$$ como citamos acima para justificar todo esse exercício com matrizes.
+Como vimos, para projetar um ponto $$(x, y, z)$$ mapeamos ele para nossa tela de projeção da câmera $$(\frac{x\cdot d}{z}, \frac{y\cdot d}{z}, 1)$$.
+Podemos então fazer uma matriz que faça essa transformação!
 
 <!-- $$
 
