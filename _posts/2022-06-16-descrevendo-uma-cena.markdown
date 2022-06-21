@@ -256,9 +256,34 @@ R_{otação}^{z} = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+A rotação ao redor de $$x$$, o eixo $$i$$ permanece $$(1, 0, 0)$$
 
 ![Cena](/images/rasterizer/descricao-cena/d-cena-11.jpg)
+
+E a nossa matriz em coordenadas homogêneas seria:
+
+$$
+R_{otação}^{x} = \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & \cos \theta & -\sin \theta & 0 \\
+0 & \sin \theta & \cos \theta & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+E por fim a rotação ao redor do eixo $$y$$.
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-12.jpg)
+
+$$
+R_{otação}^{y} = \begin{bmatrix}
+\cos \theta & 0 & -\sin \theta  & 0 \\
+0           & 1 & 0 & 0 \\
+\sin \theta & 0 & \cos \theta & 0 \\
+0           & 0 & 0 & 1
+\end{bmatrix}
+$$
+
 
 <!-- $$
 
