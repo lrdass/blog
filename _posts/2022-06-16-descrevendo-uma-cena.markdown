@@ -241,7 +241,22 @@ S_x & 0 & 0 & 0 \\
 \end{bmatrix}
 $$
 
+E por fim chegamos nas matrizes de rotação tridimensional. Como vimos a nossa matriz de rotação bidimensional gira dois eixos e os mantém perpendiculares. A ideia para rotação tridimensional vai ser a mesma, e portanto nos vamos ter três formas de girar: Ao redor do eixo $$x$$, ao redor de $$y$$ e ao redor de $$z$$. Em outras palavras: vamos girar apenas dois eixos e o outro se mantém o mesmo!
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-10.jpg)
+
+Ao redor do eixo $$z$$ o vetor $$\vec{k}$$ se mantém inalterado $$(0, 0, 1)$$ enquanto os outros dois giram. E agora que temos nossa matriz, vamos igual as matrizes de escala e rotação transformar em coordenadas homogêneas:
+
+$$
+R_{otação}^{z} = \begin{bmatrix}
+\cos \theta & -\sin \theta & 0 & 0 \\
+\sin \theta & \cos \theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-11.jpg)
 ![Cena](/images/rasterizer/descricao-cena/d-cena-12.jpg)
 
