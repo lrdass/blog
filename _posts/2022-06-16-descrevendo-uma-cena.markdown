@@ -217,12 +217,23 @@ Um pequeno truque vai permitir que nós possamos fazer a nossa matriz de transla
 Dessa forma, se estendermos todas as transformações, poderemos multiplicar as transformações como pensamos!
 Agora finalmente podemos estender nosso exemplo bidimensional para a terceira dimensão! E da mesma forma vamos usar coordenadas homogêneas nas transformações tridimensionais. Então um vetor tridimensional $$(x,y,z)$$ vamos usar $$(x,y,z,1)$$ !
 
+Estendendo a nossa matriz de translação de duas dimensões para três dimensões é apenas somar a $$z$$ coordenada e colocar mais uma coluna:
+
+$$
+T_{ranslação} = \begin{bmatrix}
+1 & 0 & 0 & T_x \\
+0 & 1 & 0 & T_y \\
+0 & 0 & 1 & T_z \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
 ![Cena](/images/rasterizer/descricao-cena/d-cena-08.jpg)
 
 Então temos a nossa matriz de escala para três dimensões! A única coisa que precisamos fazer foi escalar também o eixo $$z$$. Porém esta é a forma da nossa matriz em coordenadas cartesianas. A nossa matriz de escala para coordenadas homogêneas será:
 
 $$
-\begin{bmatrix}
+E_{scala} = \begin{bmatrix}
 S_x & 0 & 0 & 0 \\
 0 & S_y & 0 & 0 \\
 0 & 0 & S_z & 0 \\
