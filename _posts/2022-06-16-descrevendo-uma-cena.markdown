@@ -292,4 +292,14 @@ Estamos quase la! Na verdade, se a câmera não se mover, ja conseguimos mover o
 Como vimos, para projetar um ponto $$(x, y, z)$$ mapeamos ele para nossa tela de projeção da câmera $$(\frac{x\cdot d}{z}, \frac{y\cdot d}{z}, 1)$$.
 Podemos então fazer uma matriz que faça essa transformação!
 
+Vamos usar então uma propriedade das coordenadas homogêneas que começamos a usar! Usamos coordenadas homogêneas até agora para conseguirmos uma matriz de translação que pode ser multiplicada com as outras transformações. Mas o uso das coordenadas homogêneas vai além! A começar em como podemos saber se estamos falando de um ponto ou de um vetor? Apesar de um vetor poder representar um ponto no espaço, podemos querer saber de algum ponto específico. Então para conseguirmos diferenciar entre um vetor e um ponto, dado nossa coordenada homogênea $$(x, y, z, w)$$, se $$w = 1$$ representa um ponto. E se $$w = 0$$ representa um vetor. Então $$\vec{v} = (1, 2, 3, 0)$$ é um vetor enquanto $$P = (1, 2, 3, 1)$$ é um ponto.
+
+Então a propriedade das coordenadas homogeneas é essa representação mista de pontos e vetores. Podemos representar a soma de dois vetores e vai resultar em um vetor: $$(0, 0, 1, 0) + (1, 1, 1, 0)  = (1, 1, 2, 0)$$, multiplicar um vetor por um escalar $$(1, 1, 1, 0) \cdot 2 = (2, 2, 2, 0)$$ e vamos ter um vetor, e se subtrairmos dois pontos vamos obter um vetor $$(3,2,1,1) - (1, 1,1,1) = (2, 1, 0, 0)$$.
+Valores de $$w>1$$ representam somente outra representação do mesmo ponto. Existem infinitas representações do mesmo ponto. O ponto $$(1,2,3,1)$$ é igual $$(2,4,6,2)$$ assim como é igual à $$(-4, -8, -12, -4)$$. A representação $$w = 1 $$ é chamado de "representação canônica".
+E para transformar uma coordenada homogênea para coordenada cartesiana basta dividir o valor de $$w$$ pelas outras componentes.
+
+$$
+(x, y, z, w)  = (\frac{x}{w}, \frac{y}{w}, \frac{z}{w}, \frac{w}{w} = 1) \rightarrow (\frac{x}{w}, \frac{y}{w}, \frac{z}{w})
+$$
+
 
