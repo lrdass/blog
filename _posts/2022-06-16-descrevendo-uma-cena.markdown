@@ -285,22 +285,11 @@ R_{otação}^{y} = \begin{bmatrix}
 0           & 0 & 0 & 1
 \end{bmatrix}
 $$
+
 # matrizes de projeção e câmera!
 
 Estamos quase la! Na verdade, se a câmera não se mover, ja conseguimos mover o ponto e os vértices livremente pela cena usando nossas matrizes. Mas agora que ja fomos tão longe queremos chegar na nossa matriz de $$P_{rojeção}$$ como citamos acima para justificar todo esse exercício com matrizes.
 Como vimos, para projetar um ponto $$(x, y, z)$$ mapeamos ele para nossa tela de projeção da câmera $$(\frac{x\cdot d}{z}, \frac{y\cdot d}{z}, 1)$$.
 Podemos então fazer uma matriz que faça essa transformação!
 
-<!-- $$
 
-\begin{equation*}
-A_{m,n} =
-\begin{pmatrix}
-a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
-a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
-\vdots  & \vdots  & \ddots & \vdots  \\
-a_{m,1} & a_{m,2} & \cdots & a_{m,n}
-\end{pmatrix}
-\end{equation*}
-
-$$ -->
