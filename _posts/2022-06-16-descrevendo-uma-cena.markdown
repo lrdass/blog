@@ -302,4 +302,6 @@ $$
 (x, y, z, w)  = (\frac{x}{w}, \frac{y}{w}, \frac{z}{w}, \frac{w}{w} = 1) \rightarrow (\frac{x}{w}, \frac{y}{w}, \frac{z}{w})
 $$
 
+E como sabemos, para projetar um ponto tridimensional cartesiano no plano da camera temos que chegar na seguinte equação de projeção: $$(x,y,z) \rightarrow (\frac{x\cdot d}{z}, \frac{y \cdot d}{z}, 1)$$.
+Se fizermos uma matriz que consegue fazer com que $$w = z$$, vamos conseguir chegar em uma transformação que faria nossa coordenada homogênea projetar o ponto pela própria operação: $$(x,y,z,z) \rightarrow (\frac{x}{z}, \frac{y}{z}, \frac{z}{z}, 1)$$, e bastaria multiplicar por $$d$$ que teríamos a nossa equação de projeção.
 
