@@ -305,7 +305,95 @@ $$
 E como sabemos, para projetar um ponto tridimensional cartesiano no plano da camera temos que chegar na seguinte equação de projeção: $$(x,y,z) \rightarrow (\frac{x\cdot d}{z}, \frac{y \cdot d}{z}, 1)$$.
 Se fizermos uma matriz que consegue fazer com que $$w = z$$, vamos conseguir chegar em uma transformação que faria nossa coordenada homogênea projetar o ponto pela própria operação: $$(x,y,z,z) \rightarrow (\frac{x}{z}, \frac{y}{z}, \frac{z}{z}, 1)$$, e bastaria multiplicar por $$d$$ que teríamos a nossa equação de projeção.
 
+Então vamos ver como podemos chegar na matriz de projeção.
+
 ![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-13-01.jpg)
+
+Acima vemos que do nosso sistema de equações, apenas o termo $$O = 1$$ para matriz resultar que o valor de $$w$$ do nosso vetor receba o valor de z.
+Com isso temos a matriz:
+
+$$
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+$$
+
+Mas nossa equação de projeção ainda precisa multiplicar pela distancia do plano de projeção $$d$$.
+
 ![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-13-02.jpg)
+
+Logo temos que a nossa matriz de projeção é, finalmente:
+
+$$
+P_{rojeção} = \begin{bmatrix}
+d & 0 & 0 & 0 \\
+0 & d & 0 & 0 \\
+0 & 0 & d & 0 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+$$
+
 ![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-14-01.jpg)
+
+Vamos testar se nossa matriz funcionará com o exemplo do cubo do post anterior usando uma instancia do nosso cubo, onde vamos coloca-lo na posição do mundo $$(0,0,4)$$ e projeta-lo na tela
+
 ![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-14-02.jpg)
+
+Podemos ver que se projetar-mos os quatro pontos $$ABCD$$ teremos projetados corretamente!
+E quando converter-mos o vetor de coordenadas homogêneas para cartesianas, teremos finalmente o ponto projetado corretamente!
+
+Então vamos ver como isso vai funcionar:
+
+```
+cubo_em_cena -> :
+  | modelo: cubo
+  | transformacoes:
+    | transalacao: (0, 0, 4)
+    | rotacao: (30, 0, 0)
+    | escala: (1, 1, 1)
+
+câmera:
+  | posição : (0, 0, 0)
+  | plano_proj: 1
+
+função desenha_cena(objetos_em_cena):
+  para cada instancia em objetos_em_cena:
+    desenha_objeto(instancia)
+
+função desenha_objeto(instancia):
+  seja pontos_projetados = []
+  para cada vértice de instancia:
+    vertice_homogeneo = Vetor4f(vertice.x, vertice.y, vertice.z, 1)
+
+    matriz_translado = Matriz4x4(vertice.transformacoes.transaldo)
+    matriz_escala = Matriz4x4(vertice.transformacoes.escala)
+    matriz_rotacao = Matriz4x4(vertice.transformacoes.rotacao)
+
+    ponto_projetado.insere(
+      Vetor2f(matriz_projeção * matriz_translado * matriz_rotacao * matriz_escala * vertice)
+    )
+
+  para cada triangulo em instancia.modelo:
+    desenha_triangulo(triangulo, pontos_projetados)
+
+
+// agora utilizaremos triangulo como o indice das faces como citamos no começo do texto
+função desenha_triangulo(triangulo, pontos):
+  //p1->p2
+  desenha_linha(
+    pontos[triangulo[0]], pontos[triangulo[1]]
+  )
+  //p2->p3
+  desenha_linha(
+    pontos[triangulo[1]], pontos[triangulo[2]]
+  )
+  //p3->p1
+  desenha_linha(
+    pontos[triangulo[2]], pontos[triangulo[1]]
+  )
+```
+
+E com isso ja conseguimos desenhar na tela nosso cubo !
