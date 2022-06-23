@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  " 'The Matrix is everywhere. It is all around us. Even now in this very room', Morpheus - Como fazer uma maquina entender as três dimensões "
-date:   2022-06-16 12:28:05 -0300
+date:   2022-06-23 12:28:05 -0300
 categories: rasterizer
 ---
 
