@@ -305,3 +305,7 @@ $$
 E como sabemos, para projetar um ponto tridimensional cartesiano no plano da camera temos que chegar na seguinte equação de projeção: $$(x,y,z) \rightarrow (\frac{x\cdot d}{z}, \frac{y \cdot d}{z}, 1)$$.
 Se fizermos uma matriz que consegue fazer com que $$w = z$$, vamos conseguir chegar em uma transformação que faria nossa coordenada homogênea projetar o ponto pela própria operação: $$(x,y,z,z) \rightarrow (\frac{x}{z}, \frac{y}{z}, \frac{z}{z}, 1)$$, e bastaria multiplicar por $$d$$ que teríamos a nossa equação de projeção.
 
+![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-13-01.jpg)
+![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-13-02.jpg)
+![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-14-01.jpg)
+![Matriz projeção](/images/rasterizer/descricao-cena/d-cena-14-02.jpg)
