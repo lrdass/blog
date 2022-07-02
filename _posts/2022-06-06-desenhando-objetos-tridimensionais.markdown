@@ -2,7 +2,8 @@
 layout: post
 title:  " 'Times on times he divided and measur'd' - William Blake, e como projetar os objetos da terceira dimensão"
 date:   2022-06-07 15:35:05 -0300
-categories: rasterizer william-blake
+categories: rasterizer 
+tags: rasterizer william-blake
 ---
 
 

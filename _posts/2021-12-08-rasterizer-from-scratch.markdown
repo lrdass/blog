@@ -3,6 +3,7 @@ layout: post
 title:  "E com cinco ou seis retas é fácil fazer um castelo - desenhar linhas é o que você precisa pra desenhar qualquer coisa!"
 date:   2021-12-15 10:10:05 -0300
 categories: rasterizer
+tags: rasterizer line line-algorithm
 ---
 
 Decidi escrever este texto em português porque pensei: "hmmm.. acho que ja existe material mais que suficiente em ingles, mas para o publico brasileiro existe pouco material" e eu pensei no pequeno eu com 12 anos que queria entender como computação gráfica funcionava e não tinha acesso nem a livros bem escritos quanto compreensão de ingles o suficiente.
