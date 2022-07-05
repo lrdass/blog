@@ -6,7 +6,18 @@ categories: rasterizer
 tags: rasterizer matrix
 ---
 
-Chegamos finalmente em como vamos representar uma cena tridimensional. Infelizmente vamos ser obrigados a usar um pouco mais de matemática porque vamos precisar fazer a maquina entender tanto os pontos tridimensionais quanto se quisermos mover, esticar ou girar algum ponto precisamos de alguma forma de dizer para o computador como faze-lo. Talvez este seja o texto mais carregado de matemática mas fiquem tranquilos que eu vou tentar ajudar você leitor a ir do porto da ignorância chegar até a baia tridimensional atravessando você o oceano que te separa. Mas temos que lembrar: "mar tranquilo não faz bom marinheiro!"
+![Propaganda CCCP](/images/rasterizer/descricao-cena/russia-rocket.jpg)
+
+O seculo XX foi marcado de várias mudanças sociais, cientificas e estruturais pro mundo inteiro. Impérios deixaram de existir para dar berço as sociedades democráticas, o mundo deixou de girar em torno da Inglaterra, a ciência deixou de ser absoluta para ser relativa, a arte questionou a sí mesma e "o que é arte?". Um dos grandes eventos do seculo XX foi a segunda guerra mundial e os seus impactos. Na tentativa de quebrar a criptografia alemã, um jovem matemático de nome Alan Turing, usou a sua teoria de computabilidade para tentar chegar em uma quebra na criptografia das comunicações alemãs. Ele havia desenvolvido essa teoria para tentar responder uma das cinco perguntas elaboradas pelo matemático David Hilbert. Essas perguntas tinham a finalidade de encontrar, de forma definitiva, formalizar a matemática. Uma das cinco perguntas de Hilbert era "existe um algoritmo capaz de decidir se qualquer declaração matemática é verdadeira ou falsa".  Turing então elaborou "como definir" um algoritmo e como computa-lo e provou que tal algoritmo de decidir qualquer declaração como verdadeira ou falsa não deve existir. E então essa teoria de maquinas foi dada o seu nome conhecidas hoje com "Maquinas de Turing", e são a base da computação moderna.
+
+![Turing Enigma Machine](/images/rasterizer/descricao-cena/enigma-machine.jpg)
+
+Ao fim da segunda guerra mundial, a URSS começou seu próprio programa nuclear, assim como os Estados Unidos importou algumas mentes por trás dos foguetes V2 que eram usados para bombardear a Inglaterra. E a guerra fria começa: com o pretexto de conquistas espaciais, era o plano de fundo para uma guerra que acontecia apenas no campo mental: Uma guerra tecnológica pela influencia politica sobre o mundo. Quem conseguisse dominar a tecnologia dos foguetes intercontinentais estaria em grande vantagem cientifica sobre o outro. Esta vantagem seria tão absurda que permitiria uma constante vigilância do globo. Então as duas superpotências corriam para desenvolver os melhores foguetes possíveis. E para demonstrar a superioridade tecnológica estavam fazendo feitos espaciais de demonstração de força. Quem conseguisse colocar um satélite implicava na habilidade de sondar qualquer parte do globo: e isso era claro no medo dos estado unidenses acreditando que o Sputnik, o primeiro satélite em orbita, estivesse sondando ou atacando os americanos com ondas radioativas.
+
+Mas a ideia era clara: o objetivo de ambos era conseguir acertar "precisamente" um alvo em qualquer lugar do mundo com um ogiva nuclear. A corrida espacial, portanto, não passou de um pano de fundo pra uma corrida armamentista de misseis balísticos transcontinentais. E as Maquinas de Turing foram essenciais novamente nesse conflito. O que antes foi usado para terminar uma guerra, agora estava sendo usado para guiar os misseis.
+Então o programador completamente versado no idioma das maquinas tem o poder de decidir se é quem guia os foguetes ou quem termina guerras.
+
+Nestes últimos conjuntos de textos estamos criando um mundo tridimensional na mesma Maquina de Turing. Aqui estamos escolhendo então como criar ao invés de destruir. E neste vamos fazer nossa Maquina de Turing a entender o que são as três dimensões, e para isso, vamos precisar de algumas ferramentas matemáticas. Vamos precisar declarar para nossa maquina como ela pode "entender" o que são as três dimensões, o que é um ponto, como saber onde este ponto está no espaço e como podemos mover estes pontos no espaço. E por fim, como podemos "projetar" esse espaço tridimensional da memoria do computador para a tela para que podemos "ver" o nosso mundo digital.
 
 No post anterior vimos como desenhar um objeto tridimensional com perspectiva, dada uma representação de uma figura tridimensional. Apresentamos apenas a matemática por trás da ideia. Para irmos além aquele método apresenta alguns problemas:
 * Não conseguimos desenhar qualquer objeto tridimensional com o método, por exemplo, esferas. Pois o algoritmo depende de decompor em linhas
@@ -348,7 +359,7 @@ E quando converter-mos o vetor de coordenadas homogêneas para cartesianas, tere
 
 Então vamos ver como isso vai funcionar:
 
-```javascript 
+```javascript
 cubo_em_cena -> :
   | modelo: cubo
   | transformacoes:
