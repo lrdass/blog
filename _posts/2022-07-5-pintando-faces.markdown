@@ -1,10 +1,12 @@
 ---
 layout: post
 title:  "Preenchendo as faces dos objetos tridimensionais"
-date:   2022-06-27 12:28:05 -0300
+date:   2022-07-05 12:28:05 -0300
 categories: rasterizer
 tags: rasterizer face-occlusion
 ---
+
+![banda KLF](/images/rasterizer/preenchimento/the_klf.jpg)
 
 Em 1984 a banda KLF viajava pela Inglaterra fazendo exibições salas abertas de cinema queimando 1 milhão de libras. Naquela época 1 milhão de libras simbolizava a fuga da "vida cotidiana" de lutar pelo ganha pão, simbolizava a entrada em uma classe social em que não mais precisava "ganhar o pao de cada dia", mas que o dinheiro podia render e, portanto, viver de renda. Era um valor simbólico que a banda havia queimado. O cinegrafista e amigo da dupla, não entendia muito bem o porque eles estavam fazendo e, os próprios membros alegaram que, durante o ato, nem eles também sabiam porque estavam fazendo.
 
