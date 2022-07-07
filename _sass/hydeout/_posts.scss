@@ -64,11 +64,14 @@ h2.page-title {
 
 article + *,
 .post-body ~ section {
-	text-align: justify;
   border-top: 1px solid $border-color;
   margin-top: $section-spacing;
   padding-top: $section-spacing;
-
+	> p {
+		text-align: justify;
+		font-size:16px;
+		font-family: Helvetica, Arial, sans-serif;
+	}
   > h2:first-child,
   > h3:first-child {
     margin-top: 0;
