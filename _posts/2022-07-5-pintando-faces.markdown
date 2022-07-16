@@ -54,6 +54,33 @@ Queremos então iterar sobre o intervalo do maior valor de $$y$$ dos vertices at
 
 #### casos específicos
 
+Para iterar de aresta em aresta, vão existir casos como os triangulos acima em que não necessariamente só precisamos usar duas retas, mas as três retas. O triangulo $$ABC$$, possui o lado $$AB$$ maior que $$AC$$ e $$BC$$. Então quando formos iterar entre as arestas, algum momento iterariamos sobre a aresta $$AC$$ até $$AB$$, e depois de $$CB$$ até $$AB$$.
+Com isso em mente vamos conseguir agora preencher qualquer triangulo. Então vamos começar a elaborar nosso algoritmo.
+
+Vamos precisar de alguma ferramenta para conseguirmos calcular as nossas equações de reta. Apesar de nos exemplos anteriores nós chegamos em um sistema de equações lineares bem simples para calcular as retas, resolver sistemas lineares para cada triangulo seria bastante complicado. Então vamos ver se conseguimos pensar em alguma ferramenta que possa nos ajudar.
+
+O que precisamos? Queremos alguma forma de para cada $$y$$, encontrar um $$x$$ das arestas do triangulo. Então vamos assumir que temos uma função $$f(y)$$, que para cada $$y$$, retorna um $$x$$ da aresta do triangulo. Então quando a iteração for acontecer, teremos os valores de $$y$$ dos quais estamos iterando, mas precisamos calcular $$x$$. Então $$x$$ é uma variavel dependente de $$y$$, e $$y$$, neste caso, é uma variável independente.
+
+### Interpolação linear
+
+Conseguimos então chegar que, haverá uma reta, da aresta do triangulo, que vamos querer encontrar um ponto $$P$$ entre os vértices do triangulo para um dado valor de $$y$$. Esta tecnica é conhecida como interpolação linear, e vamos usar bastante essa tecnica daqui em diante.
+
+// imagem
+
+Na imagem acima, podemos visualizar o triangulo formado pelo vertices que queremos calcular a reta. Neste triangulo o lado oposto ao angulo $$\theta$$ é $$y_2 - y_1$$, e o angulo adjacente ao angulo é o lado $$x_2 - x_1$$. A razão do lado oposto pelo adjacente é a tangente do angulo $$\theta$$. Conseguimos perceber que o triangulo formado por $$P_1$$ $$P_2$$ é proporcional ao triangulo formado por $$P_1$$ e o ponto $$P$$ que procuramos. Então conseguimos chegar na seguinte equação:
+
+$$
+\frac{y_2 - y_1}{x_2 - x_1} = \tan \theta = \frac{y-y_1}{x-x_1}
+$$
+
+Dessa igualdade conseguimos isolar qual vai ser a nossa variavel independe e qual vai ser a nossa variavel dependente. No nosso algoritmo, vamos ter o valor de $$y$$, mas queremos saber qual o valor de $$x$$. Então, como dissemos acima, $$x$$ vai ser nossa variavel dependente. Então vamos resolver essa igualdade para $$x$$.
+
+$$ x = \frac{x_2 - x_1}{y_2 - y_1} \times (y - y_1) + x_1 $$
+
+E podemos enxergar que essa equação realmente é uma equação de reta, da forma $$x = a(y-y_1) + x_1$$, ja que $$x_1$$ é uma constante, e $$a = \frac{y_2 - y_1}{x_2 - x_1} $$ também é .
+
+Vamos testar e ver como essa equação funciona:
+
 
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
