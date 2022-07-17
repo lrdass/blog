@@ -81,6 +81,47 @@ E podemos enxergar que essa equação realmente é uma equação de reta, da for
 
 Vamos testar e ver como essa equação funciona:
 
+//imagem
 
+E agora podemos generalizar essa equação, porque não necessariamente só poderíamos esta equação da perspectiva de $$y$$ é independente e $$x$$ é dependente. Poderíamos usar a mesma equação em que os papeis são reversos: em que $$x$$ é independente e $$y$$ é dependente. Então vamos generalizar a equação. Seja $$i$$ a variavel independente e $$d$$ a variavel dependente:
+
+$$
+d = \frac{d_2 - d_2}{i_2 - i_1} * (i - i_1) + d_1
+$$
+
+Um pseudo algoritmo para nossa função de interpolação linear seria:
+```
+funcao lerp(i2, i1, d2 d1):
+  a = (d2 - d1) / (i2 - i1)
+  b = d1
+  para cada valor de i1 a i2:
+    d = d + a
+```
+
+## Vamos preencher as faces !
+
+Com a nossa função de interpolação linear(tambem conhecida como `lerp`)em mãos, podemos agora nos concentrar em preencher as faces.
+Então vamos esboçar o algoritmo. Para iterar em cada linha que compoe o triangulo, precisamos saber quais sao os vertices com as maiores $$y$$-coordenada. Então vamos ordenar os vertices e com o maior e o menos sabemos quais sao as linhas que vamos iterar.
+Com cada linha, vamos usar a função de `lerp` e descobrir quais são as coordenadas de onde começa e termina cada aresta daquela linha. Então vamos iterar entre as arestas e vamos preencher os pixels.
+
+Para lidar com os triangulos que citamos, podemos descobrir quais sao os dois menores lados do triangulo. Sabendo quais são, podemos junta-los e considerar que sao apenas um lado. E assim o algoritmo funciona da mesma forma.
+
+E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual aresta tem o $$x$$-coordenada menor e qual tem a maior. E entao iteramos da menor para a maior colocando os pixels na dada coordenada.
+
+
+```
+função preencherTriangulo(vertice1, vertice2, vertice3):
+  vertice1, vertice2, vertice3 <= ordenado(vertice1.y, vertice2.y, vertice3.y)
+
+  xLerpVertice1Vertice2 <= lerp(vertice1.y, vertice2.y, vertice1.x, vertice2.x)
+  xLerpVertice2Vertice3 <= lerp(vertice1.y, vertice2.y, vertice1.x, vertice2.x)
+  xLerpVertice1Vertice3 <= lerp(vertice1.y, vertice2.y, vertice1.x, vertice2.x)
+
+
+
+  para cada valor entre vertice1.y e vertice3.y:
+
+
+```
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
