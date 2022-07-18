@@ -30,10 +30,10 @@ Para preencher triângulos existem vários algoritmos conhecidos. O que vamos us
 
 {% include pseudocode.html id="3" code="
 \begin{algorithm}
-\caption{PrencherTriangulo, onde V1, V2, V3 são os vértices de um triangulo}
+\caption{PrencherTriangulo, onde $V_1, V_2, V_3$ são os vértices de um triangulo}
 \begin{algorithmic}
 \PROCEDURE{PreencherTriangulo}{$V_1, V_2, V_3$}
-  \STATE $V_1, V_2, V_3$ $\leftarrow$ \CALL{Ordenar}{V_1.y, V_2.y, V_3.y}
+  \STATE $V_1, V_2, V_3$ $\leftarrow$ \CALL{Ordenar}{$V_1.y, V_2.y, V_3.y$}
   \FOR{$V_1$ \TO $V_3$}
     \COMMENT{Computar $x$-coordenada das arestas para o atual $y$}
     \COMMENT{Pinte o pixel entre $x'$ e $x''$ }
