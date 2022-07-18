@@ -35,8 +35,8 @@ Para preencher triângulos existem vários algoritmos conhecidos. O que vamos us
 \PROCEDURE{PreencherTriangulo}{$V_1, V_2, V_3$}
   \STATE $V_1, V_2, V_3$ $\leftarrow$ \CALL{Ordenar}{$V_1.y, V_2.y, V_3.y$}
   \FOR{$V_1$ \TO $V_3$}
-    \COMMENT{Computar $x$-coordenada das arestas para o atual $y$}
-    \COMMENT{Pinte o pixel entre $x'$ e $x''$ }
+    \STATE{Computar $x$-coordenada das arestas para o atual $y$}
+    \STATE{Pinte o pixel entre $x'$ e $x''$ }
   \ENDFOR
 \ENDPROCEDURE
 \end{algorithmic}
