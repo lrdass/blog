@@ -28,16 +28,20 @@ Então queremos pensar em um algoritmo para preenchera as faces dos triângulos.
 
 Para preencher triângulos existem vários algoritmos conhecidos. O que vamos usar aqui inicialmente vamos usar a mesma ideia por trás de como desenhamos linhas no nosso primeiro texto. Nós precisamos saber quais são as equações de reta entre os vértices dos triângulos e isso vai permitir nós sabermos quais os pontos estão nas arestas do triangulo. Com essa aresta, se nos iterarmos pela altura do triangulo, para preencher o triangulo vai bastar desenhar uma linha de aresta em aresta para cada valor da altura do triangulo.
 
-```
-triangulo:
-  | tupla( vertice1, verice2, vertice3)
-
-preencherTriangulo(triangulo)
-  para cada y entre o maior y-coordenada dos vertices, e a menor y-coordenada dos vertices:
-    calcule a x-coordenada que delimitam o triangulo
-    para a menor x-coordenada até a maior:
-      coloque um pixel
-```
+{% include pseudocode.html id="3" code="
+\begin{algorithm}
+\caption{PrencherTriangulo, onde V1, V2, V3 são os vértices de um triangulo}
+\begin{algorithmic}
+\PROCEDURE{PreencherTriangulo}{$V_1, V_2, V_3$}
+  \STATE $V_1, V_2, V_3$ $\leftarrow$ \CALL{Ordenar}{V_1.y, V_2.y, V_3.y}
+  \FOR{$V_1$ \TO $V_3$}
+    \COMMENT{Computar $x$-coordenada das arestas para o atual $y$}
+    \COMMENT{Pinte o pixel entre $x'$ e $x''$ }
+  \ENDFOR
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+" %}
 
 E ai vai bastar que a gente consiga controlar qual face vai ser desenhada. Existindo a técnica do pintor: O pintor quando vai produzir seus quadros primeiro desenha o fundo, depois o que ta um pouco a frente do fundo e por fim o que está mais próximo. Podemos usar este algoritmo. O problema é que existem figuras que o algoritmo do pintor ainda não vai conseguir resolver. Então uma melhoria no algoritmo do pintor seria que ao invés de pintar triangulo por triangulo dada a profundidade, pintarmos um pixel por profundidade. Então sempre coloríamos o pixel com a $$z$$-coordenada mais próxima da câmera.
 
@@ -90,13 +94,21 @@ d = \frac{d_2 - d_2}{i_2 - i_1} * (i - i_1) + d_1
 $$
 
 Um pseudo algoritmo para nossa função de interpolação linear seria:
-```
-funcao lerp(i2, i1, d2 d1):
-  a = (d2 - d1) / (i2 - i1)
-  b = d1
-  para cada valor de i1 a i2:
-    d = d + a
-```
+
+{% include pseudocode.html id="1" code="
+\begin{algorithm}
+\caption{LERP}
+\begin{algorithmic}
+\PROCEDURE{lerp}{$i_1, i_2, d_1, d_2$}
+    \STATE $a = \frac{d_2 - d_1}{i_2 - i1}$
+    \STATE $b = d_1$
+    \FOR{$x = i_1$ \TO $i_2$}
+      \RETURN $d = d + a$
+    \ENDFOR
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+" %}
 
 ## Vamos preencher as faces !
 
@@ -109,19 +121,18 @@ Para lidar com os triangulos que citamos, podemos descobrir quais sao os dois me
 E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual aresta tem o $$x$$-coordenada menor e qual tem a maior. E entao iteramos da menor para a maior colocando os pixels na dada coordenada.
 
 
-```
-função preencherTriangulo(vertice1, vertice2, vertice3):
-  vertice1, vertice2, vertice3 <= ordenado(vertice1.y, vertice2.y, vertice3.y)
+{% include pseudocode.html id="2" code="
+\begin{algorithm}
+\caption{PrencherTriangulo}
+\begin{algorithmic}
+\PROCEDURE{PreencherTriangulo}{$V1, V2, V3$}
+  \STATE $X_{valores}\overline{V1V2} = $ \CALL{LERP}{$V1.y, V2.y, V1.x, V2.x$}
+  \STATE $X_{valores}\overline{V2V3} = $ \CALL{LERP}{$V2.y, V3.y, V2.x, V3.x$}
+  \STATE $X_{valores}\overline{V1V3} = $ \CALL{LERP}{$V1.y, V3.y, V1.x V3.x$}
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+" %}
 
-  xLerpVertice1Vertice2 <= lerp(vertice1.y, vertice2.y, vertice1.x, vertice2.x)
-  xLerpVertice2Vertice3 <= lerp(vertice1.y, vertice2.y, vertice1.x, vertice2.x)
-  xLerpVertice1Vertice3 <= lerp(vertice1.y, vertice2.y, vertice1.x, vertice2.x)
-
-
-
-  para cada valor entre vertice1.y e vertice3.y:
-
-
-```
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
