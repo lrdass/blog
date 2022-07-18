@@ -3,7 +3,7 @@ markdown:         kramdown
 highlighter:      rouge
 
 # Setup
-title:            tomato fractal
+title:            fractal de tomate
 tagline:          'tentando simular a realidade  '
 description:      ''
 url:              https://tomatofractal.io
