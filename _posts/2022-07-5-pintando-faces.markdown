@@ -161,6 +161,9 @@ E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual
 
 O que estamos fazendo é portanto, calcular qual a aresta mais à esquerda e mais à direita e iterando sobre ela. Podemos tambem chamar `drawLine(xMaisAEsquerda, y, xMaisADireita,y)` no lugar do segundo `for` no nosso algoritmo. E agora conseguimos preencher as faces de um triangulo como podemos ver abaixo:
 
+![Cube](/images/rasterizer/preenchimento/facefilling-007.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-008.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-009.jpg)
 
 ## Faces tridimensionais
 
