@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Preenchendo as faces dos objetos tridimensionais"
-date:   2022-07-05 12:28:05 -0300
+date:   2022-07-19 12:28:05 -0300
 categories: rasterizer
 tags: rasterizer face-occlusion
 ---
@@ -26,7 +26,11 @@ Para preencher nosso modelo precisamos preencher todas as faces com as cores esp
 
 Então queremos pensar em um algoritmo para preenchera as faces dos triângulos. Depois que conseguirmos ainda vai acontecer um fenômeno: os triângulos vao ser coloridos pela ordem que foram definidos. Então precisamos pensar em alguma forma auxiliar para colorir os triângulos que estão mais próximos da câmera somente.
 
+![Cube](/images/rasterizer/preenchimento/facefilling-000.jpg)
+
 Para preencher triângulos existem vários algoritmos conhecidos. O que vamos usar aqui inicialmente vamos usar a mesma ideia por trás de como desenhamos linhas no nosso primeiro texto. Nós precisamos saber quais são as equações de reta entre os vértices dos triângulos e isso vai permitir nós sabermos quais os pontos estão nas arestas do triangulo. Com essa aresta, se nos iterarmos pela altura do triangulo, para preencher o triangulo vai bastar desenhar uma linha de aresta em aresta para cada valor da altura do triangulo.
+
+![Cube](/images/rasterizer/preenchimento/facefilling-001.jpg)
 
 {% include pseudocode.html id="3" code="
 \begin{algorithm}
@@ -52,9 +56,11 @@ Então vamos pensar em como podemos preencher um triangulo. Uma ideia que temos 
 Então vamos ver como podemos chegar no algoritmo para desenhar nosso triangulo. Vimos acima a ideia por tras. Agora vamos ver como podemos implementa-la. Então imagine que temos um triangulo com os vertices $$A (2, 5)$$ $$B (-4, -3)$$ e $$C (5, -3)$$. _OBS: Apenas para relembrar que no primeiro texto e no texto de projeção, nós centralizamos as coordenadas dos pixels da tela para que pudéssemos mapear a nossa tela de projeção _ .
 Como vamos iterar sobre o eixo-$$y$$, queremos saber quais são os valores de $$x$$ para cada valor de $$y$$. E para nossa sorte, assim como vimos no primeiro post, podemos usar equações de reta entre dois pontos para determinar a equação linear que conecta os dois pontos. Quando tivermos esta equação, conseguiremos calcular o valor das arestas do triangulo dado uma $$y$$-coordenada. Vamos ver como isso vai funcionar:
 
-// imagem
+![Cube](/images/rasterizer/preenchimento/facefilling-002.jpg)
 
 Queremos então iterar sobre o intervalo do maior valor de $$y$$ dos vertices até o menor valor de $$y$$ dos vertices. No nosso exemplo acima, queremos ir de $$5$$ até $$-3$$.  Então temos as nossas retas entre $$\overline{AB} \rightarrow y = \frac{4x}{3} + \frac{7}{3}$$ e temos que a nossa reta $$\overline{AC} \rightarrow y = - \frac{8x}{3} + \frac{31}{3}$$, e  conseguimos calcular alguns valores de $$x$$ para cada valor de $$y$$. E portanto, como podemos ver quando $$y=2$$ temos que $$x= - \frac{1}{4}$$ para a nossa reta $$\overline{AB}$$ e temos que $$x=\frac{25}{8}$$ para a reta $$\overline{AC}$$. A regra que usamos é arredondar para baixo  para o primeiro inteiro. Entao temos que $$x = -1$$ para $$\overline{AB}$$ e $$x = 3$$ para $$\overline{AC}$$. Agora basta iterar entre $$-1$$ e $$3$$ e preencher cada pixel. E assim temos a base do nosso algoritmo.
+
+![Cube](/images/rasterizer/preenchimento/facefilling-003.jpg)
 
 #### casos específicos
 
@@ -69,7 +75,7 @@ O que precisamos? Queremos alguma forma de para cada $$y$$, encontrar um $$x$$ d
 
 Conseguimos então chegar que, haverá uma reta, da aresta do triangulo, que vamos querer encontrar um ponto $$P$$ entre os vértices do triangulo para um dado valor de $$y$$. Esta tecnica é conhecida como interpolação linear, e vamos usar bastante essa tecnica daqui em diante.
 
-// imagem
+![Cube](/images/rasterizer/preenchimento/facefilling-004.jpg)
 
 Na imagem acima, podemos visualizar o triangulo formado pelo vertices que queremos calcular a reta. Neste triangulo o lado oposto ao angulo $$\theta$$ é $$y_2 - y_1$$, e o angulo adjacente ao angulo é o lado $$x_2 - x_1$$. A razão do lado oposto pelo adjacente é a tangente do angulo $$\theta$$. Conseguimos perceber que o triangulo formado por $$P_1$$ $$P_2$$ é proporcional ao triangulo formado por $$P_1$$ e o ponto $$P$$ que procuramos. Então conseguimos chegar na seguinte equação:
 
@@ -85,7 +91,7 @@ E podemos enxergar que essa equação realmente é uma equação de reta, da for
 
 Vamos testar e ver como essa equação funciona:
 
-//imagem
+![Cube](/images/rasterizer/preenchimento/facefilling-005.jpg)
 
 E agora podemos generalizar essa equação, porque não necessariamente só poderíamos esta equação da perspectiva de $$y$$ é independente e $$x$$ é dependente. Poderíamos usar a mesma equação em que os papeis são reversos: em que $$x$$ é independente e $$y$$ é dependente. Então vamos generalizar a equação. Seja $$i$$ a variavel independente e $$d$$ a variavel dependente:
 
@@ -120,6 +126,7 @@ Para lidar com os triangulos que citamos, podemos descobrir quais sao os dois me
 
 E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual aresta tem o $$x$$-coordenada menor e qual tem a maior. E entao iteramos da menor para a maior colocando os pixels na dada coordenada.
 
+![Cube](/images/rasterizer/preenchimento/facefilling-006.jpg)
 
 {% include pseudocode.html id="4" code="
 \begin{algorithm}
@@ -154,7 +161,6 @@ E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual
 
 O que estamos fazendo é portanto, calcular qual a aresta mais à esquerda e mais à direita e iterando sobre ela. Podemos tambem chamar `drawLine(xMaisAEsquerda, y, xMaisADireita,y)` no lugar do segundo `for` no nosso algoritmo. E agora conseguimos preencher as faces de um triangulo como podemos ver abaixo:
 
-//imagem face do triangulo
 
 ## Faces tridimensionais
 
@@ -166,7 +172,7 @@ E isso pode se dar pela a ordem em que os triângulos foram desenhados. Os trian
 
 Podemos ver qual triangulo tem a $$z$$-coordenada menor, e salvar qual foi a mais "proxima". Caso o novo triangulo esteja mais proximo, atualizamos este valor com o valor menor, e desenhamos este triangulo em frente. Este algoritmo chama-se [algoritmo do pintor](https://en.wikipedia.org/wiki/Painter%27s_algorithm). Podemos implementar ele facilmente apenas salvando qual a $$z$$-coordenada antes de "ignorar" este valor durante a projecão. Porem, acontece um problema com o algoritmo do pintor que queremos evitar desde já.
 
-// imagem do problema do algoritmo do pintor
+![Cube](/images/rasterizer/preenchimento/facefilling-010.jpg)
 
 Caso alguma cena possua faces mais complexas, o algoritmo do pintor não produziria imagens corretas. Então pra isso, ao inves de saber qual a face esta mais a frente, vamos melhorar um pouco a precisao do algoritmo do pintor e, calcularemos entao, qual _pixel_ está mais a frente ao inves do triangulo inteiro. Para descobrir-mos isso, vamos usar a nossa função de `lerp`!
 E para isso, nós estamos ainda iterando sobre o eixo $$y$$ do triangulo, de baixo para cima. Então nossa variavel $$y$$ é a nossa variavel independente. E queremos saber, para cada $$y$$, qual é o valor da $$z$$ coordenada respectiva daquela $$y$$-coordenada. E então, teremos um _buffer_, isto é, uma memoria para cada pixel da tela. E entao, para cada pixel vamos computar qual a distancia em $$z$$ da camera. Caso seja menor do que estava salvo no buffer para aquele pixel, atualizamos o buffer com o novo valor e pintamos aquele pixel. Do contrario, o pixel colorido ja é o mais proximo da camera.
