@@ -121,7 +121,7 @@ Para lidar com os triangulos que citamos, podemos descobrir quais sao os dois me
 E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual aresta tem o $$x$$-coordenada menor e qual tem a maior. E entao iteramos da menor para a maior colocando os pixels na dada coordenada.
 
 
-{% include pseudocode.html id="2" code="
+{% include pseudocode.html id="4" code="
 \begin{algorithm}
 \caption{PrencherTriangulo}
 \begin{algorithmic}
@@ -131,7 +131,7 @@ E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual
   \STATE $X_{valores}\overline{V1V3} = $ \CALL{LERP}{$V1.y, V3.y, V1.x, V3.x$}
 
   \STATE $X_{valores}\overline{V1V2V3}$ = $ X_{valores}V1V2 \cup X_{valores}V2V3 $
-  \STATE pontoMédio = $\frac{ \CALL{size}{$X_{valores}V1V2V3$}}{2}$
+  \STATE pontoMédio = \CALL{size}{$X_{valores}V1V2V3$} $ \div 2$
 
   \IF{$X_{valores}V1V2V3[pontoMédio] > X_{valores}V1V3$}
     \STATE $x_{valor}AEsquerda$ = $X_{valores}V1V2V3$
@@ -141,7 +141,7 @@ E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual
     \STATE $x_{valor}AEsquerda$= $X_{valores}V1V3$
   \ENDIF
 
-  \FOR{$V_1$ \TO $V3$ in $y$}
+  \FOR{$V_1$ \TO $V3$ em $y$}
     \FOR{maisAEsquerda \TO maisADireita}
       \STATE \CALL{ponhaPixel}{x, y}
     \ENDFOR
