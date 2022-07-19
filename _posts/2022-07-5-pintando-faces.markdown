@@ -30,7 +30,6 @@ Então queremos pensar em um algoritmo para preenchera as faces dos triângulos.
 
 Para preencher triângulos existem vários algoritmos conhecidos. O que vamos usar aqui inicialmente vamos usar a mesma ideia por trás de como desenhamos linhas no nosso primeiro texto. Nós precisamos saber quais são as equações de reta entre os vértices dos triângulos e isso vai permitir nós sabermos quais os pontos estão nas arestas do triangulo. Com essa aresta, se nos iterarmos pela altura do triangulo, para preencher o triangulo vai bastar desenhar uma linha de aresta em aresta para cada valor da altura do triangulo.
 
-![Cube](/images/rasterizer/preenchimento/facefilling-001.jpg)
 
 {% include pseudocode.html id="3" code="
 \begin{algorithm}
@@ -49,20 +48,26 @@ Para preencher triângulos existem vários algoritmos conhecidos. O que vamos us
 
 E ai vai bastar que a gente consiga controlar qual face vai ser desenhada. Existindo a técnica do pintor: O pintor quando vai produzir seus quadros primeiro desenha o fundo, depois o que ta um pouco a frente do fundo e por fim o que está mais próximo. Podemos usar este algoritmo. O problema é que existem figuras que o algoritmo do pintor ainda não vai conseguir resolver. Então uma melhoria no algoritmo do pintor seria que ao invés de pintar triangulo por triangulo dada a profundidade, pintarmos um pixel por profundidade. Então sempre coloríamos o pixel com a $$z$$-coordenada mais próxima da câmera.
 
+![Cube](/images/rasterizer/preenchimento/facefilling-001.jpg)
+
 Por fim, há portanto de se pensar que existem inúmeras faces do nosso modelo que nunca seriam vistas, e de toda forma, estariam sendo pintadas com o algorismo do pintor. Então para melhorar a eficiência, poderíamos saber quais sao as faces que vao ser pintadas e remover as que nao serão. Sendo este algoritmo chamado de `face culling`. Ao combinarmos estes algoritmos vamos conseguir visualizar nossos modelos tridimensionais propriamente coloridos!
+
+![Cube](/images/rasterizer/preenchimento/facefilling-002.jpg)
 
 Então vamos pensar em como podemos preencher um triangulo. Uma ideia que temos que fixar ja desde o começo é que nossa tela de pixels é discreta. Isto é: todos os indices dos pixels são valores inteiros. Não existe um pixel $$3.4$$ ou $$1.15$$. Então temos que desde ja pensarmos que qualquer valor racional deve ser convertido para um inteiro.
 
 Então vamos ver como podemos chegar no algoritmo para desenhar nosso triangulo. Vimos acima a ideia por tras. Agora vamos ver como podemos implementa-la. Então imagine que temos um triangulo com os vertices $$A (2, 5)$$ $$B (-4, -3)$$ e $$C (5, -3)$$. _OBS: Apenas para relembrar que no primeiro texto e no texto de projeção, nós centralizamos as coordenadas dos pixels da tela para que pudéssemos mapear a nossa tela de projeção _ .
 Como vamos iterar sobre o eixo-$$y$$, queremos saber quais são os valores de $$x$$ para cada valor de $$y$$. E para nossa sorte, assim como vimos no primeiro post, podemos usar equações de reta entre dois pontos para determinar a equação linear que conecta os dois pontos. Quando tivermos esta equação, conseguiremos calcular o valor das arestas do triangulo dado uma $$y$$-coordenada. Vamos ver como isso vai funcionar:
 
-![Cube](/images/rasterizer/preenchimento/facefilling-002.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-003.jpg)
 
 Queremos então iterar sobre o intervalo do maior valor de $$y$$ dos vertices até o menor valor de $$y$$ dos vertices. No nosso exemplo acima, queremos ir de $$5$$ até $$-3$$.  Então temos as nossas retas entre $$\overline{AB} \rightarrow y = \frac{4x}{3} + \frac{7}{3}$$ e temos que a nossa reta $$\overline{AC} \rightarrow y = - \frac{8x}{3} + \frac{31}{3}$$, e  conseguimos calcular alguns valores de $$x$$ para cada valor de $$y$$. E portanto, como podemos ver quando $$y=2$$ temos que $$x= - \frac{1}{4}$$ para a nossa reta $$\overline{AB}$$ e temos que $$x=\frac{25}{8}$$ para a reta $$\overline{AC}$$. A regra que usamos é arredondar para baixo  para o primeiro inteiro. Entao temos que $$x = -1$$ para $$\overline{AB}$$ e $$x = 3$$ para $$\overline{AC}$$. Agora basta iterar entre $$-1$$ e $$3$$ e preencher cada pixel. E assim temos a base do nosso algoritmo.
 
-![Cube](/images/rasterizer/preenchimento/facefilling-003.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-004.jpg)
 
 #### casos específicos
+
+![Cube](/images/rasterizer/preenchimento/facefilling-009.jpg)
 
 Para iterar de aresta em aresta, vão existir casos como os triangulos acima em que não necessariamente só precisamos usar duas retas, mas as três retas. O triangulo $$ABC$$, possui o lado $$AB$$ maior que $$AC$$ e $$BC$$. Então quando formos iterar entre as arestas, algum momento iterariamos sobre a aresta $$AC$$ até $$AB$$, e depois de $$CB$$ até $$AB$$.
 Com isso em mente vamos conseguir agora preencher qualquer triangulo. Então vamos começar a elaborar nosso algoritmo.
@@ -75,7 +80,9 @@ O que precisamos? Queremos alguma forma de para cada $$y$$, encontrar um $$x$$ d
 
 Conseguimos então chegar que, haverá uma reta, da aresta do triangulo, que vamos querer encontrar um ponto $$P$$ entre os vértices do triangulo para um dado valor de $$y$$. Esta tecnica é conhecida como interpolação linear, e vamos usar bastante essa tecnica daqui em diante.
 
-![Cube](/images/rasterizer/preenchimento/facefilling-004.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-005.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-006.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-007.jpg)
 
 Na imagem acima, podemos visualizar o triangulo formado pelo vertices que queremos calcular a reta. Neste triangulo o lado oposto ao angulo $$\theta$$ é $$y_2 - y_1$$, e o angulo adjacente ao angulo é o lado $$x_2 - x_1$$. A razão do lado oposto pelo adjacente é a tangente do angulo $$\theta$$. Conseguimos perceber que o triangulo formado por $$P_1$$ $$P_2$$ é proporcional ao triangulo formado por $$P_1$$ e o ponto $$P$$ que procuramos. Então conseguimos chegar na seguinte equação:
 
@@ -91,7 +98,7 @@ E podemos enxergar que essa equação realmente é uma equação de reta, da for
 
 Vamos testar e ver como essa equação funciona:
 
-![Cube](/images/rasterizer/preenchimento/facefilling-005.jpg)
+![Cube](/images/rasterizer/preenchimento/facefilling-008.jpg)
 
 E agora podemos generalizar essa equação, porque não necessariamente só poderíamos esta equação da perspectiva de $$y$$ é independente e $$x$$ é dependente. Poderíamos usar a mesma equação em que os papeis são reversos: em que $$x$$ é independente e $$y$$ é dependente. Então vamos generalizar a equação. Seja $$i$$ a variavel independente e $$d$$ a variavel dependente:
 
@@ -161,9 +168,6 @@ E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual
 
 O que estamos fazendo é portanto, calcular qual a aresta mais à esquerda e mais à direita e iterando sobre ela. Podemos tambem chamar `drawLine(xMaisAEsquerda, y, xMaisADireita,y)` no lugar do segundo `for` no nosso algoritmo. E agora conseguimos preencher as faces de um triangulo como podemos ver abaixo:
 
-![Cube](/images/rasterizer/preenchimento/facefilling-007.jpg)
-![Cube](/images/rasterizer/preenchimento/facefilling-008.jpg)
-![Cube](/images/rasterizer/preenchimento/facefilling-009.jpg)
 
 ## Faces tridimensionais
 
