@@ -128,11 +128,50 @@ E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual
 \PROCEDURE{PreencherTriangulo}{$V1, V2, V3$}
   \STATE $X_{valores}\overline{V1V2} = $ \CALL{LERP}{$V1.y, V2.y, V1.x, V2.x$}
   \STATE $X_{valores}\overline{V2V3} = $ \CALL{LERP}{$V2.y, V3.y, V2.x, V3.x$}
-  \STATE $X_{valores}\overline{V1V3} = $ \CALL{LERP}{$V1.y, V3.y, V1.x V3.x$}
+  \STATE $X_{valores}\overline{V1V3} = $ \CALL{LERP}{$V1.y, V3.y, V1.x, V3.x$}
+
+  \STATE $X_{valores}\overline{V1V2V3}$ = $ X_{valores}V1V2 \cup X_{valores}V2V3 $
+  \STATE pontoMédio = $\frac{ \CALL{size}{$X_{valores}V1V2V3$}}{2}$
+
+  \IF{$X_{valores}V1V2V3[pontoMédio] > X_{valores}V1V3$}
+    \STATE $x_{valor}AEsquerda$ = $X_{valores}V1V2V3$
+    \STATE $x_{valor}ADireita$= $X_{valores}V1V3$
+  \ELSE
+    \STATE $x_{valor}ADireita$ = $X_{valores}V1V2V3$
+    \STATE $x_{valor}AEsquerda$= $X_{valores}V1V3$
+  \ENDIF
+
+  \FOR{$V_1$ \TO $V3$ in $y$}
+    \FOR{maisAEsquerda \TO maisADireita}
+      \STATE \CALL{ponhaPixel}{x, y}
+    \ENDFOR
+  \ENDFOR
+
 \ENDPROCEDURE
 \end{algorithmic}
 \end{algorithm}
 " %}
+
+O que estamos fazendo é portanto, calcular qual a aresta mais à esquerda e mais à direita e iterando sobre ela. Podemos tambem chamar `drawLine(xMaisAEsquerda, y, xMaisADireita,y)` no lugar do segundo `for` no nosso algoritmo. E agora conseguimos preencher as faces de um triangulo como podemos ver abaixo:
+
+//imagem face do triangulo
+
+## Faces tridimensionais
+
+Se usarmos este nosso recente algoritmo de preencher triangulos para preencher os triangulos das faces do cubo que chegamos no texto anterior, podemos obter um resultado parecido com esse:
+
+// imagem cubo com as faces desenhadas fora de ordenm
+
+E isso pode se dar pela a ordem em que os triângulos foram desenhados. Os triangulos do fundo do cubo estao sendo desenhados por ultimo, ou casos similares. Mas mesmo descrevendo a ordem "correta", a ordem ia depender do ponto de vista da camera. E se rotacionassemos o cubo novamente veriamos o poligono desenhado incorretamente. Para resolvermos este inconveniente, vamos criar uma ordem de pintura. E a solução é muito simples. Desenhamos o que esta mais longe primeiro, e o que esta mais perto da camera por ultimo. Assim sempre garantimos que a face da frente sempre esteja na frente.
+
+Podemos ver qual triangulo tem a $z$-coordenada menor, e salvar qual foi a mais "proxima". Caso o novo triangulo esteja mais proximo, atualizamos este valor com o valor menor, e desenhamos este triangulo em frente. Este algoritmo chama-se (https://en.wikipedia.org/wiki/Painter%27s_algorithm)[algoritmo do pintor]. Podemos implementar ele facilmente apenas salvando qual a $z$-coordenada antes de "ignorar" este valor durante a projecão. Porem, acontece um problema com o algoritmo do pintor que queremos evitar desde já.
+
+// imagem do problema do algoritmo do pintor
+
+Caso alguma cena possua faces mais complexas, o algoritmo do pintor não produziria imagens corretas. Então pra isso, ao inves de saber qual a face esta mais a frente, vamos melhorar um pouco a precisao do algoritmo do pintor e, calcularemos entao, qual _pixel_ está mais a frente ao inves do triangulo inteiro. Para descobrir-mos isso, vamos usar a nossa função de `lerp`!
+E para isso, nós estamos ainda iterando sobre o eixo $y$ do triangulo, de baixo para cima. Então nossa variavel $y$ é a nossa variavel independente. E queremos saber, para cada $y$, qual é o valor da $z$ coordenada respectiva daquela $y$-coordenada. E então, teremos um _buffer_, isto é, uma memoria para cada pixel da tela. E entao, para cada pixel vamos computar qual a distancia em $z$ da camera. Caso seja menor do que estava salvo no buffer para aquele pixel, atualizamos o buffer com o novo valor e pintamos aquele pixel. Do contrario, o pixel colorido ja é o mais proximo da camera.
+
+Esta tecnica é conhecida como (https://pt.wikipedia.org/wiki/Z-buffer)[z-buffering].
 
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
