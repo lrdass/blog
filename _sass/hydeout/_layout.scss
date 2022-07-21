@@ -35,6 +35,10 @@ body {
 #sidebar {
   flex: 0 0 auto;
   padding: $section-spacing;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
 
   .site-title {
     font-family: 'Abril Fatface', serif;
