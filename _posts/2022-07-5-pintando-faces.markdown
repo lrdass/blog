@@ -190,21 +190,26 @@ Vamos precisar interpolar em $$z$$ para cada $$y$$ pois o triangulo pode ter alg
 
 Imaginando o nosso cubo de exemplo do capitulo de projeção, e se usassemos os triangulos $$EFH$$ e $$ABD$$, teriamos como exemplo os seguintes pontos apos as equações de projeção. (Assumindo apenas a transformação neste cubo do exemplo, seria uma translação para $$(0,0,4)$$.)
 
-// imagem das contas
+![Cube](/images/rasterizer/preenchimento/facefilling-011.jpg)
+
+![Cube](/images/rasterizer/preenchimento/facefilling-012.jpg)
 
 Como não houve nenhuma rotação dos triangulos, eles estão paralelos entre sí, e portanto o `lerp` de $$z$$, para qualquer $$y$$ será $$4$$.
 Mas conseguimos pensar no triangulo $$AED$$.
 
-// imagem contas do `lerp` em z
+![Cube](/images/rasterizer/preenchimento/facefilling-013.jpg)
 
 Uma coisa que vocês vão perceber nas contas acima, é que a interpolação linear esta crescendo rápido demais. O que pode até funcionar, mas vamos perceber que a relação entre $$y$$ e $$z$$ não é linear!
 
 Vamos investigar o porque! Vamos tentar calcular qual o valor de $$z$$ em relação ao ponto $$(x', y')$$ no plano de projeção. Sabemos que a equação do plano é dada por $$Ax + By + Cz + D =0$$. E sabemos que para qualquer ponto no nosso mundo, projetamos este ponto $$(x, y, z)$$ no nosso plano de projeção com as equações : $$x' = \frac{x * d}{z}$$ e $$y' = \frac{y * d }{z}$$. Então vamos ver qual a relação do ponto projetado, com a coordenada $$z$$.
 
-// imagem  com as equacoes da reta de $$z$$
+![Cube](/images/rasterizer/preenchimento/facefilling-014.jpg)
+
+![Cube](/images/rasterizer/preenchimento/facefilling-015.jpg)
 
 Então podemos ver que, a relação entre os pontos projetados e $$z$$ original é $$ z = \frac{-dD}{Ax'+ By' + dC}$$. E o que faz sentido: quando projetamos, o ponto no plano de projeção é inversamente proporcional ao eixo $$z$$. Porem esta não é uma equação linear.
 Se nós desenharmos o gráfico de $$z$$ teremos a seguinte figura tridimensional:
+
 
 ![Plot](/images/rasterizer/preenchimento/plotting.png)
 
