@@ -184,7 +184,37 @@ Podemos ver qual triangulo tem a $$z$$-coordenada menor, e salvar qual foi a mai
 Caso alguma cena possua faces mais complexas, o algoritmo do pintor não produziria imagens corretas. Então pra isso, ao inves de saber qual a face esta mais a frente, vamos melhorar um pouco a precisao do algoritmo do pintor e, calcularemos entao, qual _pixel_ está mais a frente ao inves do triangulo inteiro. Para descobrir-mos isso, vamos usar a nossa função de `lerp`!
 E para isso, nós estamos ainda iterando sobre o eixo $$y$$ do triangulo, de baixo para cima. Então nossa variavel $$y$$ é a nossa variavel independente. E queremos saber, para cada $$y$$, qual é o valor da $$z$$ coordenada respectiva daquela $$y$$-coordenada. E então, teremos um _buffer_, isto é, uma memoria para cada pixel da tela. E entao, para cada pixel vamos computar qual a distancia em $$z$$ da camera. Caso seja menor do que estava salvo no buffer para aquele pixel, atualizamos o buffer com o novo valor e pintamos aquele pixel. Do contrario, o pixel colorido ja é o mais proximo da camera.
 
-Esta tecnica é conhecida como [z-buffering](https://pt.wikipedia.org/wiki/Z-buffer).
+Esta técnica é conhecida como [z-buffering](https://pt.wikipedia.org/wiki/Z-buffer).
+
+Vamos precisar interpolar em $$z$$ para cada $$y$$ pois o triangulo pode ter alguma rotação em algum eixo.
+
+Imaginando o nosso cubo de exemplo do capitulo de projeção, e se usassemos os triangulos $$EFH$$ e $$ABD$$, teriamos como exemplo os seguintes pontos apos as equações de projeção. (Assumindo apenas a transformação neste cubo do exemplo, seria uma translação para $$(0,0,4)$$.)
+
+// imagem das contas
+
+Como não houve nenhuma rotação dos triangulos, eles estão paralelos entre sí, e portanto o `lerp` de $$z$$, para qualquer $$y$$ será $$4$$.
+Mas conseguimos pensar no triangulo $$AED$$.
+
+// imagem contas do `lerp` em z
+
+Uma coisa que vocês vão perceber nas contas acima, é que a interpolação linear esta crescendo rápido demais. O que pode até funcionar, mas vamos perceber que a relação entre $$y$$ e $$z$$ não é linear!
+
+Vamos investigar o porque! Vamos tentar calcular qual o valor de $$z$$ em relação ao ponto $$(x', y')$$ no plano de projeção. Sabemos que a equação do plano é dada por $$Ax + By + Cz + D =0$$. E sabemos que para qualquer ponto no nosso mundo, projetamos este ponto $$(x, y, z)$$ no nosso plano de projeção com as equações : $$x' = \frac{x * d}{z}$$ e $$y' = \frac{y * d }{z}$$. Então vamos ver qual a relação do ponto projetado, com a coordenada $$z$$.
+
+// imagem  com as equacoes da reta de $$z$$
+
+Então podemos ver que, a relação entre os pontos projetados e $$z$$ original é $$ z = \frac{-dD}{Ax'+ By' + dC}$$. E o que faz sentido: quando projetamos, o ponto no plano de projeção é inversamente proporcional ao eixo $$z$$. Porem esta não é uma equação linear.
+Se nós desenharmos o gráfico de $$z$$ teremos a seguinte figura tridimensional:
+
+![Plot](/images/rasterizer/preenchimento/plotting.png)
+
+O que claramente não é linear! Mas, conseguimos perceber que o comportamento da inversa, $$\frac{1}{z}$$ é linear:
+
+$$\frac{1}{z} = \frac{Ax' + By' + dC}{-dD}$$
+
+![Plot](/images/rasterizer/preenchimento/plotting2.png)
+
+
 
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
