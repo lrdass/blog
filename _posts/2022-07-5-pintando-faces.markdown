@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Preenchendo as faces dos objetos tridimensionais"
+title:  "'O mundo é minha representação' - Schopenhauer; Preencher as faces dos triangulos é a primeira parte do realismo"
 date:   2022-07-19 12:28:05 -0300
 categories: rasterizer
 tags: rasterizer face-occlusion
