@@ -56,12 +56,12 @@ Por fim, há portanto de se pensar que existem inúmeras faces do nosso modelo q
 
 Então vamos pensar em como podemos preencher um triangulo. Uma ideia que temos que fixar ja desde o começo é que nossa tela de pixels é discreta. Isto é: todos os indices dos pixels são valores inteiros. Não existe um pixel $$3.4$$ ou $$1.15$$. Então temos que desde ja pensarmos que qualquer valor racional deve ser convertido para um inteiro.
 
-Então vamos ver como podemos chegar no algoritmo para desenhar nosso triangulo. Vimos acima a ideia por tras. Agora vamos ver como podemos implementa-la. Então imagine que temos um triangulo com os vertices $$A (2, 5)$$ $$B (-4, -3)$$ e $$C (5, -3)$$. _OBS: Apenas para relembrar que no primeiro texto e no texto de projeção, nós centralizamos as coordenadas dos pixels da tela para que pudéssemos mapear a nossa tela de projeção _ .
+Então vamos ver como podemos chegar no algoritmo para desenhar nosso triangulo. Vimos acima a ideia por tras. Agora vamos ver como podemos implementa-la. Então imagine que temos um triangulo com os vértices $$A (2, 5)$$ $$B (-4, -3)$$ e $$C (5, -3)$$. _OBS: Apenas para relembrar que no primeiro texto e no texto de projeção, nós centralizamos as coordenadas dos pixels da tela para que pudéssemos mapear a nossa tela de projeção _ .
 Como vamos iterar sobre o eixo-$$y$$, queremos saber quais são os valores de $$x$$ para cada valor de $$y$$. E para nossa sorte, assim como vimos no primeiro post, podemos usar equações de reta entre dois pontos para determinar a equação linear que conecta os dois pontos. Quando tivermos esta equação, conseguiremos calcular o valor das arestas do triangulo dado uma $$y$$-coordenada. Vamos ver como isso vai funcionar:
 
 ![Cube](/images/rasterizer/preenchimento/facefilling-003.jpg)
 
-Queremos então iterar sobre o intervalo do maior valor de $$y$$ dos vertices até o menor valor de $$y$$ dos vertices. No nosso exemplo acima, queremos ir de $$5$$ até $$-3$$.  Então temos as nossas retas entre $$\overline{AB} \rightarrow y = \frac{4x}{3} + \frac{7}{3}$$ e temos que a nossa reta $$\overline{AC} \rightarrow y = - \frac{8x}{3} + \frac{31}{3}$$, e  conseguimos calcular alguns valores de $$x$$ para cada valor de $$y$$. E portanto, como podemos ver quando $$y=2$$ temos que $$x= - \frac{1}{4}$$ para a nossa reta $$\overline{AB}$$ e temos que $$x=\frac{25}{8}$$ para a reta $$\overline{AC}$$. A regra que usamos é arredondar para baixo  para o primeiro inteiro. Entao temos que $$x = -1$$ para $$\overline{AB}$$ e $$x = 3$$ para $$\overline{AC}$$. Agora basta iterar entre $$-1$$ e $$3$$ e preencher cada pixel. E assim temos a base do nosso algoritmo.
+Queremos então iterar sobre o intervalo do maior valor de $$y$$ dos vertices até o menor valor de $$y$$ dos vertices. No nosso exemplo acima, queremos ir de $$5$$ até $$-3$$.  Então temos as nossas retas entre $$\overline{AB} \rightarrow y = \frac{4x}{3} + \frac{7}{3}$$ e temos que a nossa reta $$\overline{AC} \rightarrow y = - \frac{8x}{3} + \frac{31}{3}$$, e  conseguimos calcular alguns valores de $$x$$ para cada valor de $$y$$. E portanto, como podemos ver quando $$y=2$$ temos que $$x= - \frac{1}{4}$$ para a nossa reta $$\overline{AB}$$ e temos que $$x=\frac{25}{8}$$ para a reta $$\overline{AC}$$. A regra que usamos é arredondar para baixo  para o primeiro inteiro. Então temos que $$x = -1$$ para $$\overline{AB}$$ e $$x = 3$$ para $$\overline{AC}$$. Agora basta iterar entre $$-1$$ e $$3$$ e preencher cada pixel. E assim temos a base do nosso algoritmo.
 
 ![Cube](/images/rasterizer/preenchimento/facefilling-004.jpg)
 
@@ -69,16 +69,16 @@ Queremos então iterar sobre o intervalo do maior valor de $$y$$ dos vertices at
 
 ![Cube](/images/rasterizer/preenchimento/facefilling-009.jpg)
 
-Para iterar de aresta em aresta, vão existir casos como os triangulos acima em que não necessariamente só precisamos usar duas retas, mas as três retas. O triangulo $$ABC$$, possui o lado $$AB$$ maior que $$AC$$ e $$BC$$. Então quando formos iterar entre as arestas, algum momento iterariamos sobre a aresta $$AC$$ até $$AB$$, e depois de $$CB$$ até $$AB$$.
+Para iterar de aresta em aresta, vão existir casos como os triângulos acima em que não necessariamente só precisamos usar duas retas, mas as três retas. O triangulo $$ABC$$, possui o lado $$AB$$ maior que $$AC$$ e $$BC$$. Então quando formos iterar entre as arestas, algum momento iteraríamos sobre a aresta $$AC$$ até $$AB$$, e depois de $$CB$$ até $$AB$$.
 Com isso em mente vamos conseguir agora preencher qualquer triangulo. Então vamos começar a elaborar nosso algoritmo.
 
 Vamos precisar de alguma ferramenta para conseguirmos calcular as nossas equações de reta. Apesar de nos exemplos anteriores nós chegamos em um sistema de equações lineares bem simples para calcular as retas, resolver sistemas lineares para cada triangulo seria bastante complicado. Então vamos ver se conseguimos pensar em alguma ferramenta que possa nos ajudar.
 
-O que precisamos? Queremos alguma forma de para cada $$y$$, encontrar um $$x$$ das arestas do triangulo. Então vamos assumir que temos uma função $$f(y)$$, que para cada $$y$$, retorna um $$x$$ da aresta do triangulo. Então quando a iteração for acontecer, teremos os valores de $$y$$ dos quais estamos iterando, mas precisamos calcular $$x$$. Então $$x$$ é uma variavel dependente de $$y$$, e $$y$$, neste caso, é uma variável independente.
+O que precisamos? Queremos alguma forma de para cada $$y$$, encontrar um $$x$$ das arestas do triangulo. Então vamos assumir que temos uma função $$f(y)$$, que para cada $$y$$, retorna um $$x$$ da aresta do triangulo. Então quando a iteração for acontecer, teremos os valores de $$y$$ dos quais estamos iterando, mas precisamos calcular $$x$$. Então $$x$$ é uma variável dependente de $$y$$, e $$y$$, neste caso, é uma variável independente.
 
 ### Interpolação linear
 
-Conseguimos então chegar que, haverá uma reta, da aresta do triangulo, que vamos querer encontrar um ponto $$P$$ entre os vértices do triangulo para um dado valor de $$y$$. Esta tecnica é conhecida como interpolação linear, e vamos usar bastante essa tecnica daqui em diante.
+Conseguimos então chegar que, haverá uma reta, da aresta do triangulo, que vamos querer encontrar um ponto $$P$$ entre os vértices do triangulo para um dado valor de $$y$$. Esta técnica é conhecida como interpolação linear, e vamos usar bastante essa técnica daqui em diante.
 
 ![Cube](/images/rasterizer/preenchimento/facefilling-005.jpg)
 ![Cube](/images/rasterizer/preenchimento/facefilling-006.jpg)
@@ -90,7 +90,7 @@ $$
 \frac{y_2 - y_1}{x_2 - x_1} = \tan \theta = \frac{y-y_1}{x-x_1}
 $$
 
-Dessa igualdade conseguimos isolar qual vai ser a nossa variavel independe e qual vai ser a nossa variavel dependente. No nosso algoritmo, vamos ter o valor de $$y$$, mas queremos saber qual o valor de $$x$$. Então, como dissemos acima, $$x$$ vai ser nossa variavel dependente. Então vamos resolver essa igualdade para $$x$$.
+Dessa igualdade conseguimos isolar qual vai ser a nossa variável independe e qual vai ser a nossa variável dependente. No nosso algoritmo, vamos ter o valor de $$y$$, mas queremos saber qual o valor de $$x$$. Então, como dissemos acima, $$x$$ vai ser nossa variável dependente. Então vamos resolver essa igualdade para $$x$$.
 
 $$ x = \frac{x_2 - x_1}{y_2 - y_1} \times (y - y_1) + x_1 $$
 
@@ -125,11 +125,11 @@ Um pseudo algoritmo para nossa função de interpolação linear seria:
 
 ## Vamos preencher as faces !
 
-Com a nossa função de interpolação linear(tambem conhecida como `lerp`)em mãos, podemos agora nos concentrar em preencher as faces.
-Então vamos esboçar o algoritmo. Para iterar em cada linha que compoe o triangulo, precisamos saber quais sao os vertices com as maiores $$y$$-coordenada. Então vamos ordenar os vertices e com o maior e o menos sabemos quais sao as linhas que vamos iterar.
+Com a nossa função de interpolação linear(também conhecida como `lerp`)em mãos, podemos agora nos concentrar em preencher as faces.
+Então vamos esboçar o algoritmo. Para iterar em cada linha que compõe o triangulo, precisamos saber quais sao os vértices com as maiores $$y$$-coordenada. Então vamos ordenar os vértices e com o maior e o menos sabemos quais sao as linhas que vamos iterar.
 Com cada linha, vamos usar a função de `lerp` e descobrir quais são as coordenadas de onde começa e termina cada aresta daquela linha. Então vamos iterar entre as arestas e vamos preencher os pixels.
 
-Para lidar com os triangulos que citamos, podemos descobrir quais sao os dois menores lados do triangulo. Sabendo quais são, podemos junta-los e considerar que sao apenas um lado. E assim o algoritmo funciona da mesma forma.
+Para lidar com os triângulos que citamos, podemos descobrir quais sao os dois menores lados do triangulo. Sabendo quais são, podemos junta-los e considerar que sao apenas um lado. E assim o algoritmo funciona da mesma forma.
 
 E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual aresta tem o $$x$$-coordenada menor e qual tem a maior. E entao iteramos da menor para a maior colocando os pixels na dada coordenada.
 
@@ -173,7 +173,8 @@ O que estamos fazendo é portanto, calcular qual a aresta mais à esquerda e mai
 
 Se usarmos este nosso recente algoritmo de preencher triangulos para preencher os triangulos das faces do cubo que chegamos no texto anterior, podemos obter um resultado parecido com esse:
 
-// imagem cubo com as faces desenhadas fora de ordenm
+![Cubo desenhado com as faces por ordem](/images/rasterizer/preenchimento/facefilling-fail1.png)
+![Cubo desenhado errado](/images/rasterizer/preenchimento/facefilling-fail2.png)
 
 E isso pode se dar pela a ordem em que os triângulos foram desenhados. Os triangulos do fundo do cubo estao sendo desenhados por ultimo, ou casos similares. Mas mesmo descrevendo a ordem "correta", a ordem ia depender do ponto de vista da camera. E se rotacionassemos o cubo novamente veriamos o poligono desenhado incorretamente. Para resolvermos este inconveniente, vamos criar uma ordem de pintura. E a solução é muito simples. Desenhamos o que esta mais longe primeiro, e o que esta mais perto da camera por ultimo. Assim sempre garantimos que a face da frente sempre esteja na frente.
 
@@ -213,11 +214,63 @@ Se nós desenharmos o gráfico de $$z$$ teremos a seguinte figura tridimensional
 
 ![Plot](/images/rasterizer/preenchimento/plotting.png)
 
-O que claramente não é linear! Mas, conseguimos perceber que o comportamento da inversa, $$\frac{1}{z}$$ é linear:
+
+O que claramente não é linear! Como não é linear, se tentarmos interpolar linearmente $$z$$ não vamos chegar proximo dos valores reais. Mas, conseguimos perceber que o comportamento da inversa, $$\frac{1}{z}$$ é linear:
 
 $$\frac{1}{z} = \frac{Ax' + By' + dC}{-dD}$$
 
 ![Plot](/images/rasterizer/preenchimento/plotting2.png)
+
+Então ao inves de usarmos $$z$$ para interpolar, vamos usar $$\frac{1}{z}$$ e vamos conseguir interpolar linearmente. Então a alteração em nosso algoritmo de $$z$$-buffer vai funcionar ao contrario: Vamos iniciar todas as posições do nosso buffer com $$0$$ e vamos comparar o valor com o inverso, ao inves de compararmos se o valor interpolado é menor, checaremos se o valor é maior do que o salvo no buffer.
+
+Vamos ver a implementação
+
+{% include pseudocode.html id="5" code="
+\begin{algorithm}
+\caption{PrencherTriangulo, onde teremos um buffer global chamado zBuffer}
+\begin{algorithmic}
+\PROCEDURE{PreencherTriangulo}{$V1, V2, V3$}
+  \STATE $X_{valores}\overline{V1V2} = $ \CALL{LERP}{$V1.y, V2.y, V1.x, V2.x$}
+  \STATE $X_{valores}\overline{V2V3} = $ \CALL{LERP}{$V2.y, V3.y, V2.x, V3.x$}
+  \STATE $X_{valores}\overline{V1V3} = $ \CALL{LERP}{$V1.y, V3.y, V1.x, V3.x$}
+
+  \STATE $z_{valores}\overline{V1V2} = $ \CALL{LERP}{$V1.y, V2.y, V1.z, V2.z$}
+  \STATE $z_{valores}\overline{V2V3} = $ \CALL{LERP}{$V2.y, V3.y, V2.z, V3.z$}
+  \STATE $z_{valores}\overline{V1V3} = $ \CALL{LERP}{$V1.y, V3.y, V1.z, V3.z$}
+
+  \STATE $X_{valores}\overline{V1V2V3}$ = $ X_{valores}V1V2 \cup X_{valores}V2V3 $
+  \STATE pontoMédio = \CALL{size}{$X_{valores}V1V2V3$} $ \div 2$
+
+  \IF{$X_{valores}V1V2V3[pontoMédio] > X_{valores}V1V3$}
+    \STATE $x_{valor}AEsquerda$ = $X_{valores}V1V2V3$
+    \STATE $x_{valor}ADireita$= $X_{valores}V1V3$
+    \STATE a mesma coisa para os z_{valores}
+  \ELSE
+    \STATE $x_{valor}ADireita$ = $X_{valores}V1V2V3$
+    \STATE $x_{valor}AEsquerda$= $X_{valores}V1V3$
+    \STATE a mesma coisa para os z_{valores}
+  \ENDIF
+
+  \FOR{$V_1$ \TO $V3$ em $y$}
+    \STATE z-Scan = \CALL{LERP}{x_{mais a esquerda}, x_{mais a direita}, z_{valores mais à esquerda}, z_{valores mais à direiat}}
+    \FOR{maisAEsquerda \TO maisADireita}
+      \IF{$zBuffer[x][y] < z-Scan[x][y]$}
+        \STATE \CALL{ponhaPixel}{x, y}
+        \STATE zBuffer[x][y] = z-Scan[x][y]
+      \ENDIF
+    \ENDFOR
+  \ENDFOR
+
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+" %}
+
+Ou seja, nesta ultima versao atualizada do algoritmo vamos interporlar linearmente $$\frac{1}{z}$$ em relação a variavel independente $$y$$. Com isso saberemos qual o $$z$$-coordenada de cada $$y$$ coordenada pertecente ao triangulo que está sendo preenchido. Quando formos iterear sob cada linha do triangulo, vamos novamente computar qual o $$z$$-coordenada de cada pixel chamando `LERP(x_mais_a_esquerda, x_mais_a_direita, z_mais_a_esquerda, z_mais_a_direita)`. Dessa forma vamos saber quais os valores de $$z$$ para cada pixel. Então vamos conseguir atualizar nosso `z- Buffer` para cada pixel. E se o pixel computado for maior que o pixel atual, então colorimos.
+
+Segue uma implementacão que ja conseguimos desenhar as faces:
+
+![Exemplo](/images/rasterizer/preenchimento/facefilling-016.png)
 
 
 
