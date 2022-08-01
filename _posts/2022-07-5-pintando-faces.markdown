@@ -133,8 +133,6 @@ Para lidar com os triângulos que citamos, podemos descobrir quais sao os dois m
 
 E para finalizar, para iterarmos de aresta para aresta, temos que descobrir qual aresta tem o $$x$$-coordenada menor e qual tem a maior. E entao iteramos da menor para a maior colocando os pixels na dada coordenada.
 
-![Cube](/images/rasterizer/preenchimento/facefilling-006.jpg)
-
 {% include pseudocode.html id="4" code="
 \begin{algorithm}
 \caption{PrencherTriangulo}
@@ -252,9 +250,9 @@ Vamos ver a implementação
   \ENDIF
 
   \FOR{$V_1$ \TO $V3$ em $y$}
-    \STATE z-Scan = \CALL{LERP}{x_{mais a esquerda}, x_{mais a direita}, z_{valores mais à esquerda}, z_{valores mais à direiat}}
+    \STATE z-Scan = \CALL{LERP}{x_{mais a esquerda}, x_{mais a direita}, z_{valores mais à esquerda}, z_{valores mais à direia}}
     \FOR{maisAEsquerda \TO maisADireita}
-      \IF{$zBuffer[x][y] < z-Scan[x][y]$}
+      \IF{zBuffer[x][y]$ < $z-Scan[x][y]}
         \STATE \CALL{ponhaPixel}{x, y}
         \STATE zBuffer[x][y] = z-Scan[x][y]
       \ENDIF
@@ -266,12 +264,32 @@ Vamos ver a implementação
 \end{algorithm}
 " %}
 
-Ou seja, nesta ultima versao atualizada do algoritmo vamos interporlar linearmente $$\frac{1}{z}$$ em relação a variavel independente $$y$$. Com isso saberemos qual o $$z$$-coordenada de cada $$y$$ coordenada pertecente ao triangulo que está sendo preenchido. Quando formos iterear sob cada linha do triangulo, vamos novamente computar qual o $$z$$-coordenada de cada pixel chamando `LERP(x_mais_a_esquerda, x_mais_a_direita, z_mais_a_esquerda, z_mais_a_direita)`. Dessa forma vamos saber quais os valores de $$z$$ para cada pixel. Então vamos conseguir atualizar nosso `z- Buffer` para cada pixel. E se o pixel computado for maior que o pixel atual, então colorimos.
+Ou seja, nesta ultima versão atualizada do algoritmo vamos interpolar linearmente $$\frac{1}{z}$$ em relação a variavel independente $$y$$. Com isso saberemos qual o $$z$$-coordenada de cada $$y$$ coordenada pertecente ao triangulo que está sendo preenchido. Quando formos iterear sob cada linha do triangulo, vamos novamente computar qual o $$z$$-coordenada de cada pixel chamando `LERP(x_mais_a_esquerda, x_mais_a_direita, z_mais_a_esquerda, z_mais_a_direita)`. Dessa forma vamos saber quais os valores de $$z$$ para cada pixel. Então vamos conseguir atualizar nosso `z- Buffer` para cada pixel. E se o pixel computado for maior que o pixel atual, então colorimos.
 
 Segue uma implementacão que ja conseguimos desenhar as faces:
 
 ![Exemplo](/images/rasterizer/preenchimento/facefilling-016.png)
 
+## E as faces ocultas?
+
+O algoritmo de z-buffering nos garante que as faces mais proximas da camera serão desenhadas por ultimo. O que ja garante que os triangulos serão propriamente desenhados.
+Porem, ainda há um excesso de trabalho pois os triangulos que estao nas faces "ocultas", isto é, as faces que estão atras dos triangulos desenhados tambem são desenhados, porem, no fim, são redesenhados por cima pelos triangulos mais proximos. Porem conseguimos pensar em um algoritmo que evita esse retrabalho e evitar esse disperdício de computação com um pouco de algebra linear.
+
+Para removermos as faces ocultas vamos usar algumas propriedades de algebra linear. Primeiro vamos descrever a ideia: O que queremos é saber quais são as faces que estao voltadas na direção da camera. As demais faces não vao estar voltadas para a camera vamos ignorar. Então vamos imaginar que conseguimos ter uma seta em cada face do poligono apontando na direção em que ela esta voltada.
+
+// imagem cubo com faces apontando para cada direção
+
+Então imagine que temos uma "seta" que indica qual a direção que a camera está observando a nossa cena. Se a seta tem um angulo menor que $$90$$ graus em relação a nossa camera, significa que essa face está na direção da camera. Caso contrário, ela está para tras e portanto a nossa camera não esta vendo esta face.
+
+// imagem faces desenhadas e faces nao desenhadas
+
+Felizmente conseguimos obter essas "setas" e calcular os angulos entre as retas e vetores com certa facilidade. Podemos obter vetores como vimos nos textos poassados subtraindo um ponto de outro ponto. Podemos então para cada triangulo do nosso cubo obter quais são os vetores da face do triangulo. Imaginando nosso triangulo $$ABC$$, podemos obter os vetores $$AB = B - A$$, $$BC = C - A$$ e $$CA = A - C$$.
+
+Em algebra linear existe uma operação que dado dois vetores nos dá qual o plano que contem ambos os vetores. O resultado dessa operação é um vetor que é ortogonal aos dois vetores ao mesmo tempo. Esta operação é chamada de `cross product` , ou produto vetorial. Então temos o vetor perpendicular a face do triangulo. Agora precisamos saber como medir o angulo entre esse vetor e o vetor da camera.
+
+Conseguimos medir o angulo de dois vetores com o `dot product`, ou produto escalar de dois vetores. A ideia do produto escalar é bem simples: dado dois vetores, quando projetaoms um ao outro, o vetor projetado é um multiplo de $$cos \theta$$. Então conseguimos saber qual o angulo entre dois vetores usando o produto escalar dos dois vetores. Caso o produto escalar dividido pela magnitude dos dois vetores seja maior do que o angulo que estamos esperando ($$90$$), então sabemos que esta face esta voltadda para longe da camera.
+
+Vamos ver melhor como isso funciona:
 
 
 
