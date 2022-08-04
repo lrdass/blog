@@ -277,11 +277,11 @@ Porem, ainda há um excesso de trabalho pois os triangulos que estao nas faces "
 
 Para removermos as faces ocultas vamos usar algumas propriedades de algebra linear. Primeiro vamos descrever a ideia: O que queremos é saber quais são as faces que estao voltadas na direção da camera. As demais faces não vao estar voltadas para a camera vamos ignorar. Então vamos imaginar que conseguimos ter uma seta em cada face do poligono apontando na direção em que ela esta voltada.
 
-// imagem cubo com faces apontando para cada direção
+![Face Culling](/images/rasterizer/preenchimento/facefilling-017.jpg)
 
 Então imagine que temos uma "seta" que indica qual a direção que a camera está observando a nossa cena. Se a seta tem um angulo menor que $$90$$ graus em relação a nossa camera, significa que essa face está na direção da camera. Caso contrário, ela está para tras e portanto a nossa camera não esta vendo esta face.
 
-// imagem faces desenhadas e faces nao desenhadas
+![Face Culling](/images/rasterizer/preenchimento/facefilling-018.jpg)
 
 Felizmente conseguimos obter essas "setas" e calcular os angulos entre as retas e vetores com certa facilidade. Podemos obter vetores como vimos nos textos poassados subtraindo um ponto de outro ponto. Podemos então para cada triangulo do nosso cubo obter quais são os vetores da face do triangulo. Imaginando nosso triangulo $$ABC$$, podemos obter os vetores $$AB = B - A$$, $$BC = C - A$$ e $$CA = A - C$$.
 
@@ -291,8 +291,6 @@ Conseguimos medir o angulo de dois vetores com o `dot product`, ou produto escal
 
 Vamos ver melhor como isso funciona:
 
-![Face Culling](/images/rasterizer/preenchimento/facefilling-017.jpg)
-![Face Culling](/images/rasterizer/preenchimento/facefilling-018.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-019.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-020.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-021.jpg)
@@ -300,8 +298,8 @@ Vamos ver melhor como isso funciona:
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-024.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-025.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-026.jpg)
-![Face Culling](/images/rasterizer/preenchimento/facefilling-027.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-028.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-027.jpg)
 
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
