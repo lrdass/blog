@@ -291,6 +291,17 @@ Conseguimos medir o angulo de dois vetores com o `dot product`, ou produto escal
 
 Vamos ver melhor como isso funciona:
 
+![Face Culling](/images/rasterizer/preenchimento/facefilling-017.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-018.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-019.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-020.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-021.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-023.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-024.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-025.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-026.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-027.jpg)
+![Face Culling](/images/rasterizer/preenchimento/facefilling-028.jpg)
 
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
