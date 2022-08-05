@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "'O mundo é minha representação' - Schopenhauer; Preencher as faces dos triangulos é a primeira parte do realismo"
-date:   2022-07-19 12:28:05 -0300
+date:   2022-08-05 12:28:05 -0300
 categories: rasterizer
 tags: rasterizer face-occlusion
 ---
@@ -313,8 +313,8 @@ Como podemos computar qual o angulo entre $$\vec{CPm}$$ e $$\vec{n}$$ ? O produt
 
 ![Dot product](/images/rasterizer/preenchimento/dot_product.png)
 
-Então dado dois vetores $$\vec{A}$$ e $$\vec{B}$$, o produto escalar é $$\vec{A} \dot \vec{B} = \norm{\vec{A}} \norm{\vec{B}} \cos \theta $$, onde $$\norm{\vec{A}}$$ é a magnitude, isto é, o comprimento do vetor $$\vec{A}$$.
-Isso significa que conseguimos saber o valor do $$\cos$$ do angulo formado entre dois vetores. Poderiamos obter o angulo com a função inversa do $$\arccos$$, porem, conseguimos saber apenas com o $$\cos$$ se o vetor esta em um intervalo esperado. Assim, conseguimos obter que, seja $$\theta$$ o angulo entre os nossos vetores $$\vec{C}$$ e $$\vec{CPm}$$, temos  $$\cos \theta = \frac{\vec{CPm} \dot \vec{n}}{\norm{\vec{n}} \norm{\vec{CPm}}} $$.
+Então dado dois vetores $$\vec{A}$$ e $$\vec{B}$$, o produto escalar é $$\vec{A} \cdot \vec{B} = \left\Vert \vec{A} \right\Vert \left\Vert \vec{B} \right\Vert \cos \theta $$, onde $$\left\Vert \vec{A} \right\Vert$$ é a magnitude, isto é, o comprimento do vetor $$\vec{A}$$.
+Isso significa que conseguimos saber o valor do $$\cos$$ do angulo formado entre dois vetores. Poderiamos obter o angulo com a função inversa do $$\arccos$$, porem, conseguimos saber apenas com o $$\cos$$ se o vetor esta em um intervalo esperado. Assim, conseguimos obter que, seja $$\theta$$ o angulo entre os nossos vetores $$\vec{C}$$ e $$\vec{CPm}$$, temos  $$\cos \theta = \frac{ \vec{CPm} \cdot \vec{n} }{ \left\Vert \vec{n} \right\Vert \left\Vert \vec{CPm} \right\Vert } $$.
 
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-025.jpg)
 
