@@ -292,14 +292,47 @@ Conseguimos medir o angulo de dois vetores com o `dot product`, ou produto escal
 Vamos ver melhor como isso funciona:
 
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-019.jpg)
+
+Vamos novamente usar nosso cubo base depois de ser transladado em nossa cena, mas antes de ser projetado. Com a ideia que apresentamos acima, queremos então computar qual é o vetor do plano do triangulo $$ABC$$ de uma das faces do cubo.
+
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-020.jpg)
+
+Então queremos calcular qual o vetor $$\vec{C}$$ que aponta da camera para a face $$ABC$$, e calcular qual o angulo entre os dois. Para calcularmos o vetor da face do triangulo $$ABC$$ vamos usar o produto vetorial. O produto vetorial resulta em um novo vetor perpendicular aos dois vetores que foram computados. Então nós precisamos encontrar dois vetores que estao no triangulo. Para isso podemos usar as arestas dos triangulos como vetores. O vetor $$\vec{AB}$$ pode ser obtido como vimos acima, $$\vec{AB} = B - A$$. E, similarmente, $$\vec{BC} = C - A$$. Se fizermos o produto vetorial $$ \vec{AB} \times \vec{BC} = \vec{n}$$ onde $$\vec{n}$$ é o vetor perpendicular à $$\vec{AB}$$ e $$\vec{BC}$$ simultaneamente.
+
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-021.jpg)
+
+Para calcularmos o vetor da camera para o triangulo, poderiamos usar qualquer vertice do triangulo, mas para sermos mais precisos, podemos apontar a camera para o centro do triangulo. Para calcularmos o centro do triangulo podemos fazer uma media das componentes de cada vértice do triangulo e encontrar o ponto-medio do triangulo, tambem chamado de baricentro. E podemos apontar a camera para o baricentro do triangulo.
+
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-023.jpg)
+
+Assumimos que a nossa camera se encontra na origem $$O(0,0,0)$$, e o baricentro do triangulo $$ABC$$ é o ponto $$(\frac{1}{3}, \frac{1}{3}, 3)$$. Então o vetor que aponta da origem da camera para o baricentro é o vetor $$\vec{CPm} = (0, -4, 0)$$.
+
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-024.jpg)
+
+Como podemos computar qual o angulo entre $$\vec{CPm}$$ e $$\vec{n}$$ ? O produto escalar entre dois vetores funciona como a "projeção" de um vetor sob o outro. E essa projeção é proporcional ao $$\cos$$ do angulo formado entre os dois vetores.
+![Dot product](/images/rasterizer/preenchimento/dot_product.png)
+
+Então dado dois vetores $$\vec{A}$$ e $$\vec{B}$$, o produto escalar é $$\vec{A} \dot \vec{B} = ||\vec{A}|| ||\vec{B}|| \cos \theta $$, onde $$||\vec{A}||$$ é a magnitude, isto é, o comprimento do vetor $$\vec{A}$$.
+Isso significa que conseguimos saber o valor do $$\cos$$ do angulo formado entre dois vetores. Poderiamos obter o angulo com a função inversa do $$\arccos$$, porem, conseguimos saber apenas com o $$\cos$$ se o vetor esta em um intervalo esperado. Assim, conseguimos obter que, seja $$\theta$$ o angulo entre os nossos vetores $$\vec{C}$$ e $$\vec{CPm}$$, temos  $$\cos \theta = \frac{\vec{CPm} \dot \vec{n}}{||\vec{n}|| ||\vec{CPm}||} $$.
+
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-025.jpg)
+
+Com isso conseguimos inferir o seguinte: Se o $$\cos \theta > 0$$, ou seja, positivo, implica que a face do triangulo está na direção da camera. Caso $$\cos \theta < 0 $$ implica que a face do triangulo está apontando na direção oposta da camera, e portanto, não é possivel ve-la.
+
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-026.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-028.jpg)
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-027.jpg)
 
+E isso faz aparecer uma propriedade importante: Como precisamos computar os vetores com as arestas dos triangulos, $$\vec{AB}$$, $$\vec{BC}$$ ...etc, então é esperado a mesma ordem dos vertices seja dada. Podemos usar o padrao de que os vertices do modelo sejam definidos no sentido horario para todos os triangulos, imaginando que, a face esteja na direção da camera. Exemplo:
+
+```
+triangulo 1 : ABC
+triangulo 2 : ACD
+triangulo 3 : BGC
+triangulo 4 : BFG
+...
+```
+
+Chamamos atenção para este detalhe pois cada ferramenta de modelagem pode usar uma ordenação diferente, e desta forma, os vetores perpendiculares dos triangulos podem ser computados na direção oposta. E portanto o algoritmo acima iria remover as faces visiveis e mostraria as faces ocultas, resultando no efeito oposto ao esperado. E portanto, deve-se conhecer qual a ordenação dos vertices que cada ferramenta usa para definir os triangulos da malha dos modelos.
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
