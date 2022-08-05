@@ -310,10 +310,11 @@ Assumimos que a nossa camera se encontra na origem $$O(0,0,0)$$, e o baricentro 
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-024.jpg)
 
 Como podemos computar qual o angulo entre $$\vec{CPm}$$ e $$\vec{n}$$ ? O produto escalar entre dois vetores funciona como a "projeção" de um vetor sob o outro. E essa projeção é proporcional ao $$\cos$$ do angulo formado entre os dois vetores.
+
 ![Dot product](/images/rasterizer/preenchimento/dot_product.png)
 
-Então dado dois vetores $$\vec{A}$$ e $$\vec{B}$$, o produto escalar é $$\vec{A} \dot \vec{B} = ||\vec{A}|| ||\vec{B}|| \cos \theta $$, onde $$||\vec{A}||$$ é a magnitude, isto é, o comprimento do vetor $$\vec{A}$$.
-Isso significa que conseguimos saber o valor do $$\cos$$ do angulo formado entre dois vetores. Poderiamos obter o angulo com a função inversa do $$\arccos$$, porem, conseguimos saber apenas com o $$\cos$$ se o vetor esta em um intervalo esperado. Assim, conseguimos obter que, seja $$\theta$$ o angulo entre os nossos vetores $$\vec{C}$$ e $$\vec{CPm}$$, temos  $$\cos \theta = \frac{\vec{CPm} \dot \vec{n}}{||\vec{n}|| ||\vec{CPm}||} $$.
+Então dado dois vetores $$\vec{A}$$ e $$\vec{B}$$, o produto escalar é $$\vec{A} \dot \vec{B} = \norm{\vec{A}} \norm{\vec{B}} \cos \theta $$, onde $$\norm{\vec{A}}$$ é a magnitude, isto é, o comprimento do vetor $$\vec{A}$$.
+Isso significa que conseguimos saber o valor do $$\cos$$ do angulo formado entre dois vetores. Poderiamos obter o angulo com a função inversa do $$\arccos$$, porem, conseguimos saber apenas com o $$\cos$$ se o vetor esta em um intervalo esperado. Assim, conseguimos obter que, seja $$\theta$$ o angulo entre os nossos vetores $$\vec{C}$$ e $$\vec{CPm}$$, temos  $$\cos \theta = \frac{\vec{CPm} \dot \vec{n}}{\norm{\vec{n}} \norm{\vec{CPm}}} $$.
 
 ![Face Culling](/images/rasterizer/preenchimento/facefilling-025.jpg)
 
@@ -334,5 +335,7 @@ triangulo 4 : BFG
 ```
 
 Chamamos atenção para este detalhe pois cada ferramenta de modelagem pode usar uma ordenação diferente, e desta forma, os vetores perpendiculares dos triangulos podem ser computados na direção oposta. E portanto o algoritmo acima iria remover as faces visiveis e mostraria as faces ocultas, resultando no efeito oposto ao esperado. E portanto, deve-se conhecer qual a ordenação dos vertices que cada ferramenta usa para definir os triangulos da malha dos modelos.
+
+
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
