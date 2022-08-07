@@ -336,6 +336,38 @@ triangulo 4 : BFG
 
 Chamamos atenção para este detalhe pois cada ferramenta de modelagem pode usar uma ordenação diferente, e desta forma, os vetores perpendiculares dos triangulos podem ser computados na direção oposta. E portanto o algoritmo acima iria remover as faces visiveis e mostraria as faces ocultas, resultando no efeito oposto ao esperado. E portanto, deve-se conhecer qual a ordenação dos vertices que cada ferramenta usa para definir os triangulos da malha dos modelos.
 
+Então nosso pseudocodigo ficaria da seguinte forma: Vamos passar em nossa cena e filtrar quais faces estão acessíveis para a camera. As que estiverem, vamos mandar para nosso algoritmo de preencher triangulos.
 
+{% include pseudocode.html id="7" code="
+\begin{algorithm}
+\caption{Recebe a malha de triangulos, e a camera, e retorna quais sao os triangulos visiveis a partir da posicao da camera}
+\begin{algorithmic}
+\PROCEDURE{RecortaTriangulos}{$mesh, camera$}
+
+\STATE $triangulos_{visiveis} = $[]
+
+
+\FOR{cada triangulo em mesh}
+  \STATE $\vec{AB} = triangulo_b - triangulo_a$
+  \STATE $\vec{AC} = triangulo_c - triangulo_a$
+
+  \STATE $normal_{triangulo} = \vec{AB} \cdot \vec{AC} $
+  \STATE $baricentro = Vetor(\frac{x_A + x_B + x_C}{3}, \frac{y_A + y_B + y_C}{3}, \frac{z_A + z_B + z_C}{3} )$
+  \STATE $\vec{BaricentroCamera} = camera -  baricentro$
+
+  \STATE $cos_{Baricentro \angle Camera } = \vec{BaricentroCamera} \cdot normal_{triangulo}$
+
+  \IF{$cos_{baricentro \angle camera} > 0$}
+    \STATE $triangulos_{visiveis}$.push(triangulo)
+  \ENDIF
+\ENDFOR
+
+\RETURN $triangulos_{visiveis}$
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+" %}
+
+Abaixo segue nossa implementação de ambos os algoritmos, tanto `z-buffer` quanto `face-culling`.
 
 {% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
