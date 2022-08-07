@@ -242,19 +242,19 @@ Vamos ver a implementação
   \IF{$X_{valores}V1V2V3[pontoMédio] > X_{valores}V1V3$}
     \STATE $x_{valor}AEsquerda$ = $X_{valores}V1V2V3$
     \STATE $x_{valor}ADireita$= $X_{valores}V1V3$
-    \STATE a mesma coisa para os z_{valores}
+    \STATE a mesma coisa para os $z_{valores}$
   \ELSE
     \STATE $x_{valor}ADireita$ = $X_{valores}V1V2V3$
     \STATE $x_{valor}AEsquerda$= $X_{valores}V1V3$
-    \STATE a mesma coisa para os z_{valores}
+    \STATE a mesma coisa para os $z_{valores}$
   \ENDIF
 
   \FOR{$V_1$ \TO $V3$ em $y$}
-    \STATE z-Scan = \CALL{LERP}{x_{mais a esquerda}, x_{mais a direita}, z_{valores mais à esquerda}, z_{valores mais à direia}}
-    \FOR{maisAEsquerda \TO maisADireita}
-      \IF{zBuffer[x][y]$ < $z-Scan[x][y]}
-        \STATE \CALL{ponhaPixel}{x, y}
-        \STATE zBuffer[x][y] = z-Scan[x][y]
+    \STATE $z_{Scan} = $ \CALL{LERP}{$x_{maisEsquerda}, x_{maisDireita}, z_{maisAEsquerda}, z_{maisADireita}$}
+    \FOR{$x_{mais a esquerda}$ \TO $x_{mais a direita}$}
+      \IF{$zBuffer[x][y] < z_{Scan}[x][y] $}
+        \STATE \CALL{ponhaPixel}{$x, y$}
+        \STATE $zBuffer[x][y] = z_{Scan}[x][y]$
       \ENDIF
     \ENDFOR
   \ENDFOR
@@ -340,7 +340,7 @@ Então nosso pseudocodigo ficaria da seguinte forma: Vamos passar em nossa cena 
 
 {% include pseudocode.html id="7" code="
 \begin{algorithm}
-\caption{Recebe a malha de triangulos, e a camera, e retorna quais sao os triangulos visiveis a partir da posicao da camera}
+\caption{Recebe a malha de triangulos em coordenada de mundo, e a camera, e retorna quais sao os triangulos visiveis a partir da posicao da camera}
 \begin{algorithmic}
 \PROCEDURE{RecortaTriangulos}{$mesh, camera$}
 
@@ -355,7 +355,7 @@ Então nosso pseudocodigo ficaria da seguinte forma: Vamos passar em nossa cena 
   \STATE $baricentro = Vetor(\frac{x_A + x_B + x_C}{3}, \frac{y_A + y_B + y_C}{3}, \frac{z_A + z_B + z_C}{3} )$
   \STATE $\vec{BaricentroCamera} = camera -  baricentro$
 
-  \STATE $cos_{Baricentro \angle Camera } = \vec{BaricentroCamera} \cdot normal_{triangulo}$
+  \STATE $cos_{baricentro \angle camera } = \vec{BaricentroCamera} \cdot normal_{triangulo}$
 
   \IF{$cos_{baricentro \angle camera} > 0$}
     \STATE $triangulos_{visiveis}$.push(triangulo)
@@ -367,6 +367,8 @@ Então nosso pseudocodigo ficaria da seguinte forma: Vamos passar em nossa cena 
 \end{algorithmic}
 \end{algorithm}
 " %}
+
+E então chamamos para preencher apenas os triangulos recortados por `RecortaTriangulos`.
 
 Abaixo segue nossa implementação de ambos os algoritmos, tanto `z-buffer` quanto `face-culling`.
 
