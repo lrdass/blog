@@ -39,6 +39,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
+  text-transform: uppercase;
 
   .site-title {
     font-family: 'Abril Fatface', serif;
@@ -81,7 +82,6 @@ body {
   p.lead {
     display: none;
   }
-	font-family: 'Covered By Your Grace', cursive;
 }
 
 // Make header elements blend into sidebar / background
