@@ -33,3 +33,4 @@ foscos e refletivos.
 Os objetos foscos tem a superfície irregular e os raios de luz refletem para varias direcoes por conta dessa irregularidade
 da superficie.
 
+{% include codepen.html hash="poYagVP" username="lrdass" title="Flat-shading" %}
