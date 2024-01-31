@@ -6,31 +6,21 @@ categories: rasterizer
 tags: rasterizer shading
 ---
 
+# Uma breve historia da computacao grafica
 
-O primeiro passo do realismo agora vai estar em quão bem conseguiremos simular o comportamento da luz nas nossas cenas.
-Afinal, só enxergamos o que a luz toca.
-Porem, um rasterizador não vamos simular a luz precisamente. Vamos inicialmente representar o "sombreamento" dos objetos.
-Isso ja vai dar a ideia de profundidade, reflexos nos objetos da cena. Mas isso não vai gerar sombras na cena.
-O sombreamento leva em consideração apenas as luzes que definimos e a interação dessas luzes com as superfícies dos
-triângulos da cena.
+![Sketchpad](https://spectrum.ieee.org/media-library/less-than-p-greater-than-ivan-sutherland-developed-the-computer-drawing-tool-sketchpad-for-his-ph-d-thesis-less-than-p-greater-than.jpg?id=33473722)
+O nascimento da computacao grafica é creditado a Ivan Sutherland por seu trabalho no SketchPad em 1963. A computacao
+grafica na sua infancia era apenas o desenho de poligonos. E entao vieram as tecnicas de rasterizacao e sombreamento que
+indicavam a orientacao dos poligonos em relacao a uma fonte de luz. Mas ainda longe de ser realistico.
+Até que em 1971 Henri Gourad e Bui Tui Phong criaram tecnicas de interpolar os valores de iluminacao para simular o
+sombreamento de figuras tridimensionais tanto foscas quanto reflexivas.
+Outra grande conquista foi o mapeamento de texturas. Uma forma de criar uma relacao entre a posicao na superficie de uma
+textura e qual a posicao no poligono tridimensional adicionou mais realismo aos objetos. Depois que texturas foram possiveis
+outros detalhes podiam ser adicionados, como bumpmaps, displacement mapping. Texturas ainda são a tecnica base na computacao
+grafica. E é até aqui que escreveremos sobre rasterizadores.
 
-A luz quando atinge algum objeto é em partes absorvida e refletida. A parte refletida é a "cor" do objeto. Porem em dada
-medida, todos os objetos interagem com a luz da mesma forma.
+A computacao grafica
 
-Existem três tipos de luz em uma cena: luz pontual, luz direcional e luz ambiente.
-A luz pontual é a luz que sai de um ponto para todos os pontos da cena. Como uma lampada, por exemplo. Isso significa que
-os raios de luz saem e chegam nos objetos em variados ângulos.
 
-A luz direcional é a luz que todos os raios sao paralelos. Como o sol, por exemplo. O sol poderia ser uma luz pontual, mas
-como é tao grande e tao distante que praticamente todos os raios chegam paralelos na terra. Então essa fonte de luz, todos os
-raios chegam no objeto com o mesmo angulo de incidência.
-
-E por fim, a luz ambiente. A luz ambiente é a luz refletida de objetos, e que voltam para cena, carregando as cores que
-não foram absorvidas pelo primeiro objeto que foi refletida.
-
-Por sua vez, os objetos que interagem com a luz podem ser: foscos, refletivos e transparentes. Dos quais vamos simular apenas
-foscos e refletivos.
-Os objetos foscos tem a superfície irregular e os raios de luz refletem para varias direcoes por conta dessa irregularidade
-da superficie.
 
 {% include codepen.html hash="poYagVP" username="lrdass" title="Flat-shading" %}
