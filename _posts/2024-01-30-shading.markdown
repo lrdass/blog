@@ -6,21 +6,79 @@ categories: rasterizer
 tags: rasterizer shading
 ---
 
-# Uma breve historia da computacao grafica
+Berco da civilizacao ocidental que cultivou a mente de varios gregos, o Egito é e sempre foi um grande enigma.
+Uma demonstracao disso é que até a data de construcao da esfinge é um enigma em si. Existindo duas correntes entre os
+egiptologistas: Os historiadores usam o metodo cientifico historico: Procuram textos que, sendo corroborados por outros
+textos logo tem mais "validade" de que aquilo que é remetido no texto é verdade. A partir destes elaboram modelos do que poderia
+vir a ser o determinado contexto historico/social do periodo. Junto dos textos, outras ferramentas como dados biologicos e arqueológicos
+são usados para corroborar ou descreditar uma teoria.
 
-![Sketchpad](https://spectrum.ieee.org/media-library/less-than-p-greater-than-ivan-sutherland-developed-the-computer-drawing-tool-sketchpad-for-his-ph-d-thesis-less-than-p-greater-than.jpg?id=33473722)
-O nascimento da computacao grafica é creditado a Ivan Sutherland por seu trabalho no SketchPad em 1963. A computacao
-grafica na sua infancia era apenas o desenho de poligonos. E entao vieram as tecnicas de rasterizacao e sombreamento que
-indicavam a orientacao dos poligonos em relacao a uma fonte de luz. Mas ainda longe de ser realistico.
-Até que em 1971 Henri Gourad e Bui Tui Phong criaram tecnicas de interpolar os valores de iluminacao para simular o
-sombreamento de figuras tridimensionais tanto foscas quanto reflexivas.
-Outra grande conquista foi o mapeamento de texturas. Uma forma de criar uma relacao entre a posicao na superficie de uma
-textura e qual a posicao no poligono tridimensional adicionou mais realismo aos objetos. Depois que texturas foram possiveis
-outros detalhes podiam ser adicionados, como bumpmaps, displacement mapping. Texturas ainda são a tecnica base na computacao
-grafica. E é até aqui que escreveremos sobre rasterizadores.
+Outro grupo de egiptologistas acreditam que para resolver os enigmas do Egito, eles tem que eles mesmos entendenderem suas filosofias e seus valores e que a historiografia
+ seria apenas uma parte do enigma, mas não a imagem completa. Dessa forma não só os textos que foram replicados mas tambem
+ as tradicoes orais, e a interpretacao da cultura. Ambas visoes se colidem.
 
-A computacao grafica
+Remetendo a esfinge, a historiografia acredita que o habito de usar as barbas cerimoniais faraónicas, remete a 2500 anos
+antes de cristo (aproximadamente 4500 anos atras). A segunda evidencia seria a sigla Khef na Estela do sonho, entre as patas da esfinge,
+Estela Tutmosis IV, que continha a sigla Khef. A melhor recordacao historica sobre a construcao da grande piramide de
+Gize vem de Herodoto que juntamente com a sigla Khef, uniu a visão de a esfinge ter sido construída pelo faraó Kefren.
+Porem ele mesmo não presenciou a construcao, mas foi o primeiro "historiador" a coletar fatos e historias
+sobre a construcao da piramide. Modernos egiptologistas e arqueologos refutam muitas das alegacoes de Herodoto.
 
+O segundo grupo de egiptologistas, levando em consideracao tradicoes orais que corroboram entre si (muitas não são aceitas
+pelo corpo de egiptlogistas e arqueologos tradicionais) argumentam que a esfinge não se trata de uma representacao do
+faraó Kefren, e sim um grande simbolo.
+
+O simbolo seria que a esfinge havia sido construida sob a constelacao de Hercules e no ano estelar de Leão. Tendo o nome
+de Harmaquis (em grego) ou Hor-em-akhet . Hor-em-akhet (horus no horizonte) teria sido construída olhando exatamente olhando
+para o horizonte onde o sol nasce no equinócio. O simbolismo da noite e do dia é o simbolo
+entre a vida e a morte, a terra e o paraíso, o material e o transcendente, a materia e o sublime, e portanto, a esfinge era
+portanto a guarda da vida e da morte, mas tambem o guarda da sabedoria divina. E é de onde surge o "enigma da esfinge". Era dito
+que a esfinge guardava os segredos da sabedoria divina, pois ela era a guardiã desses segredos na terra. E portanto, para
+se aprender tais segredos, era preciso decifrar o enigma da esfinge.
+Porem faltam evidencias geológicas e arqueologicas que comprovem que a esfinge seja de um periodo egipcio pré-dinastico.
+
+E o Egito continua envolto neste veu de misterio. Pois as evidencias que possuimos para creditar a esfinge ao periodo de Khefren
+são relativamente "fracas", mas as teorias esotericas são dificeis de ter embasamento cientifico que seja factivel alem de
+interpretativo e simbólico. E enquanto existir essa fissão entre as duas formas de conhecimento talvez nunca saberemos de fato quando
+foram e como foram construídas a esfinge e a grande piramide.
+
+E a unica forma de lidar com a sede de conhecimento pelo passado, é saber lidar com a ignorancia. Pois o que temos sao apenas
+recortes do passado, e muitos desses recortes estão cheios de pre-conceitos.
+
+Citando George Gheverghese Joseph, no livro `The crest of the Peacock`
+```
+Do momento em que nos tornamos conscientes do passado, incendeia a nossa imaginacao com curiosidade: nos perguntamos
+e buscamos respostas no passado. E conforme nosso conhecimento se desenvolve, diferencas nas perspectivas historicas emergem.
+E, dado que a percepcao do passado afeta nossa percepcao de nós mesmos e do mundo ao nosso redor, historia se torna um
+importante ponto de referencia em entender a colisao de culturas e ideias. Não surpreendente portanto, líderes ao longo da
+historia reconheceram que o controle do passado é controlar o presente e, portanto, consolidar o seu poder
+```
+
+Apesar que precisamos saber distinguir que, a ciencia historica, tenta, da sua melhor forma, captar os fatos do passado e reproduzir
+o que realmente temos "certeza" de que aconteceu e, portanto, acaba não havendo espaco para o conhecimento mistico do Egito.
+O que nos ajuda a entender os "fatos", porem nunca penetramos de fato na sociedade egipcia, ou, apenas uma pincelada superficíal
+de todos os tons de cores que haviam no Egito. No caso, apenas os poucos tons do que foi escrito por alguns Gregos, ou do pouco
+que sobrou dos restos arqueológicos da civilizacao. Entao a historiografia do Egito nos conta uma parte, apenas do que sobreviveu
+do Egito, mas que qualquer hipotese que temos, reflete mais a nossa civilizacao, do que a Egipicia.
+
+O que remete a um dos poucos poemas que sobrou do periodo, trata-se da profecia de Thoth:
+
+```
+Escuridão será preferivel à luz, e a morte será vista como mais valiosa que a vida; ninguem levantará os olhos ao céu; o
+devoto será tido como insano, e o incrédulo, sábio; o louco sera tido como bravo, e o perverso será tido como bom. E a alma
+ e o conhecimento de sua imortalidade por natureza, ou o caminho de atingir a imortalidade da alma, como foi ensinado,
+ tudo isso será ridicularizado e até irão persuadir eles mesmos que isto é falso. Nenhuma palavra de reverencia ou piedade,
+ nenhuma expressao digna dos céus ou dos deuses será escutada ou acreditada.
+```
+
+E é a discricao do conhecimento cientifico e do conhecimento esoterico dos simbolos do Egito, que de certa forma sao evitados
+e até, de certa forma, ridicularizados, que o poema parece presente. E é na escolha entre luz e escuridão que vamos concentrar
+este capitulo.
+
+Sombreamento de superfícies é apenas uma simulacao da interacao de alguma superfície de um objeto tridimensional e algum modelo
+de sombreamento. Nos vamos incialmente  falar um pouco de como a luz se comporta, e como vamos simular uma versao simplificada do
+comportamento da luz. Vamos entao simular o comportamento dela com um modelo bem simples, chamado flat-shading.
+Por fim vamos explorar como podemos fazer esse modelo se tornar mais verossimil com os modelos de Gourad e Phong.
 
 
 {% include codepen.html hash="poYagVP" username="lrdass" title="Flat-shading" %}
