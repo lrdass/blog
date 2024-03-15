@@ -8,3 +8,4 @@ tags: rasterizer shading
 
 {% include codepen.html hash="poYagVP" username="lrdass" title="Flat-shading" %}
 {% include codepen.html hash="MWRwMGW" username="lrdass" title="Flat-shading" %}
+{% include codepen.html hash="PogbPvN" username="lrdass" title="Flat-shading" %}
