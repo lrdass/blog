@@ -1,11 +1,30 @@
 ---
 layout: post
-title:  "Sombreamento"
+title:  "Luz e sombra: os oradores da verdade - Como sombrear objetos para simular o comportamento de luz"
 date:   2024-01-30 07:45:05 -0300
 categories: rasterizer
 tags: rasterizer shading
 ---
 
+> "A luz e a sombra são os oradores desta arquitetura da verdade, expressando silenciosamente a alma dos objetos nos quais habitam." - Leonardo da Vinci
+
+Ao pensar na alma dos objetos nos quais habitam sempre me vem a citação de Hermes Trismegisto à seu discipulo Asclépius em mente:
+
+> Darkness will be preferred to light, and death will be thought more profitable than life; no one will raise his eyes to heaven ; the pious will be deemed insane, and the impious wise; the madman will be thought a brave man, and the wicked will be esteemed as good. As to the soul, and the belief that it is immortal by nature, or may hope to attain to immortality, as I have taught you, all this they will mock at, and will even persuade themselves that it is false., No word of reverence or piety, no utterance worthy of heaven and of the gods of heaven, will be heard or believed.
+
+Este trecho foi retirado da tradução de um texto grego antigo, um dos poucos salvos por sorte, das inumeras queimas de livros antigos. 
+
+Uma visão das antigas tradições filosoficas era que o que chamamos hoje de "espiritualidade" nada distinguia do conhecimento filosófico. E partindo desta forma antiga de ver o conhecimento, a escuridão, era um dos nomes para ignorancia.
+O sabio, portanto, era um que preferia à luz.
+Mas existia um preeambulo nos sabios do passado do qual os modernos se separaram: a materia.
+
+Para os sábios antigos, a matéria era a projeção mais imperfeita do que estava representado no mundo perfeito das ideias e dos deuses. Por isso, em tantos diálogos de Sócrates, encontram-se analogias com os deuses, pois eles representavam aquilo que era perfeito e, portanto, o alvo humano
+
+
+> "Arte vai continuar como a mais surpreendente atividade da humanidade nascida da dificuldade entre sabedoria e loucura, entre sonho e realidade em nossa mente." - Magalena Abakanowicz
+    
+
+
 {% include codepen.html hash="poYagVP" username="lrdass" title="Flat-shading" %}
-{% include codepen.html hash="MWRwMGW" username="lrdass" title="Flat-shading" %}
-{% include codepen.html hash="PogbPvN" username="lrdass" title="Flat-shading" %}
+{% include codepen.html hash="MWRwMGW" username="lrdass" title="Gourad shading" %}
+{% include codepen.html hash="PogbPvN" username="lrdass" title="Phong Shading" %}
