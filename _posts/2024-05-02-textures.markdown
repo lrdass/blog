@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "Textures"
+date:   2024-05-02 13:47:05 -0300
+categories: rasterizer
+tags: rasterizer textures 
+---
+
+
+![Screen representation](/images/rasterizer/texturing/texture-target.png)
+
+
+{% include codepen.html hash="ZEZdOzZ" username="lrdass" title="Textures " %}
