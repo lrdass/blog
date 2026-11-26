@@ -332,3 +332,9 @@ body {
     font-size: normal;
   }
 }
+
+// brand logos fill their whole box; the theme's icons have padding, so scale these down to match
+#github-profile-link svg,
+#linkedin-link svg {
+  transform: scale(.75);
+}

@@ -17,6 +17,8 @@ baseurl:          ''
 author:
   name:           'lrdass'
   url:            https://twitter.com/tomatofractal
+  github:         lrdass        # https://github.com/lrdass
+  linkedin:       lucas-suppes  # https://www.linkedin.com/in/lucas-suppes/
 
 paginate:        5 
 # paginate_path:    '/page:num'

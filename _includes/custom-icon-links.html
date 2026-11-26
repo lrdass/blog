@@ -1,1 +1,15 @@
-<!-- Optional additional links to insert for icons links -->
+{% comment %} contato: os perfis ficam em _config.yml (author.github, author.linkedin) {% endcomment %}
+{% if site.author.github %}
+  <a id="github-profile-link"
+     class="icon" title="GitHub" aria-label="GitHub"
+     href="https://github.com/{{ site.author.github }}" rel="me noopener" target="_blank">
+    {% include svg/github.svg %}
+  </a>
+{% endif %}
+{% if site.author.linkedin %}
+  <a id="linkedin-link"
+     class="icon" title="LinkedIn" aria-label="LinkedIn"
+     href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="me noopener" target="_blank">
+    {% include svg/linkedin.svg %}
+  </a>
+{% endif %}
