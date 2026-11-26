@@ -8,11 +8,14 @@ layout: default
     {{ content }}
   </section>
 
-  {% comment %} prévias do que o rasterizador ensina: só o render, sem código nem controles {% endcomment %}
+  {% comment %}
+    prévias do que o rasterizador ensina: um quadro de cada sketch, salvo como imagem para a home ficar leve
+    (cubo: rasterizer/descrevendo-cena.js, cubos com luz: rasterizer/gouraud-shading.js, espada: rasterizer/sting/)
+  {% endcomment %}
   <div class="home-showcase" aria-hidden="true">
-    {% include canvas.html id="home-cubo" files="rasterizer/descrevendo-cena.js" width=200 height=200 preview=true %}
-    {% include canvas.html id="home-shading" files="rasterizer/gouraud-shading.js" width=200 height=200 preview=true %}
-    {% include canvas.html id="home-sting" files="rasterizer/sting/sting.js" hidden="rasterizer/sting/sting.html, rasterizer/sting/sting.css, rasterizer/sting/sting-preview.css" width=200 height=200 preview=true %}
+    <img src="{{ "/images/home/cubo.png" | relative_url }}" alt="" width="300" height="300" loading="lazy">
+    <img src="{{ "/images/home/shading.png" | relative_url }}" alt="" width="300" height="300" loading="lazy">
+    <img src="{{ "/images/home/sting.png" | relative_url }}" alt="" width="300" height="300" loading="lazy">
   </div>
 
   <section class="home-books">

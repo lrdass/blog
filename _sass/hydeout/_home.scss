@@ -121,11 +121,9 @@ $home-accent: $sidebar-bg-color;
   justify-content: center;
   margin: 2rem 0;
 
-  .sketch {
+  img {
     border-radius: 4px;
-    flex: 0 0 9rem;
-    overflow: hidden;
+    height: 9rem;
+    width: 9rem;
   }
-
-  .sketch-stage { max-width: none !important; }
 }
