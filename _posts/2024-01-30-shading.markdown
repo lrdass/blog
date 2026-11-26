@@ -13,7 +13,7 @@ Ao pensar na alma dos objetos nos quais habitam sempre me vem a citação de Her
 
 > Darkness will be preferred to light, and death will be thought more profitable than life; no one will raise his eyes to heaven ; the pious will be deemed insane, and the impious wise; the madman will be thought a brave man, and the wicked will be esteemed as good. As to the soul, and the belief that it is immortal by nature, or may hope to attain to immortality, as I have taught you, all this they will mock at, and will even persuade themselves that it is false., No word of reverence or piety, no utterance worthy of heaven and of the gods of heaven, will be heard or believed.
 
-Este trecho foi retirado da tradução de um texto grego antigo, um dos poucos salvos por sorte, das inumeras queimas de livros antigos. 
+Este trecho foi retirado do *Asclépio*, um texto antigo atribuído a Hermes Trismegisto. Escrito originalmente em grego, ele sobreviveu sobretudo por uma tradução latina, um dos poucos salvos por sorte das inúmeras queimas de livros antigos.
 
 Uma visão das antigas tradições filosoficas era que o que chamamos hoje de "espiritualidade" nada distinguia do conhecimento filosófico. E partindo desta forma antiga de ver o conhecimento, a escuridão, era um dos nomes para ignorancia.
 O sabio, portanto, era um que preferia à luz.
@@ -31,3 +31,8 @@ Para os sábios antigos, a matéria era a projeção mais imperfeita do que esta
 {% include canvas.html id="gouraud-shading" files="rasterizer/gouraud-shading.js" width=400 height=400 pixelated=true %}
 
 {% include canvas.html id="phong-shading" files="rasterizer/phong-shading.js" width=400 height=400 pixelated=true %}
+
+## Referências
+
+- Gabriel Gambetta, [*Computer Graphics from Scratch: A Programmer's Introduction to 3D Rendering*](https://gabrielgambetta.com/computer-graphics-from-scratch/), No Starch Press, 2021. A sequência desta série segue de perto a parte de rasterização desse livro, que pode ser lido de graça online.
+- James D. Foley, Andries van Dam, Steven K. Feiner e John F. Hughes, *Computer Graphics: Principles and Practice*, Addison-Wesley. O livro clássico da área, para quem quiser se aprofundar em cada um dos tópicos da série.

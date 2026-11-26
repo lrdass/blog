@@ -8,7 +8,7 @@ tags: rasterizer textures
 ---
 
 
-![Screen representation](/images/rasterizer/texturing/texture-target.png)
+![Textura do cubo desdobrada em cruz, com uma região para cada face](/images/rasterizer/texturing/texture-target.png)
 
 
 {% include canvas.html id="texturas" files="rasterizer/texturas.js" width=400 height=400 pixelated=true %}
@@ -18,3 +18,8 @@ tags: rasterizer textures
 Com o mesmo rasterizador, agora lendo um arquivo `.obj`: a Sting, espada do Bilbo, com todas as texturas que vieram com o modelo. Ligue e desligue cada textura, troque o tipo de iluminação e ande pela cena com os botões (ou W A S D, Q e E). Como tudo é calculado na CPU, pixel a pixel, cada passo leva um instante para ser desenhado.
 
 {% include canvas.html id="sting" files="rasterizer/sting/sting.js" hidden="rasterizer/sting/sting.html, rasterizer/sting/sting.css" width=760 height=440 %}
+
+## Referências
+
+- Gabriel Gambetta, [*Computer Graphics from Scratch: A Programmer's Introduction to 3D Rendering*](https://gabrielgambetta.com/computer-graphics-from-scratch/), No Starch Press, 2021. A sequência desta série segue de perto a parte de rasterização desse livro, que pode ser lido de graça online.
+- James D. Foley, Andries van Dam, Steven K. Feiner e John F. Hughes, *Computer Graphics: Principles and Practice*, Addison-Wesley. O livro clássico da área, para quem quiser se aprofundar em cada um dos tópicos da série.

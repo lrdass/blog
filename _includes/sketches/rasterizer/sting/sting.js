@@ -1065,8 +1065,6 @@ const render =  (texture) => {
       const translating = new Matrix4().Translate(position);
       const projecting = new Matrix4().Projection(PLANE_DISTANCE);
 
-      // estou usando no culling os pontos ja projetados
-      // deveria usar os pontos tridimensionais e nao os
       const worldCoordinates = translating
         .multM(rotating.multM(scaling))
         .multV(vertex);

@@ -370,7 +370,6 @@ const fillTriangle = (p0, p1, p2, color) => {
     // drawLine({ x: xFloor, y: y }, { x: xCeiling, y: y }, color)
     for (let x = xFloor; x < xCeiling; x++) {
       let currentZ = zScan[Math.floor(x - xFloor)];
-      putPixel(x, y, color);
       if (zBufferAccess(x, y) <= currentZ) {
         putPixel(x, y, color);
         zBufferWrite(x, y, currentZ);
@@ -502,7 +501,6 @@ const fillTriangleShaded = ({p0, worldP0}, {p1, worldP1}, {p2, worldP2}, color, 
     // drawLine({ x: xFloor, y: y }, { x: xCeiling, y: y }, color)
     for (let x = xFloor; x <= xCeiling; x++) {
       let currentZ = zScan[Math.floor(x - xFloor)];
-      putPixel(x, y, multiplyColorScalar(color, lightIntensity));
       if (zBufferAccess(x, y) <= currentZ) {
         putPixel(x, y, multiplyColorScalar(color, lightIntensity));
         zBufferWrite(x, y, currentZ);
@@ -618,8 +616,6 @@ const render = () => {
       const translating = new Matrix4().Translate(position);
       const projecting = new Matrix4().Projection(PLANE_DISTANCE);
 
-      // estou usando no culling os pontos ja projetados
-      // deveria usar os pontos tridimensionais e nao os
       const worldCoordinates = translating.multM(rotating.multM(scaling))
         .multV(vertex);
       worldVertices.push(worldCoordinates)
@@ -678,6 +674,7 @@ const draw = (now) => {
   }
 
 if (now - last > 30) {
+    zBuffer.fill(0); // o z-buffer começa vazio a cada quadro
     clear()
     render();
     blit();

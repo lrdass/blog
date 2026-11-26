@@ -930,8 +930,6 @@ const render = () => {
       const translating = new Matrix4().Translate(position);
       const projecting = new Matrix4().Projection(PLANE_DISTANCE);
 
-      // estou usando no culling os pontos ja projetados
-      // deveria usar os pontos tridimensionais e nao os
       const worldCoordinates = translating
         .multM(rotating.multM(scaling))
         .multV(vertex);
@@ -1030,6 +1028,7 @@ let rendered = 0;
   }
 
   if (now - last > 30) {
+    zBuffer.fill(0); // o z-buffer começa vazio a cada quadro
     clear();
     render();
     blit();

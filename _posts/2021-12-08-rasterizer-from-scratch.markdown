@@ -14,7 +14,7 @@ Então pensando nisso, decidi escrever em português
 
 Daqui em diante eu quero te levar em uma sequencia de textos para desmistificar algumas ideias de matemática e computação. A ideia é te mostrar que tudo pode ser mais simples. Eu vou mostrar os cálculos e como chegar neles e acho que essa forma de "abrir" e "levantar os véus" [Apokalipsis](https://en.wikipedia.org/wiki/Apokalypsis) é o melhor jeito de aprender sobre um assunto.
 O texto irá da ideia simples de como desenhar um pixel na tela, e seguiremos a sequencia de: como desenhar uma linha, como desenhar um triangulo, como preencher este triangulo, como desenhar uma figura tridimensional projetada em uma superfície bidimensional, e preencher com o mesmo algoritmo de triângulos, como colocar perspectiva nos triângulos que iremos desenhar.
-Com isto tudo em mente nos próximos textos vamos abortar as bibliotecas gráficas que conversam com a placa de video e fazem tudo isso para o desenvolvedor e de forma rápida.
+Com isto tudo em mente nos próximos textos vamos abordar as bibliotecas gráficas que conversam com a placa de video e fazem tudo isso para o desenvolvedor e de forma rápida.
 
 ## O que voce precisa saber?
 
@@ -33,7 +33,7 @@ Então espero ter justificado o porque dos próximos parágrafos e com esse argu
 
 Vamos imaginar que queremos desenhar uma reta no plano entre dois pontos.
 ![Representacao da tela](/images/raytracing-scratch/screen_representation.png)
-A tela de um computador (como vista no texto de raytracing) é representada como a imagem acima: (eixo $$x$$ cresce para direita, e o eixo $$y$$ cresce para baixo.
+A tela de um computador (como vista no texto de raytracing) é representada como a imagem acima (o eixo $$x$$ cresce para a direita, e o eixo $$y$$ cresce para baixo).
 
 Então vamos imaginar como vamos desenhar um ponto na tela usando este tipo de coordenada
 ![Screen representation](/images/rasterizer/reta-no-plano-1.jpg)
@@ -42,7 +42,7 @@ Então como na imagem acima temos $$P_0$$ e queremos desenhar uma linha até $$P
 Representando esta ideia matematicamente queremos dizer que um ponto $$P$$ na reta entre $$P_0$$ e $$P_1$$ vai ser igual à $$ P = P_0 + \vec{v} * t$$ onde $$t$$ vai ser um numero qualquer. Ou seja, se $$t = 0$$, $$P$$ vai ser igual a $$P_0$$. Se $$t=1$$, então $$P$$ vai ser igual $$P_1$$. Então modelamos uma equação que modela essa reta entre os dois pontos porem $$t$$ tem que estar entre $$ 0 e 1$$.
 ![Screen representation](/images/rasterizer/exemplo1-cropped-1.jpg)
 Na imagem acima vemos um exemplo de como usamos esta equação que modelamos para encontrar um ponto na reta. Fizemos $$t = 0.5$$ e encontramos um ponto na reta $$l$$ em que $$P = (5.5, 5.5)$$.
-Porem como podemos fazer para encontrar os pixels na tela? Vamos lembrar que o pixel é "discreto". Quando digo "discreto" digo que é um valor "inteiro", ou seja, o pixel $$(5.5, 5.5)$$ não existe na tela, apenas o pixel $$(5,5)$$. Então se fizéssemos uma função como iterar entre 0 e 1 e incrementar $$0.01$$,  Iteraríamos mil vezes e repetiríamos muitos valores: Todos valores entre $$5.001$$ e $$5.599$$ seriam o mesmo pixel. Talvez não pareça tão ruim agora mas imagine que vamos usar esta mesma função para preencher triângulos e no futuro cada polígono tridimensional vai ter milhares de triângulos, então ja imagine o quanto essa função vai fazer o computador trabalhar atoa.
+Porem como podemos fazer para encontrar os pixels na tela? Vamos lembrar que o pixel é "discreto". Quando digo "discreto" digo que é um valor "inteiro", ou seja, o pixel $$(5.5, 5.5)$$ não existe na tela, apenas o pixel $$(5,5)$$. Então, se iterássemos $$t$$ de 0 a 1 incrementando $$0.01$$, faríamos 100 iterações e repetiríamos muitos valores: como cada passo anda só $$0.05$$ em $$x$$ e $$0.01$$ em $$y$$, vários pontos seguidos ($$5.0$$, $$5.05$$, $$5.1$$, ...) cairiam no mesmo pixel $$(5, 5)$$. Talvez não pareça tão ruim agora mas imagine que vamos usar esta mesma função para preencher triângulos e no futuro cada polígono tridimensional vai ter milhares de triângulos, então ja imagine o quanto essa função vai fazer o computador trabalhar atoa.
 
 
 _OBS: Se você é um programador de primeira viagem, recomendo a leitura do texto [Why early optimization is the root of all evil](https://stackify.com/premature-optimization-evil/) em que o autor alerta sobre optimização prematura do código. O que estamos fazendo aqui pode ser um exemplo de optimização prematura ja que antes mesmo de acontecer o problema de custo computacional ja estamos corrigindo ele. Porem, estou me atendo a este ponto agora pois acho didático lidar com a ideia do algoritmo de desenho de linhas e deixar este problema fora de vista para os problemas que virão futuramente!_
@@ -55,7 +55,7 @@ Então vamos estender um pouco nossa equação. Sabemos que $$P = (x,y)$$, ou se
 Decompomos então a nossa equação em $$(x,y) = (x_0, y_0) + t * ( x_1 - x_0 , y_1 - y_0)$$. O motivo dessa subtração é que para encontrar a direção de um ponto para o outro _(chamamos essa direção de vetor)_ fazemos $$ponto Final - ponto Inicial$$ e isto nos dá o "vetor" que aponta do ponto inicial para o ponto final.
 
 E então, com a nossa equação decomposta em $$(x,y)$$, vamos separar por variável e separáramos em um sistema de equações. $$ x = x_0 + t (x_1 - x_0)$$ e similar para $$y$$.
-Vamos isolar então a única variável em comum às duas equações $$t$$. E então vamos substituir o que encontrar-mos como valor de $$t$$ na segunda equação. Assim vamos chegar em apenas uma equação com as duas variáveis. Lembrando que o nosso objetivo é chegar em uma equação que nos dê o valor de $$y$$ para cada $$x$$.
+Vamos isolar então a única variável em comum às duas equações $$t$$. E então vamos substituir o que encontrarmos como valor de $$t$$ na segunda equação. Assim vamos chegar em apenas uma equação com as duas variáveis. Lembrando que o nosso objetivo é chegar em uma equação que nos dê o valor de $$y$$ para cada $$x$$.
 
 ![Screen representation](/images/rasterizer/angulo-mensura-1.jpg)
 Isolando o $$t$$ encontramos que $$t = \dfrac{x - x_0}{x_1 - x_0}$$
@@ -66,7 +66,7 @@ Fazendo a substituição do nosso valor de $$t$$ na equação de $$y$$ encontram
 Mas como sabemos que iniciamos em $$P_0$$ e vamos para $$P_1$$, então significa que temos os valores de ambos os pontos. 	Então vamos chamar $$\dfrac{y_1 - y_0}{x_1 - x_0}$$ de $$a$$ porque sabemos que o valor desta divisão é constante. Ou seja, assim que definimos os dois pontos, sabemos qual o valor de $$a$$. No nosso exemplo la de cima, em que $$P_0 = (3,5)$$ e $$P_1 = (8,6)$$, teríamos que $$a = \dfrac{6-5} {8-3} = \dfrac{1}{5}$$.
 
 ![Screen representation](/images/rasterizer/encontrando-constante-1.jpg)
-Percebemos também que se fizermos a multiplicação de $$a$$ por $$(x-x_0)$$ restante, encontramos outras constantes: $$ y_0$$ e $$-a * x_0$$. Que vamos chamar de $$b$$.
+Percebemos também que, se distribuirmos $$a$$ em $$(x-x_0)$$, sobram dois termos constantes: $$y_0$$ e $$-a \cdot x_0$$. A soma deles também é uma constante, que vamos chamar de $$b = y_0 - a \cdot x_0$$.
 
 ![Screen representation](/images/rasterizer/final-equacao-reta-1.jpg)
 Resultando na equação de reta. Nesta equação conseguimos obter um valor de $$y$$ para cada valor de $$x$$ entrado.
@@ -79,7 +79,7 @@ Então vamos escrever nosso pseudo código pra escrever linhas, lembrando que te
 
 ```
 function drawLine(p0, p1, color):
-	a = p1.y - p0.y / p1.x - p0.x
+	a = (p1.y - p0.y) / (p1.x - p0.x)
 	b = p0.y - a * p0.x
 	for x = p0.x ; x <= p1.x; x++:
 		y = a*x + b
@@ -87,6 +87,7 @@ function drawLine(p0, p1, color):
 ```
 
 No qual nossa função apenas recria o comportamento da função que encontramos e faz um laço entre $$x$$ de $$P_0$$ e $$x$$ de $$P_1$$.
+Como o pixel é discreto, `putPixel` arredonda para baixo (`floor`) as coordenadas que recebe: $$y = 5.5$$ vira o pixel $$5$$. Vamos usar essa mesma regra em toda a série.
 Porem, ao implementarmos o código acima nos deparamos com os seguinte bug:
 ![Exemplo de problema](/images/rasterizer/exemplo_problema-1.jpg)
 Quanto mais inclinada é a reta, teremos, como no exemplo acima, apenas um valor de $$x$$ para vários pixels no eixo $$y$$. Se a reta for completamente vertical, ou seja, o valor da coordenada $$x$$ do ponto inicial e final é o mesmo, simplesmente não há iteração e logo não há nenhum pixel para ser colorido.
@@ -97,6 +98,16 @@ Vamos ver como faríamos isso!
 Então imagine que "rotacionamos" a tela, e considere que trocamos os eixos $$x$$ e $$y$$. Poderíamos calcular qual valor de $$y$$ para uma coordenada do pixel $$x$$ dos pontos "invertidos", sendo $$P_0 = (1, 5)$$ e $$P_1 = (10,7)$$. E usaríamos a mesma equação.
 ![Exemplo de solução](/images/rasterizer/virando_a_equacao-1.jpg)
 
+_Obs: na figura acima, a faixa deveria subir de $$x = 5$$ até $$x = 7$$ conforme $$y$$ avança. Para $$y = 1, 2, \dots, 10$$, os valores de $$x$$ são $$5, 5, 5, 5, 5, 6, 6, 6, 6, 7$$._
+
+Para encontrar $$x$$ a partir de $$y$$, basta isolar $$x$$ na equação da reta:
+
+![Isolando x na equação da reta](/images/rasterizer/virando_a_equacao-1-1.jpg)
+
+E, testando com o nosso exemplo, para $$y = 2$$ encontramos $$x \approx 5.2$$, ou seja, o pixel $$x = 5$$:
+
+![Calculando x para y = 2](/images/rasterizer/virando_a_equacao-2-1.jpg)
+
 Agora que conseguimos encontrar uma equação independente da inclinação da reta, precisamos de um critério de quando vamos usar uma ou outra.
 
 Podemos fazer um exercício mental: Imaginemos o angulo da reta (formador pelos pontos $$P_0$$ e $$P_1$$) e o eixo $$x$$. Quando este angulo é $$0 ° $$, há o máximo de pixels na horizontal. E quando este angulo é $$90 ° $$ o numero pixels é nulo. Mas em $$90 ° $$ o numero de pixels em $$y$$ é o máximo.
@@ -104,7 +115,7 @@ Então podemos dividir pela metade, e de $$0 °$$ até $$45 °$$ usamos $$x$$ e 
 
 Vamos testar nossa hipótese e implementar nosso pseudocódigo desenvolvido até agora!
 
-Como vimos, precisamos saber apenas se há mais pixels para iterar ou pelo eixo $$y$$ ou pelo eixo $$x$$. Então ao invés de consultamos por ângulos, podemos consultar pela "diferença" de pixels. O eixo que possuir mais pixels para iterar-mos será o eixo escolhido.
+Como vimos, precisamos saber apenas se há mais pixels para iterar ou pelo eixo $$y$$ ou pelo eixo $$x$$. Então ao invés de consultamos por ângulos, podemos consultar pela "diferença" de pixels. O eixo que possuir mais pixels para iterarmos será o eixo escolhido.
 Podemos pensar que nosso angulo é a "razão" do quanto um eixo aumenta em relação ao outro. Quanto maior o angulo, mais rápido $$y$$ aumenta quando $$x$$ aumenta.
 
 ```
@@ -112,8 +123,8 @@ function drawLine(p0, p1, color):
 	dx = abs(p1.x - p0.x)
 	dy = abs(p1.y - p0.y)
 
-	a =  dy/dx
-	b = p0.y - a* p0.x
+	a = (p1.y - p0.y) / (p1.x - p0.x)
+	b = p0.y - a * p0.x
 
 	if dx > dy:
 		for x=p0.x; x<=p1.x; x++:
@@ -124,9 +135,9 @@ function drawLine(p0, p1, color):
 			x = (y-b)/a
 			putPixel(x, y, color)
 ```
-O problema de usar $$\frac{y-b}{a}$$ é que $$a$$ vai ser uma divisão por zero quando a reta estiver "vertical". Para isso vamos "inverter" a nossa equação em função de $$y$$.
+O problema de usar $$\frac{y-b}{a}$$ é que, quando a reta é vertical, $$x_1 - x_0 = 0$$, e o próprio cálculo de $$a$$ já divide por zero. Para evitar isso, vamos "inverter" a nossa equação: escrever $$x$$ diretamente em função de $$y$$, como $$x = a' y + b'$$, com $$a' = \frac{x_1 - x_0}{y_1 - y_0}$$ e $$b' = x_0 - a' y_0$$. Nesse ramo $$dy \geq dx$$, então $$y_1 - y_0$$ só é zero se os dois pontos forem o mesmo.
 
-Estamos quase lá! Nosso algoritmo de linhas ainda tem um bug! Caso alguma coordenada de `p0` seja menor que a coordenada de `p1`, não vamos conseguir iterar de um ponto ao outro. Então precisamos checar se isso é verdade, e caso seja, precisamos fazer um [swap](https://en.wikipedia.org/wiki/Swap_(computer_programming))!
+Estamos quase lá! Nosso algoritmo de linhas ainda tem um bug! Caso a coordenada de `p0` seja maior que a coordenada de `p1` (no eixo que vamos percorrer), o laço `for` nem começa e não vamos conseguir iterar de um ponto ao outro. Então precisamos checar se isso é verdade, e caso seja, precisamos fazer um [swap](https://en.wikipedia.org/wiki/Swap_(computer_programming))!
 _OBS_: swap é um termo usado para trocarmos o valor de duas variáveis entre sí.
 Caso `p0 > p1` `p0 = p1 e p1 = p0` e não vamos precisar alterar a lógica do nosso código. Vamos conseguir continuar usando os mesmos laços sem ter que fazer alguma iteração no sentido contrario.
 
@@ -138,7 +149,7 @@ function drawLine(p0, p1, color):
 		if p0.x > p1.x:
 			swap(p0, p1)
 
-		a = dy/dx
+		a = (p1.y - p0.y) / (p1.x - p0.x)
 		b = p0.y - a* p0.x
 		for x=p0.x; x<=p1.x; x++:
 			y = a*x + b
@@ -147,12 +158,14 @@ function drawLine(p0, p1, color):
 		if p0.y > p1.y:
 			swap(p0, p1)
 		// função linear "inversa"
-		a = dx/dy
+		a = (p1.x - p0.x) / (p1.y - p0.y)
 		b = p0.x - a* p0.y
 		for y=p0.y; y<=p1.y; y++:
 			x = a * y + b
 			putPixel(x, y, color)
 ```
+
+Repare que `dx` e `dy` usam `abs()` só para escolher qual eixo percorrer. A inclinação `a` precisa manter o sinal: numa reta que desce, $$y$$ diminui enquanto $$x$$ aumenta, e $$a$$ é negativo.
 
 ## Implementando o codigo!
 
@@ -162,3 +175,8 @@ Mas para o nosso fim, este algoritmo é bom o suficiente. Caso deseja, pode impl
 {% include canvas.html id="linhas" files="rasterizer/linhas.js" width=400 height=400 pixelated=true caption="Edite o código: mude os pontos, a cor, ou desenhe mais linhas." %}
 
 Até o proximo post!
+
+## Referências
+
+- Gabriel Gambetta, [*Computer Graphics from Scratch: A Programmer's Introduction to 3D Rendering*](https://gabrielgambetta.com/computer-graphics-from-scratch/), No Starch Press, 2021. A sequência desta série (linhas, projeção, descrição da cena, preenchimento de triângulos, sombreamento e texturas) segue de perto a parte de rasterização desse livro, que pode ser lido de graça online.
+- James D. Foley, Andries van Dam, Steven K. Feiner e John F. Hughes, *Computer Graphics: Principles and Practice*, Addison-Wesley. O livro clássico da área, para quem quiser se aprofundar em cada um dos tópicos da série.

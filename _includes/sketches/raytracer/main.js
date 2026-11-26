@@ -108,7 +108,7 @@ const traceRay = (direction, world) => {
 };
 
 for (let x = -width / 2; x < width / 2; x++) {
-  for (let y = -height / 2; y < height / 2; y++) {
+  for (let y = -height / 2 + 1; y <= height / 2; y++) {
     let [xWorld, yWorld] = mapScreenToWorldPlane(x, y);
     const direction = new Vector3f(xWorld, yWorld, 1);
 
