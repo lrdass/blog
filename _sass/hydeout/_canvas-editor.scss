@@ -138,3 +138,11 @@ $sketch-line: #e7e3e0;
 
 .sketch-log-warn { color: #a35f00; }
 .sketch-log-error { color: $sketch-accent; }
+
+// preview: just the picture
+.sketch[data-preview] {
+  border: 0;
+  margin: 0;
+
+  .sketch-frame { pointer-events: none; }
+}

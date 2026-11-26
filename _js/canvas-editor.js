@@ -130,9 +130,15 @@ function documentFor(key, { width, height, pixelated }, entry, code, files) {
   const page = Object.keys(files).find(n => /\.html?$/.test(n));
   const styles = Object.keys(files).filter(n => /\.css$/.test(n)).map(n => files[n]).join('\n').replace(/<\/style/gi, '<\\/style');
   const canvasStyle = page ? '' : `canvas{display:block;width:100%;height:100%${pixelated ? ';image-rendering:pixelated' : ''}}`;
+  // the entry can import the sketch's other .js files as './name.js' (an import map points them at the editor's text)
+  const modules = Object.keys(files).filter(n => /\.m?js$/.test(n));
+  const importMap = isModule(code) && modules.length
+    ? `<script type="importmap">${scriptJSON({ imports: Object.fromEntries(modules.map(n => ['./' + n, 'data:text/javascript;charset=utf-8,' + encodeURIComponent(files[n] + '\n//# sourceURL=' + n)])) })}</script>`
+    : '';
   return `<!doctype html><html><head><meta charset="utf-8">
 <style>html,body{margin:0;height:100%;overflow:hidden;background:transparent}${canvasStyle}</style>
 <style>${styles}</style>
+${importMap}
 </head><body>${page ? files[page] : `<canvas id="canvas" width="${width}" height="${height}"></canvas>`}
 <script>${safe(prelude(key, files))}</script>
 <script${isModule(code) ? ' type="module"' : ''}>${safe(code)}
@@ -182,6 +188,8 @@ function mount(root) {
   const names = Object.keys(original).filter(n => !hidden.has(n));   // the files with an editor tab
   const entry = names.find(n => /\.m?js$/.test(n)) || names[0];
   const base = hashOf(JSON.stringify(original));
+
+  if (root.hasAttribute('data-preview')) return mountPreview(root, id, key, opts, original, entry);
 
   // restore the reader's edits, unless the author has changed the sketch since
   const store = storage(), storeKey = 'sketch:' + key;
@@ -349,6 +357,24 @@ function mount(root) {
     start.classList.add('sketch-start');
     stage.replaceChildren(start);
   }
+}
+
+// preview: only the result, no editor, no controls, not clickable. Same lazy start and off-screen pause
+function mountPreview(root, id, key, opts, original, entry) {
+  const stage = root.querySelector('.sketch-stage');
+  root.querySelectorAll('.sketch-source').forEach(pre => pre.remove());
+  root.classList.add('is-live');
+  let frame = null;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !frame) {
+      frame = el('iframe', 'sketch-frame');
+      frame.title = id;
+      frame.tabIndex = -1;
+      const extra = Object.fromEntries(Object.keys(original).filter(n => n !== entry).map(n => [n, original[n]]));
+      frame.srcdoc = documentFor(key, opts, entry, original[entry], extra);
+      stage.replaceChildren(frame);
+    } else frame?.contentWindow?.postMessage({ sketch: key, pause: !e.isIntersecting }, '*');
+  }, { rootMargin: RUN_MARGIN }).observe(stage);
 }
 
 // editors are built only when a sketch gets within MOUNT_MARGIN of the screen; until then it shows its code as text

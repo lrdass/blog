@@ -113,3 +113,19 @@ $home-accent: $sidebar-bg-color;
   font-size: .85rem;
   font-weight: bold;
 }
+
+.home-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  justify-content: center;
+  margin: 2rem 0;
+
+  .sketch {
+    border-radius: 4px;
+    flex: 0 0 9rem;
+    overflow: hidden;
+  }
+
+  .sketch-stage { max-width: none !important; }
+}

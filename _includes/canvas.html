@@ -14,6 +14,7 @@
   height     canvas height in pixels (default 400)
   pixelated  true to scale the canvas up without smoothing (good for putPixel drawings)
   autorun    false to wait for a click before running (heavy sketches)
+  preview    true to show only the result: no code, no toolbar, no clicks (e.g. on the home page)
   caption    optional text under the sketch
 
   Sketch files go through Liquid like any include: code with double curly braces needs a raw block.
@@ -22,12 +23,12 @@
 {%- assign sketch_h = include.height | default: 400 -%}
 {%- assign sketch_files = include.files | split: "," -%}
 {%- assign sketch_hidden = include.hidden | default: "" | split: "," -%}
-<figure class="sketch" data-sketch="{{ include.id }}" data-width="{{ sketch_w }}" data-height="{{ sketch_h }}"{% if include.pixelated %} data-pixelated{% endif %}{% if include.autorun == false %} data-autorun="false"{% endif %}>
+<figure class="sketch" data-sketch="{{ include.id }}" data-width="{{ sketch_w }}" data-height="{{ sketch_h }}"{% if include.pixelated %} data-pixelated{% endif %}{% if include.autorun == false %} data-autorun="false"{% endif %}{% if include.preview %} data-preview{% endif %}>
 <div class="sketch-stage" style="aspect-ratio: {{ sketch_w }} / {{ sketch_h }}; max-width: {{ sketch_w | at_least: 640 }}px"></div>
 {%- for sketch_file in sketch_files -%}
 {%- assign sketch_path = sketch_file | strip -%}
 {%- capture sketch_src -%}{% include sketches/{{ sketch_path }} %}{%- endcapture -%}
-<pre class="sketch-source" data-file="{{ sketch_path | split: '/' | last }}"><code>{{ sketch_src | xml_escape }}</code></pre>
+<pre class="sketch-source" data-file="{{ sketch_path | split: '/' | last }}"{% if include.preview %} hidden{% endif %}><code>{{ sketch_src | xml_escape }}</code></pre>
 {%- endfor -%}
 {%- for sketch_file in sketch_hidden -%}
 {%- assign sketch_path = sketch_file | strip -%}

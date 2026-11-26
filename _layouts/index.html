@@ -8,6 +8,13 @@ layout: default
     {{ content }}
   </section>
 
+  {% comment %} prévias do que o rasterizador ensina: só o render, sem código nem controles {% endcomment %}
+  <div class="home-showcase" aria-hidden="true">
+    {% include canvas.html id="home-cubo" files="rasterizer/descrevendo-cena.js" width=200 height=200 preview=true %}
+    {% include canvas.html id="home-shading" files="rasterizer/gouraud-shading.js" width=200 height=200 preview=true %}
+    {% include canvas.html id="home-sting" files="rasterizer/sting/sting.js" hidden="rasterizer/sting/sting.html, rasterizer/sting/sting.css, rasterizer/sting/sting-preview.css" width=200 height=200 preview=true %}
+  </div>
+
   <section class="home-books">
     <h2 class="home-heading">Web-books</h2>
     <div class="book-grid">

@@ -1,0 +1,7 @@
+/* preview na home: só a espada, sem botões nem painel */
+.controls,
+.panel,
+.panel-toggle,
+.status {
+  display: none !important;
+}
