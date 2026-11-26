@@ -1,0 +1,32 @@
+<!-- o canvas em que o cubo.js desenha fica escondido; o passo a passo mostra o que foi gravado dele -->
+<canvas id="canvas" width="240" height="240" hidden></canvas>
+
+<div class="stepper">
+  <section class="step">
+    <div class="nav">
+      <button id="back" title="Voltar (←)" disabled>◀</button>
+      <input id="scrub" type="range" min="0" max="0" value="0" aria-label="Passo">
+      <button id="next" title="Avançar (→)" disabled>▶</button>
+      <span id="counter"></span>
+    </div>
+    <h3 id="title">carregando…</h3>
+    <pre id="snippet"></pre>
+    <p id="text"></p>
+    <div id="details"></div>
+  </section>
+
+  <section class="gpu">
+    <div class="screen">
+      <canvas id="screen" width="240" height="240"></canvas>
+      <canvas id="overlay" width="240" height="240"></canvas>
+    </div>
+    <div id="state"></div>
+  </section>
+</div>
+
+<!-- roda antes do cubo.js: liga o passo a passo nos ganchos do inspector antes do createContext -->
+<script type="module">
+  import { inspector } from "./webgl2-cpu.js";
+  import { onCall, onDraw } from "./stepper.js";
+  Object.assign(inspector, { onCall, onDraw });
+</script>

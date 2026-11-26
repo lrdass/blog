@@ -118,6 +118,22 @@ $sketch-line: #e7e3e0;
 
 .sketch-editor .cm-editor { max-height: 28rem; }
 
+// several tabs at once (a sketch marking lines in more than one file): stacked, each with its name
+.sketch-editor.is-split {
+  .cm-editor { max-height: 16rem; }
+
+  .sketch-pane::before {
+    background: #f3f1ef;
+    border-bottom: 1px solid $sketch-line;
+    color: $body-muted;
+    content: attr(data-file);
+    display: block;
+    font-family: $code-font-family;
+    font-size: .72rem;
+    padding: .15rem .6rem;
+  }
+}
+
 .sketch-console {
   background: #fbfaf9;
   border-top: 1px solid $sketch-line;

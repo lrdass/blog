@@ -4,12 +4,14 @@
 // Each sketch runs in its own iframe with a <canvas id="canvas">, like a CodePen pen, so code can use
 // getContext('2d' | 'webgl' | 'webgl2') and keep its globals to itself. Re-running throws the iframe away,
 // which also stops its animation loops and frees its GL context.
-// Every non-JS file (shaders, data) is reachable from the code as files['name'] and as
+// Every file of the sketch (shaders, data, its own code) is reachable from the code as files['name'] and as
 // document.getElementById('name').textContent.
+// A sketch can mark lines in its tabs, like a debugger showing where it is:
+// highlightCode({ 'main.js': [12, 13], 'lib.js': [40] }) shows those tabs stacked, scrolled to the marks.
 
 import { EditorView, basicSetup } from 'codemirror';
-import { EditorState } from '@codemirror/state';
-import { keymap } from '@codemirror/view';
+import { EditorState, StateEffect, StateField } from '@codemirror/state';
+import { Decoration, keymap } from '@codemirror/view';
 import { indentWithTab } from '@codemirror/commands';
 import { HighlightStyle, StreamLanguage, syntaxHighlighting } from '@codemirror/language';
 import { javascript } from '@codemirror/lang-javascript';
@@ -55,18 +57,29 @@ const theme = EditorView.theme({
   '.cm-activeLineGutter': { backgroundColor: 'rgba(202, 60, 53, .1)', color: '#b5322b' },
   '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, ::selection': { backgroundColor: 'rgba(202, 60, 53, .18) !important' },
   '.cm-matchingBracket': { backgroundColor: 'rgba(202, 60, 53, .15)', outline: 'none' },
+  '.cm-marked': { backgroundColor: 'rgba(224, 168, 0, .2)' },
 });
+
+// lines a sketch asked to mark (highlightCode)
+const setMarks = StateEffect.define();
+const marks = StateField.define({
+  create: () => Decoration.none,
+  update: (value, tr) => tr.effects.reduce((v, e) => (e.is(setMarks) ? e.value : v), value.map(tr.changes)),
+  provide: field => EditorView.decorations.from(field),
+});
+const markedLine = Decoration.line({ class: 'cm-marked' });
 
 // --- the page inside the iframe -------------------------------------------------------------
 // a JSON string that is safe inside <script>
 const scriptJSON = v => JSON.stringify(v).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
 
 // runs before the sketch's code: forwards console + errors to the page, makes requestAnimationFrame pausable,
-// and exposes the extra files
+// exposes the files and lets the sketch mark lines in its tabs
 function prelude(key, files) {
   return `(() => {
 const key = ${scriptJSON(key)};
 window.files = ${scriptJSON(files)};
+window.highlightCode = lines => parent.postMessage({ sketch: key, highlight: lines }, '*');
 for (const [name, text] of Object.entries(files)) {
   const s = document.createElement('script');
   s.type = 'text/plain'; s.id = name; s.textContent = text;
@@ -130,7 +143,8 @@ function documentFor(key, { width, height, pixelated }, entry, code, files) {
   const page = Object.keys(files).find(n => /\.html?$/.test(n));
   const styles = Object.keys(files).filter(n => /\.css$/.test(n)).map(n => files[n]).join('\n').replace(/<\/style/gi, '<\\/style');
   const canvasStyle = page ? '' : `canvas{display:block;width:100%;height:100%${pixelated ? ';image-rendering:pixelated' : ''}}`;
-  // the entry can import the sketch's other .js files as './name.js' (an import map points them at the editor's text)
+  // the entry (and a module <script> in the .html) can import the sketch's other .js files as './name.js' (an import
+  // map points them at the editor's text). Those files can't import each other: a data: URL has no base for './'.
   const modules = Object.keys(files).filter(n => /\.m?js$/.test(n));
   const importMap = isModule(code) && modules.length
     ? `<script type="importmap">${scriptJSON({ imports: Object.fromEntries(modules.map(n => ['./' + n, 'data:text/javascript;charset=utf-8,' + encodeURIComponent(files[n] + '\n//# sourceURL=' + n)])) })}</script>`
@@ -261,24 +275,46 @@ function mount(root) {
       parent: panes[name],
       state: EditorState.create({
         doc: current[name],
-        extensions: [basicSetup, keys, theme, syntaxHighlighting(highlight), language(name), onChange],
+        extensions: [basicSetup, keys, theme, syntaxHighlighting(highlight), language(name), onChange, marks],
       }),
     });
+    panes[name].dataset.file = name;
   }
+
+  // one tab, or several stacked (when the sketch marks lines in more than one)
+  const showTabs = shown => {
+    active = shown[0];
+    for (const n of names) panes[n].hidden = !shown.includes(n);
+    tabs.querySelectorAll('.sketch-tab').forEach(b => b.classList.toggle('is-active', shown.includes(b.textContent)));
+    editorBox.classList.toggle('is-split', shown.length > 1);
+    for (const n of shown) views[n].requestMeasure();
+  };
 
   if (names.length > 1) {
     for (const name of names) {
-      const tab = button(name, 'Abrir ' + name, () => {
-        active = name;
-        for (const n of names) panes[n].hidden = n !== name;
-        tabs.querySelectorAll('.sketch-tab').forEach(b => b.classList.toggle('is-active', b === tab));
-        views[name].requestMeasure();
-      });
+      const tab = button(name, 'Abrir ' + name, () => showTabs([name]));
       tab.classList.add('sketch-tab');
       tab.classList.toggle('is-active', name === active);
       tabs.append(tab);
     }
   } else tabs.append(el('span', 'sketch-filename', entry));
+
+  // highlightCode from the sketch: mark the lines, show those tabs and scroll each to its first mark
+  // (only the editor scrolls, not the page)
+  const mark = lines => {
+    const shown = names.filter(n => lines[n]?.length);
+    for (const n of names) {
+      const doc = views[n].state.doc;
+      const wanted = [...new Set(lines[n] || [])].filter(l => l >= 1 && l <= doc.lines).sort((a, b) => a - b);
+      views[n].dispatch({ effects: setMarks.of(Decoration.set(wanted.map(l => markedLine.range(doc.line(l).from)))) });
+      if (!wanted.length) continue;
+      views[n].requestMeasure({
+        read: view => view.lineBlockAt(doc.line(wanted[0]).from).top,
+        write: (top, view) => { view.scrollDOM.scrollTop = top - view.scrollDOM.clientHeight / 4; },
+      });
+    }
+    if (shown.length) showTabs(shown);
+  };
 
   // --- running
   let frame = null, live = false, userPaused = false, visible = false, wanted = autorun;
@@ -302,17 +338,18 @@ function mount(root) {
     logBox.replaceChildren();
     logBox.hidden = true;
     const files = contents();
-    const extra = Object.fromEntries(Object.keys(files).filter(n => n !== entry).map(n => [n, files[n]]));
     const next = el('iframe', 'sketch-frame');
     next.title = 'Resultado: ' + id;
     next.addEventListener('load', syncPause);
-    next.srcdoc = documentFor(key, opts, entry, files[entry], extra);
+    next.srcdoc = documentFor(key, opts, entry, files[entry], files);
     if (frame) frame.replaceWith(next); else stage.replaceChildren(next);
     frame = next;
   }
 
   addEventListener('message', e => {
-    if (frame && e.source === frame.contentWindow && e.data?.sketch === key && e.data.level) log(e.data.level, e.data.text);
+    if (!frame || e.source !== frame.contentWindow || e.data?.sketch !== key) return;
+    if (e.data.level) log(e.data.level, e.data.text);
+    if (e.data.highlight) mark(e.data.highlight);
   });
 
   // --- toolbar actions
