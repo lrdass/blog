@@ -1,4 +1,6 @@
 <div id="sidebar">
+  <canvas class="sidebar-fractal" aria-hidden="true" data-sdf="{{ "/images/tomato-sdf.png" | relative_url }}"></canvas>
+  <script src="{{ "/assets/js/tomato-fractal.js" | relative_url }}" defer></script>
   <header>
     <{% if page.layout == "index" %}h1{% else %}div{% endif %} class="site-title">
 			
