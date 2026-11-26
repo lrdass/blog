@@ -1,0 +1,40 @@
+<div class="app">
+  <div class="viewport">
+    <canvas id="canvas" width="480" height="440"></canvas>
+    <div class="status" id="status">carregando…</div>
+
+    <div class="controls">
+      <div class="pad">
+        <button data-move="forward" title="Andar para frente (W)">▲</button>
+        <button data-move="left" title="Andar para a esquerda (A)">◀</button>
+        <button data-move="back" title="Andar para trás (S)">▼</button>
+        <button data-move="right" title="Andar para a direita (D)">▶</button>
+      </div>
+      <div class="turn">
+        <button data-turn="-1" title="Girar em volta da espada (Q)">⟲</button>
+        <button data-turn="1" title="Girar em volta da espada (E)">⟳</button>
+      </div>
+    </div>
+
+    <button class="panel-toggle" id="panel-toggle" title="Opções">⚙</button>
+  </div>
+
+  <aside class="panel" id="panel">
+    <label class="field">
+      Iluminação
+      <select id="shading">
+        <option value="FLAT">Flat</option>
+        <option value="GOURAD">Gouraud</option>
+        <option value="PHONG" selected>Phong</option>
+      </select>
+    </label>
+
+    <fieldset>
+      <legend>Texturas</legend>
+      <div id="textures"></div>
+    </fieldset>
+
+    <button id="reset" class="wide">Voltar a câmera</button>
+    <p class="hint">Teclado: W A S D anda, Q E gira em volta da espada.</p>
+  </aside>
+</div>

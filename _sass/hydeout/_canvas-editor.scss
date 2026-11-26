@@ -1,0 +1,140 @@
+// Live canvas sketches (see _includes/canvas.html and _js/canvas-editor.js)
+$sketch-accent: $sidebar-bg-color;
+$sketch-line: #e7e3e0;
+
+.sketch {
+  background: $gray-1;
+  border: 1px solid $sketch-line;
+  border-radius: 6px;
+  margin: 2rem 0;
+  overflow: hidden;
+  text-align: left;
+
+  figcaption {
+    background: #fff;
+    border-top: 1px solid $sketch-line;
+    color: $body-muted;
+    font-size: .8rem;
+    padding: .5rem .9rem;
+  }
+}
+
+.sketch-stage {
+  align-items: center;
+  background: $gray-1;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sketch-frame {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.sketch-start { font-size: 1rem; }
+
+// shown until the editor loads, and without JavaScript
+.sketch-source {
+  border-radius: 0;
+  border-top: 1px solid $sketch-line;
+  margin: 0;
+  max-height: 28rem;
+  overflow: auto;
+}
+
+.sketch-toolbar {
+  align-items: center;
+  background: #f3f1ef;
+  border-bottom: 1px solid $sketch-line;
+  border-top: 1px solid $sketch-line;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: .75rem;
+  gap: .4rem;
+  padding: .35rem .5rem;
+}
+
+.sketch-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+}
+
+.sketch-filename {
+  color: $body-muted;
+  font-family: $code-font-family;
+  padding: 0 .3rem;
+}
+
+.sketch-status {
+  color: $sketch-accent;
+  flex: 1;
+  text-align: right;
+}
+
+.sketch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+}
+
+.sketch-button {
+  background: #fff;
+  border: 1px solid $sketch-line;
+  border-radius: 4px;
+  color: $body-color;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.4;
+  padding: .2rem .6rem;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    border-color: $sketch-accent;
+    color: $sketch-accent;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: .45;
+  }
+}
+
+.sketch-tab {
+  font-family: $code-font-family;
+
+  &.is-active {
+    background: $sketch-accent;
+    border-color: $sketch-accent;
+    color: #fff;
+
+    &:hover:not(:disabled) { color: #fff; }
+  }
+}
+
+.sketch-editor .cm-editor { max-height: 28rem; }
+
+.sketch-console {
+  background: #fbfaf9;
+  border-top: 1px solid $sketch-line;
+  font-family: $code-font-family;
+  font-size: .72rem;
+  max-height: 8rem;
+  overflow: auto;
+  padding: .3rem .6rem;
+}
+
+.sketch-log {
+  border-bottom: 1px dotted $sketch-line;
+  color: $body-color;
+  padding: .1rem 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.sketch-log-warn { color: #a35f00; }
+.sketch-log-error { color: $sketch-accent; }

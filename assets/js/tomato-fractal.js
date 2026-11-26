@@ -242,10 +242,17 @@ const freeze = new URLSearchParams(location.search).get('t');
 const start = freeze !== null ? +freeze || 0 : Math.random() * 10000;
 const still = freeze !== null || matchMedia('(prefers-reduced-motion: reduce)').matches;
 const t0 = performance.now() / 1000 - start;
+// only animate while the sidebar is on screen (on phones it scrolls away with the page)
+let onScreen = true, ticking = false, textureReady = false;
 function loop(now) {
+  ticking = false;
   frame(still ? start : now / 1000 - t0);
-  if (!still) requestAnimationFrame(loop);
+  if (!still && onScreen) { ticking = true; requestAnimationFrame(loop); }
 }
+new IntersectionObserver(([e]) => {
+  onScreen = e.isIntersecting;
+  if (onScreen && !ticking && !still && textureReady) { ticking = true; requestAnimationFrame(loop); }
+}).observe(cvs);
 
 const img = new Image();   // the distance fields must be on the GPU before the first frame
 img.onload = () => {
@@ -254,6 +261,8 @@ img.onload = () => {
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
   for (const [p, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, p, v);
   gl.uniform1i(gl.getUniformLocation(pr, 'uSdf'), 0);
+  textureReady = true;
+  ticking = true;
   requestAnimationFrame(loop);
 };
 img.src = cvs.dataset.sdf;

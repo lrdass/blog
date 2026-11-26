@@ -1,0 +1,39 @@
+{% comment %}
+  A live, editable canvas sketch (2D or WebGL). See _js/canvas-editor.js.
+
+  {% include canvas.html id="flat-shading" files="shading/flat.js, shading/flat.frag" width=640 height=400 %}
+
+  id         unique on the page; also keys the reader's autosaved edits
+  files      comma-separated paths under _includes/sketches/. The first .js file is the code that runs;
+             the others (shaders, data) are editor tabs, readable as files['name.frag'] or
+             document.getElementById('name.frag').textContent
+             An .html file replaces the default <canvas id="canvas"> with its own page (keep a canvas#canvas
+             in it); .css files are added as styles
+  hidden     comma-separated files that are part of the sketch but get no editor tab (e.g. its .html/.css)
+  width      canvas width in pixels (default 600)
+  height     canvas height in pixels (default 400)
+  pixelated  true to scale the canvas up without smoothing (good for putPixel drawings)
+  autorun    false to wait for a click before running (heavy sketches)
+  caption    optional text under the sketch
+
+  Sketch files go through Liquid like any include: code with double curly braces needs a raw block.
+{% endcomment %}
+{%- assign sketch_w = include.width | default: 600 -%}
+{%- assign sketch_h = include.height | default: 400 -%}
+{%- assign sketch_files = include.files | split: "," -%}
+{%- assign sketch_hidden = include.hidden | default: "" | split: "," -%}
+<figure class="sketch" data-sketch="{{ include.id }}" data-width="{{ sketch_w }}" data-height="{{ sketch_h }}"{% if include.pixelated %} data-pixelated{% endif %}{% if include.autorun == false %} data-autorun="false"{% endif %}>
+<div class="sketch-stage" style="aspect-ratio: {{ sketch_w }} / {{ sketch_h }}; max-width: {{ sketch_w | at_least: 640 }}px"></div>
+{%- for sketch_file in sketch_files -%}
+{%- assign sketch_path = sketch_file | strip -%}
+{%- capture sketch_src -%}{% include sketches/{{ sketch_path }} %}{%- endcapture -%}
+<pre class="sketch-source" data-file="{{ sketch_path | split: '/' | last }}"><code>{{ sketch_src | xml_escape }}</code></pre>
+{%- endfor -%}
+{%- for sketch_file in sketch_hidden -%}
+{%- assign sketch_path = sketch_file | strip -%}
+{%- capture sketch_src -%}{% include sketches/{{ sketch_path }} %}{%- endcapture -%}
+<pre class="sketch-source" data-file="{{ sketch_path | split: '/' | last }}" data-hidden hidden><code>{{ sketch_src | xml_escape }}</code></pre>
+{%- endfor -%}
+{%- if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif -%}
+</figure>
+<script type="module" src="{{ '/assets/js/canvas-editor.js' | relative_url }}"></script>

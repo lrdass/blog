@@ -1,10 +1,21 @@
 {
   "devDependencies": {
+    "@codemirror/commands": "^6.11.2",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/legacy-modes": "^6.5.5",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.44.1",
+    "@lezer/highlight": "^1.2.5",
+    "codemirror": "^6.0.2",
+    "esbuild": "^0.28.2",
     "stylelint": "^13.0.0",
     "stylelint-config-sass-guidelines": "^6.2.0",
     "stylelint-config-standard-scss": "^1.1.0"
   },
   "scripts": {
-    "stylelint": "stylelint '_sass/**/*.scss'"
+    "stylelint": "stylelint '_sass/**/*.scss'",
+    "build:editor": "esbuild _js/canvas-editor.js --bundle --minify --format=esm --target=es2020 --outfile=assets/js/canvas-editor.js",
+    "watch:editor": "esbuild _js/canvas-editor.js --bundle --minify --format=esm --target=es2020 --outfile=assets/js/canvas-editor.js --watch"
   }
 }

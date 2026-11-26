@@ -3,6 +3,7 @@ layout: post
 title:  " 'The Matrix is everywhere. It is all around us. Even now in this very room', Morpheus - Como fazer uma maquina entender as três dimensões "
 date:   2022-06-27 12:28:05 -0300
 categories: rasterizer
+chapter_title: "Descrevendo uma cena"
 tags: rasterizer matrix
 ---
 
@@ -410,16 +411,12 @@ função desenha_triangulo(triangulo, pontos):
 
 E com isso ja conseguimos desenhar na tela nosso cubo !
 
-![Cubo renderizado](/images/rasterizer/descricao-cena/d-cena-15.png)
-
 O cubo nós renderizamos na mesma posição em que estava na cena anterior, porem, rotacionamos em relação ao eixo $$y$$ em $$45º$$ e escalamos $$0.5$$ em todos os eixos!
 
 Segue a nossa implementação em que comentamos como funciona nossas matrizes:
 
-{% include codepen.html hash="ZExzmmm" username="lrdass" title="Descrevendo uma cena 3D" %}
+{% include canvas.html id="descrevendo-cena" files="rasterizer/descrevendo-cena.js" width=400 height=400 pixelated=true %}
 
-
-
-E caso queira ver o codigo funcionando em tempo real [aqui esta o link](https://codepen.io/lrdass/pen/ZExzmmm) para quem deseja ver o codigo funcionando!
+O código acima roda em tempo real: edite à vontade e veja o resultado mudar!
 
 

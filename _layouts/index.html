@@ -2,45 +2,47 @@
 layout: default
 ---
 
-<div class="content">
+<div class="content home-page">
 
-  {{ content }}
+  <section class="home-intro">
+    {{ content }}
+  </section>
 
-  <!-- {% for post in paginator.posts %}
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="{{ post.url | relative_url }}">
-        {{ post.title }}
-      </a>
-    </h2>
-    {% include post-meta.html post=post %}
+  <section class="home-books">
+    <h2 class="home-heading">Web-books</h2>
+    <div class="book-grid">
+      {% for book in site.data.books %}
+        {% assign book_page = site.pages | where: "category", book.category | first %}
+        <article class="book-card">
+          <h3 class="book-title">
+            {% if book_page %}<a href="{{ book_page.url | relative_url }}">{{ book.title }}</a>{% else %}{{ book.title }}{% endif %}
+          </h3>
+          <p class="book-description">{{ book.description }}</p>
+          <ol class="book-chapters">
+            {% for post in site.categories[book.category] reversed %}
+              <li><a href="{{ post.url | relative_url }}">{{ post.chapter_title | default: post.title }}</a></li>
+            {% endfor %}
+          </ol>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
 
-    {% if post.excerpt %}
-      {{ post.excerpt }}
-    {% else %}
-      {{ post.content }}
-    {% endif %}
-
-    {% if post.excerpt %}
-      {% comment %}Excerpt may be equal to content. Check.{% endcomment %}
-      {% capture content_words %}
-        {{ post.content | number_of_words }}
-      {% endcapture %}
-      {% capture excerpt_words %}
-        {{ post.excerpt | number_of_words }}
-      {% endcapture %}
-
-      {% if content_words != excerpt_words %}
-        <a href="{{ post.url | relative_url }}">More &hellip;</a>
-      {% endif %}
-    {% endif %}
-  </article>
-  {% endfor %} -->
-
-  <!-- {% include pagination-older.html %} -->
-  <h1>🚧  Sendo construído... 🚧</h1>
-
-
-
+  <section class="home-posts">
+    <h2 class="home-heading">Posts</h2>
+    {% for post in site.posts %}
+      {% assign book = site.data.books | where: "category", post.categories.first | first %}
+      <article class="home-post">
+        <div class="home-post-meta">
+          <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%d/%m/%Y" }}</time>
+          {% if book %}<span class="home-post-book">{{ book.title }}</span>{% endif %}
+        </div>
+        <h3 class="home-post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        {% comment %} text only: images, embeds and scripts are stripped {% endcomment %}
+        <p class="home-post-summary">{{ post.description | default: post.content | strip_html | normalize_whitespace | truncatewords: 50 }}</p>
+        <a class="home-post-more" href="{{ post.url | relative_url }}">Ler mais &rarr;</a>
+      </article>
+    {% endfor %}
+  </section>
 
 </div>

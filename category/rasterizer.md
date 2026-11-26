@@ -1,5 +1,5 @@
 ---
 layout: category
-title: rasterizer 
+title: Rasterizador 3D
+category: rasterizer
 ---
-

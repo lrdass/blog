@@ -3,6 +3,7 @@ layout: post
 title:  "Luz e sombra: os oradores da verdade - Como sombrear objetos para simular o comportamento de luz"
 date:   2024-01-30 07:45:05 -0300
 categories: rasterizer
+chapter_title: "Luz e sombra"
 tags: rasterizer shading
 ---
 
@@ -25,6 +26,8 @@ Para os sábios antigos, a matéria era a projeção mais imperfeita do que esta
     
 
 
-{% include codepen.html hash="poYagVP" username="lrdass" title="Flat-shading" %}
-{% include codepen.html hash="MWRwMGW" username="lrdass" title="Gourad shading" %}
-{% include codepen.html hash="PogbPvN" username="lrdass" title="Phong Shading" %}
+{% include canvas.html id="flat-shading" files="rasterizer/flat-shading.js" width=400 height=400 pixelated=true %}
+
+{% include canvas.html id="gouraud-shading" files="rasterizer/gouraud-shading.js" width=400 height=400 pixelated=true %}
+
+{% include canvas.html id="phong-shading" files="rasterizer/phong-shading.js" width=400 height=400 pixelated=true %}

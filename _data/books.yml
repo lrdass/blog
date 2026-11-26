@@ -1,0 +1,8 @@
+# Web-books shown on the home page. Each book is a post category; its chapters are its posts, oldest first.
+# A post can set `chapter_title` in its front matter for a shorter name in the chapter lists.
+- category: rasterizer
+  title: Rasterizador 3D
+  description: "Do pixel à textura: como desenhar um mundo tridimensional numa tela, do zero."
+- category: raytracer
+  title: Raytracer
+  description: "Seguindo a luz de trás pra frente para pintar cenas realistas."

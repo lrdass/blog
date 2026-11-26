@@ -3,6 +3,7 @@ layout: post
 title:  “Let there be light,” and there was light - The backwards light algorithm
 date:   2021-11-23 22:14:05 -0300
 categories: raytracer
+chapter_title: "The backwards light algorithm"
 tags: raytracing line-equation
 ---
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Textures"
 date:   2024-05-02 13:47:05 -0300
 categories: rasterizer
+chapter_title: "Texturas"
 tags: rasterizer textures 
 ---
 
@@ -10,4 +11,10 @@ tags: rasterizer textures
 ![Screen representation](/images/rasterizer/texturing/texture-target.png)
 
 
-{% include codepen.html hash="ZEZdOzZ" username="lrdass" title="Textures " %}
+{% include canvas.html id="texturas" files="rasterizer/texturas.js" width=400 height=400 pixelated=true %}
+
+## Sting: um modelo de verdade
+
+Com o mesmo rasterizador, agora lendo um arquivo `.obj`: a Sting, espada do Bilbo, com todas as texturas que vieram com o modelo. Ligue e desligue cada textura, troque o tipo de iluminação e ande pela cena com os botões (ou W A S D, Q e E). Como tudo é calculado na CPU, pixel a pixel, cada passo leva um instante para ser desenhado.
+
+{% include canvas.html id="sting" files="rasterizer/sting/sting.js" hidden="rasterizer/sting/sting.html, rasterizer/sting/sting.css" width=760 height=440 %}

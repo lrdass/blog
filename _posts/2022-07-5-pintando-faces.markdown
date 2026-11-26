@@ -3,6 +3,7 @@ layout: post
 title:  "'O mundo é minha representação' - Schopenhauer; Preencher as faces dos triangulos é a primeira parte do realismo"
 date:   2022-08-05 12:28:05 -0300
 categories: rasterizer
+chapter_title: "Preenchendo as faces"
 tags: rasterizer face-occlusion
 ---
 
@@ -171,8 +172,7 @@ O que estamos fazendo é portanto, calcular qual a aresta mais à esquerda e mai
 
 Se usarmos este nosso recente algoritmo de preencher triangulos para preencher os triangulos das faces do cubo que chegamos no texto anterior, podemos obter um resultado parecido com esse:
 
-![Cubo desenhado com as faces por ordem](/images/rasterizer/preenchimento/facefilling-fail1.png)
-![Cubo desenhado errado](/images/rasterizer/preenchimento/facefilling-fail2.png)
+{% include canvas.html id="faces-sem-z-buffer" files="rasterizer/preenchendo-faces-sem-z-buffer.js" width=400 height=400 pixelated=true caption="Sem z-buffer e sem face culling: as faces do fundo são pintadas por cima das da frente. Mude a rotação dos cubos e veja." %}
 
 E isso pode se dar pela a ordem em que os triângulos foram desenhados. Os triangulos do fundo do cubo estao sendo desenhados por ultimo, ou casos similares. Mas mesmo descrevendo a ordem "correta", a ordem ia depender do ponto de vista da camera. E se rotacionassemos o cubo novamente veriamos o poligono desenhado incorretamente. Para resolvermos este inconveniente, vamos criar uma ordem de pintura. E a solução é muito simples. Desenhamos o que esta mais longe primeiro, e o que esta mais perto da camera por ultimo. Assim sempre garantimos que a face da frente sempre esteja na frente.
 
@@ -268,7 +268,7 @@ Ou seja, nesta ultima versão atualizada do algoritmo vamos interpolar linearmen
 
 Segue uma implementacão que ja conseguimos desenhar as faces:
 
-![Exemplo](/images/rasterizer/preenchimento/facefilling-016.png)
+{% include canvas.html id="faces-z-buffer" files="rasterizer/preenchendo-faces-z-buffer.js" width=400 height=400 pixelated=true caption="Com z-buffer, mas ainda desenhando todas as faces." %}
 
 ## E as faces ocultas?
 
@@ -372,4 +372,4 @@ E então chamamos para preencher apenas os triangulos recortados por `RecortaTri
 
 Abaixo segue nossa implementação de ambos os algoritmos, tanto `z-buffer` quanto `face-culling`.
 
-{% include codepen.html hash="zYWGpQg" username="lrdass" title="Descrevendo uma cena 3D" %}
+{% include canvas.html id="z-buffer-face-culling" files="rasterizer/preenchendo-faces.js" width=400 height=400 pixelated=true %}

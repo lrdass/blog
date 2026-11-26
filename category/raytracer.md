@@ -1,5 +1,5 @@
 ---
 layout: category
-title: raytracer
+title: Raytracer
+category: raytracer
 ---
-
